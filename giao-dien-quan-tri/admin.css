@@ -1,0 +1,100 @@
+/* CUSTOM */
+@import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap');
+* {
+    font-family: Inter, sans-serif;
+}
+
+body {
+    background: #fefefe;
+}
+
+::-webkit-scrollbar {
+    width: 5px;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #1D712C;
+    border-radius: 3px;
+}
+
+::-webkit-scrollbar-track {
+    background: linear-gradient(45deg, #b4adad4d, #cccccc4d);
+}
+
+/* ... */
+
+/* NHÓM QUYỀN */
+.account-name {
+    color: #1D712C;
+    font-size: 18px;
+    font-weight: 400;
+}
+
+.btn-outline-custom {
+    color: #087b44;
+    background-color: #fff;
+    border: 1px solid #087b44;
+}
+
+.btn-outline-custom:hover {
+    background-color: #087b44;
+    color: white;
+}
+
+.sidebar-item:hover {
+    background-color: #bcf5d9;
+    font-weight: 500;
+}
+
+.page-title {
+    font-weight: 600;
+    color: #1D712C;
+    margin-bottom: 24px;
+}
+
+.btn-control {
+    background-color: #087b44;
+    color: white;
+}
+
+.btn-control:hover {
+    opacity: 0.9;
+    background-color: #087b44;
+    color: white;
+}
+
+.active {
+    background-color: #1D712C !important;
+    border-color: #1D712C !important;
+}
+
+.page-link {
+    color:  #000;
+}
+
+.table-header {
+    background-color: #1D712C;
+    color: white;
+}
+
+.modal-header {
+    border-bottom: none;
+}
+
+.modal-footer {
+    border-top: none;
+}
+
+.modal-body {
+    padding-top: 0;
+}
+
+.permission-group th,
+.permission-group td {
+    text-align: center;
+}
+
+.permission-group tbody td:first-child {
+    text-align: left;
+}
+/* .... */
