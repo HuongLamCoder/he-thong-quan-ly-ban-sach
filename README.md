@@ -36,7 +36,7 @@ Github repo:
         - [x]  Danh sách (table)
         - [x]  Phân trang
         - [x]  Modal thêm, xem, sửa (có viết js reset modal khi đóng)
-    - Tài khoản
+    - Tài khoản (Done)
         - [x]  Lọc/tìm kiếm
         - [x]  Danh sách (table)
         - [x]  Phân trang
