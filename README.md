@@ -1,6 +1,6 @@
 # Note: Đồ án CNPM
 
-Sửa đổi lần cuối: October 13, 2024 3:03 AM
+Sửa đổi lần cuối: October 14, 2024 1:35 AM
 Trạng thái: Đang thực hiện
 
 Github repo:
@@ -54,7 +54,13 @@ Github repo:
     - [x]  Danh sách (mã, %, ngày bắt đầu, ngày kết thúc, trạng thái (Hoạt động/ Bị hủy/ Chưa diễn ra), nút sửa + xóa)
     - [x]  Phân trang
     - [x]  Modal thêm, sửa
-  - Nhà cung cấp
+  - Nhà cung cấp (Done)
+    - [x]  Thanh tìm kiếm
+    - [x]  Lọc trạng thái
+    - [x]  Sắp xếp theo tên
+    - [x]  Danh sách
+    - [x]  Phân trang
+    - [x]  Modal thêm, xem, sửa
   - Sách (***Thêm sản phẩm*** thì ô tác giả có nút, xong bấm vô hiện ra cái form check box để chọn tác giả; bổ sung thêm ô nhập trọng lượng sách)
   - Đơn hàng
   - Phiếu nhập sách
