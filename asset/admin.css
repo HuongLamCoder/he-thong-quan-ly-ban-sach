@@ -23,7 +23,47 @@ body {
 
 /* ... */
 
+<<<<<<< Updated upstream
 /* NHÓM QUYỀN */
+=======
+/* LOGIN */
+
+.form-container {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: #fff;
+    width: 450px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.15);
+}
+
+.form-title {
+    font-weight: 600;
+    text-align: center;
+}
+
+.forgot-password {
+    text-align: end;
+}
+
+.forgot-password-link {
+    color: #1d712c;
+    text-decoration: none;
+    font-style: italic;
+    font-weight: 400;
+}
+
+.forgot-password-link:hover {
+    font-style: normal;
+    color: #1d712c;
+}
+/* ... */
+
+/* QUẢN LÝ */
+>>>>>>> Stashed changes
 .account-name {
     color: #1D712C;
     font-size: 18px;
@@ -98,3 +138,10 @@ body {
     text-align: left;
 }
 /* .... */
+<<<<<<< Updated upstream
+=======
+
+/* THỐNG KÊ */
+
+/* ... */
+>>>>>>> Stashed changes
