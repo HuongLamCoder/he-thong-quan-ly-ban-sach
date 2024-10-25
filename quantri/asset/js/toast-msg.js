@@ -23,7 +23,7 @@ function toast({
         const delay = (duration / 1000).toFixed(2);
 
         //Thêm class cho thẻ div
-        toast.classList.add('toast', `toast--${type}`);
+        toast.classList.add('toastMsg', `toast--${type}`);
         //Thêm animation cho toast
         toast.style.animation = `slideInLeft ease 0.3s, fadeOut linear 1s ${delay}s forwards`;
 

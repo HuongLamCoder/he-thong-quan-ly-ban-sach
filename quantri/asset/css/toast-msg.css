@@ -1,12 +1,12 @@
 /* Toast message CSS */
-.toast {
+.toastMsg {
     display: flex;
     align-items: center;
     background-color: #fff;
     border-radius: 8px;
     border-left: 4px solid;
-    box-shadow: 0 5px 8px rgba(0, 0, 0, 0.08);
-    padding: 20px 0;
+    box-shadow: 0 5px 8px rgba(0, 0, 0, 0.08), 0 -5px 8px rgba(0, 0, 0, 0.08);
+    padding: 12px 0;
     min-width: 350px;
     max-width: 400px;
     transition: all linear 0.3s;
@@ -66,12 +66,12 @@
 }
 
 /* phần tử toast liền kề phía sau cách phần tử toast phía trước 24px */
-.toast + .toast {
+.toastMsg + .toastMsg {
     margin-top: 24px;
 }
 
 .toast__icon {
-    font-size: 24px;
+    font-size: 36px;
 }
 
 .toast__icon,

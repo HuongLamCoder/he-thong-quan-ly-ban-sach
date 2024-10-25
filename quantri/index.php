@@ -65,7 +65,6 @@ if(isset($_GET['page']) && ($_GET['page'] !== "")){
                 break;
         }
     }
-    include 'inc/Footer.php';
 }
 else{ 
     header('Location: index.php?page=login');
