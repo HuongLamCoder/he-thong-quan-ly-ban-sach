@@ -3,10 +3,10 @@ $(document).ready(function(){
     $('#login-form').on('submit', function(event) {
         event.preventDefault();
         toast({
-            title: 'Đăng nhập',
-            message: 'Lore  ipsum dolor sit amet, consectetur adipisicing elit. Quos, quibusdam.',
-            type: 'success',
-            duration: 20000
+            title: 'Đăng nhập', // Tiêu đề toast message
+            message: 'Lore  ipsum dolor sit amet, consectetur adipisicing elit. Quos, quibusdam.',  // Nội dung toast message
+            type: 'success',    // Kiểu toast message: success (xanh lá), error (đỏ), warning (vàng), info (xanh dương)
+            duration: 20000   // Thời gian hiển thị toast message (đơn vị: milisecond; 1000ms = 1s)
         });
     });
 });
