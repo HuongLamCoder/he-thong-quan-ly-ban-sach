@@ -52,13 +52,13 @@ if(isset($_GET['page']) && ($_GET['page'] !== "")){
                 include './controller/GoodsReceiveNote.php';
                 break;
             case 'income':
-                include './controller/Income.php';
+                include './controller/Report.php';
                 break;
             case 'cost':
-                include './controller/Cost.php';
+                include './controller/Report.php';
                 break;
             case 'profit':
-                include './controller/Profit.php';
+                include './controller/Report.php';
                 break;
             default:
                 header('Location: index.php?page=login');

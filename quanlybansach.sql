@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Oct 26, 2024 at 05:07 PM
+-- Generation Time: Nov 10, 2024 at 12:20 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -32,6 +32,24 @@ CREATE TABLE `chucnang` (
   `tenCN` varchar(30) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Dumping data for table `chucnang`
+--
+
+INSERT INTO `chucnang` (`idCN`, `tenCN`) VALUES
+(1, 'Quản lý nhóm quyền'),
+(2, 'Quản lý tài khoản'),
+(3, 'Quản lý tác giả'),
+(4, 'Quản lý danh mục'),
+(5, 'Quản lý nhà cung cấp'),
+(6, 'Quản lý mã giảm giá'),
+(7, 'Quản lý sản phẩm'),
+(8, 'Quản lý đơn hàng'),
+(9, 'Quản lý phiếu nhập sách'),
+(10, 'Thống kê doanh thu'),
+(11, 'Thống kê nhập kho'),
+(12, 'Thống kê lợi nhuận');
+
 -- --------------------------------------------------------
 
 --
@@ -44,6 +62,14 @@ CREATE TABLE `ctdonhang` (
   `soluong` int(11) NOT NULL,
   `gialucdat` float NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `ctdonhang`
+--
+
+INSERT INTO `ctdonhang` (`idDH`, `idSach`, `soluong`, `gialucdat`) VALUES
+(1, 1, 2, 46000),
+(3, 2, 3, 50000);
 
 -- --------------------------------------------------------
 
@@ -60,6 +86,13 @@ CREATE TABLE `ctnhomquyen` (
   `xem` tinyint(1) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Dumping data for table `ctnhomquyen`
+--
+
+INSERT INTO `ctnhomquyen` (`idNQ`, `idCN`, `them`, `xoa`, `sua`, `xem`) VALUES
+(2, 8, 0, 0, 1, 1);
+
 -- --------------------------------------------------------
 
 --
@@ -72,6 +105,14 @@ CREATE TABLE `ctphieunhap` (
   `soluong` int(11) NOT NULL,
   `chietkhau` float NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `ctphieunhap`
+--
+
+INSERT INTO `ctphieunhap` (`idPN`, `idSach`, `soluong`, `chietkhau`) VALUES
+(1, 1, 50, 60),
+(2, 2, 50, 60);
 
 -- --------------------------------------------------------
 
@@ -87,6 +128,13 @@ CREATE TABLE `diachi` (
   `idQuan` int(11) NOT NULL,
   `idXa` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `diachi`
+--
+
+INSERT INTO `diachi` (`idDC`, `sonha`, `idTK`, `idTinh`, `idQuan`, `idXa`) VALUES
+(1, '273 An Dương Vương', 2, 50, 562, 8859);
 
 -- --------------------------------------------------------
 
@@ -105,6 +153,14 @@ CREATE TABLE `donhang` (
   `idNV` int(11) NOT NULL,
   `idDC` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `donhang`
+--
+
+INSERT INTO `donhang` (`idDH`, `tongtien`, `idTT`, `phiship`, `ngaytao`, `ngaycapnhat`, `idTK`, `idNV`, `idDC`) VALUES
+(1, 92000, 3, 15000, '2024-10-25', '2024-10-26', 2, 1, 1),
+(3, 150000, 3, 15000, '2024-11-10', '2024-11-10', 2, 2, 1);
 
 -- --------------------------------------------------------
 
@@ -185,6 +241,15 @@ CREATE TABLE `nhomquyen` (
   `tenNhomQuyen` varchar(30) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Dumping data for table `nhomquyen`
+--
+
+INSERT INTO `nhomquyen` (`idNQ`, `tenNhomQuyen`) VALUES
+(1, 'Khách hàng'),
+(2, 'Nhân viên bán hàng'),
+(3, 'Nhân viên nhập hàng');
+
 -- --------------------------------------------------------
 
 --
@@ -200,6 +265,14 @@ CREATE TABLE `phieunhap` (
   `ngaycapnhat` date NOT NULL,
   `idNV` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `phieunhap`
+--
+
+INSERT INTO `phieunhap` (`idPN`, `tongtien`, `tongsoluong`, `ngaytao`, `trangthai`, `ngaycapnhat`, `idNV`) VALUES
+(1, 920000, 50, '2024-10-10', 'htat', '2024-10-15', 3),
+(2, 1000000, 50, '2024-10-11', 'htat', '2024-10-15', 3);
 
 -- --------------------------------------------------------
 
@@ -948,6 +1021,14 @@ CREATE TABLE `sach` (
   `trongluong` float NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Dumping data for table `sach`
+--
+
+INSERT INTO `sach` (`idSach`, `tuasach`, `mota`, `tonkho`, `luotban`, `NXB`, `namXB`, `giaban`, `giabia`, `trangthai`, `idMGG`, `idNCC`, `idTL`, `hinhanh`, `trongluong`) VALUES
+(1, 'Hai Đứa Trẻ', 'Cuốn sách tập hợp những truyện ngắn đặc sắc của nhà văn Thạch Lam: Nắng trong vườn, Gió lạnh đầu mùa, Tiếng chim kêu, Đứa con đầu lòng, Bắt đầu, Nhà mẹ Lê, Một cơn giận, Hai đứa trẻ, Đứa con, Trong bóng tối buổi chiều, Cuốn sách bỏ quên, Dưới bóng hoàng lan,...Đối với tôi văn chương không phải là một cách đem đến cho người đọc sự thoát li trong sự quên, trái lại văn chương là một thứ khí giới thanh cao và đắc lực mà chúng ta có, để vừa tố cáo và thay đổi một cái thể giới giả dối và tàn ác, làm cho lòng người được thêm trong sạch và phong phú hơn. (Thạch Lam) Những cơn gió mạnh của đồng nội, mùi thơm mát của hoa cỏ và vẻ rộng rãi của khoảng trời mấy chiếm cả linh hồn tôi. Những cuộc đi chơi lâu trong các vườn chè nương sắn, hay trên sườn đồi làm cho người tôi bồng bột, hoạt độnghơn lên. Những lúc ấy, tôi muốn có một người con gái đi bên cạnh, để chia sẻ bao nhiêu cảm giác say sưa ấy. Nhưng tôi còn ham muốn những cái thú mà một cô thiếu nữ không đem đến được. Tôi còn thích ngắm cảnh rừng đồi, thích vượt qua những nơi cỏ và lau sậy sắc làm sây sát cả chân tay. Những buổi trưa nắng, tôi tìm chỗ có bóng mát, phanh áo nằm trên cỏ thiu thiu ngủ... (Trích Nắng trong vườn)', 50, 1, 'NXB Văn Học', '2015', 46000, 46000, b'1', NULL, 2, 1, 'haiduatre.png', 310),
+(2, 'Chí Phèo', 'Chí Phèo\r\n\r\nNam Cao có bút danh là Thúy Rư, Xuân Du, Nguyệt, Nhiêu Khê...\r\n\r\nTên khai sinh: Trần Hữu Tri, sinh ngày 29 tháng 10 năm 1917. Quê quán: làng Đại Hoàng, phủ Lý Nhân, tỉnh Hà Nam (nay là xã Hòa Hậu, huyện Lý Nhân, Hà Nam). Đảng viên Đảng Cộng sản Việt Nam.\r\n\r\nTác phẩm đã xuất bản: Đôi lứa xứng đôi (truyện ngắn, 1941); Nửa đêm (truyện ngắn, 1944); Cười (truyện ngắn, 1946), Ở rừng (nhật ký, 1948); Truyện biên giới (1951); Đôi mắt(truyện ngắn, 1954); Sống mòn (truyện dài, 1956); Chí Phèo (1957); Truyện ngắn Nam Cao (truyện ngắn, 1960); Một đám cưới (truyện ngắn, 1963); Tác phẩm Nam Cao (tuyển, 1964); Nam Cao tác phẩm (tập I: 1976, tập II: 1977); Tuyển tập Nam Cao(tập I: 1987, tập II: 1993); Những cánh hoa tàn (truyện ngắn, 1988); Nam Cao truyện ngắn tuyển chọn (1995); Nam Cao truyện ngắn (chọn lọc, 1996); Nam Cao toàn tập (1999).\r\n\r\nNgoài ra ông còn làm thơ, viết kịch (Đóng góp, 1951) và biên soạn sách địa lý cùng với Văn Tân (Địa dư các nước châu Âu, 1948); Địa dư các nước châu Á, châu Phi, 1949; Địa dư Việt Nam, 1951.\r\n\r\n“Chí Phèo” – tập truyện ngắn tái hiện bức tranh chân thực nông thôn Việt Nam trước 1945, nghèo đói, xơ xác trên con đường phá sản, bần cùng, hết sức thê thảm, người nông dân bị đẩy vào con đường tha hóa, lưu manh hóa. Nam Cao không hề bôi nhọ người nông dân, trái lại nhà văn đi sâu vào nội tâm nhân vật để khẳng định nhân phẩm và bản chất lương thiện ngay cả khi bị vùi dập, cướp mất cà nhân hình, nhân tính của người nông dân, đồng thời kết án đanh thép cái xã hội tàn bạo đó trước 1945.\r\n\r\nNhững sáng tác của Nam Cao ngoài giá trị hiện thực sâu sắc, các tác phẩm đi sâu vào nội tâm nhân vật, để lại những cảm xúc sâu lắng trong lòng người đọc.', 50, 1, 'NXB Văn Học', '2022', 50000, 50000, b'1', NULL, 2, 1, 'chipheo.png', 250);
+
 -- --------------------------------------------------------
 
 --
@@ -958,6 +1039,14 @@ CREATE TABLE `sach_tacgia` (
   `idSach` int(11) NOT NULL,
   `idTG` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `sach_tacgia`
+--
+
+INSERT INTO `sach_tacgia` (`idSach`, `idTG`) VALUES
+(1, 2),
+(2, 1);
 
 -- --------------------------------------------------------
 
@@ -979,12 +1068,13 @@ INSERT INTO `tacgia` (`idTG`, `tenTG`, `trangthai`) VALUES
 (1, 'Nam Cao', b'1'),
 (2, 'Thạch Lam', b'1'),
 (3, 'Vũ Trọng Phụng', b'1'),
-(4, 'Xuân Quỳnh', b'1'),
+(4, 'Xuân Quỳnh', b'0'),
 (5, 'Kim Lân', b'1'),
 (6, 'Nguyễn Nhật Ánh', b'1'),
 (7, 'Nguyễn Du', b'1'),
 (8, 'Nguyễn Ngọc Ngạn', b'0'),
-(9, 'Nguyễn Quang Sáng', b'1');
+(9, 'Nguyễn Quang Sáng', b'1'),
+(10, 'José Mauro de Vasconcelos', b'0');
 
 -- --------------------------------------------------------
 
@@ -1002,6 +1092,15 @@ CREATE TABLE `taikhoan` (
   `idNQ` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Dumping data for table `taikhoan`
+--
+
+INSERT INTO `taikhoan` (`idTK`, `tenTK`, `dienthoai`, `email`, `matkhau`, `trangthai`, `idNQ`) VALUES
+(1, 'Hương', '0123654789', 'huongnguyen123@gmail.com', '$2y$10$IdzjDyoJIwr5/y/J9ifTHuDAzrWR4EYdMIEQtYyHqy7KkvW2mBVsK', b'1', 2),
+(2, 'HuongLamCoder', '0147963258', 'coderchicken@gmail.com', '$2y$10$IdzjDyoJIwr5/y/J9ifTHuDAzrWR4EYdMIEQtYyHqy7KkvW2mBVsK', b'1', 1),
+(3, 'Hương Nguyễn', '0258741369', 'nguyen.huong@gmail.com', '$2y$10$IdzjDyoJIwr5/y/J9ifTHuDAzrWR4EYdMIEQtYyHqy7KkvW2mBVsK', b'1', 3);
+
 -- --------------------------------------------------------
 
 --
@@ -1013,6 +1112,16 @@ CREATE TABLE `theloai` (
   `tenTL` varchar(30) NOT NULL,
   `trangthai` bit(1) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `theloai`
+--
+
+INSERT INTO `theloai` (`idTL`, `tenTL`, `trangthai`) VALUES
+(1, 'Văn học Việt Nam', b'1'),
+(2, 'Trinh thám', b'1'),
+(3, 'Đời sống', b'1'),
+(4, 'Văn học nước ngoài', b'1');
 
 -- --------------------------------------------------------
 
@@ -1104,6 +1213,18 @@ CREATE TABLE `trangthaidh` (
   `idTT` int(11) NOT NULL,
   `tenTT` varchar(30) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `trangthaidh`
+--
+
+INSERT INTO `trangthaidh` (`idTT`, `tenTT`) VALUES
+(1, 'Chờ duyệt'),
+(2, 'Đang vận chuyển'),
+(3, 'Hoàn tất'),
+(4, 'Hủy bởi người bán'),
+(5, 'Hủy bởi khách hàng'),
+(6, 'Trả hàng - Hoàn tiền');
 
 -- --------------------------------------------------------
 
@@ -11870,19 +11991,19 @@ ALTER TABLE `xa`
 -- AUTO_INCREMENT for table `chucnang`
 --
 ALTER TABLE `chucnang`
-  MODIFY `idCN` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `idCN` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- AUTO_INCREMENT for table `diachi`
 --
 ALTER TABLE `diachi`
-  MODIFY `idDC` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `idDC` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `donhang`
 --
 ALTER TABLE `donhang`
-  MODIFY `idDH` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `idDH` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `lidotrahang`
@@ -11912,13 +12033,13 @@ ALTER TABLE `nhacungcap`
 -- AUTO_INCREMENT for table `nhomquyen`
 --
 ALTER TABLE `nhomquyen`
-  MODIFY `idNQ` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `idNQ` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `phieunhap`
 --
 ALTER TABLE `phieunhap`
-  MODIFY `idPN` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `idPN` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `quan`
@@ -11930,25 +12051,25 @@ ALTER TABLE `quan`
 -- AUTO_INCREMENT for table `sach`
 --
 ALTER TABLE `sach`
-  MODIFY `idSach` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `idSach` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `tacgia`
 --
 ALTER TABLE `tacgia`
-  MODIFY `idTG` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `idTG` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT for table `taikhoan`
 --
 ALTER TABLE `taikhoan`
-  MODIFY `idTK` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `idTK` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `theloai`
 --
 ALTER TABLE `theloai`
-  MODIFY `idTL` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `idTL` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `tinh`
@@ -11960,7 +12081,7 @@ ALTER TABLE `tinh`
 -- AUTO_INCREMENT for table `trangthaidh`
 --
 ALTER TABLE `trangthaidh`
-  MODIFY `idTT` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `idTT` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT for table `xa`
