@@ -148,7 +148,6 @@ $(document).ready(function() {
         } else {
             selectTime = $('#year').val();
         }
-        console.log(typeOfReport);
         
         $.ajax({
             url: `controller/Report${url}.php`,
@@ -159,6 +158,12 @@ $(document).ready(function() {
             },
             dataType: "json",
             success: function(data) {
+                toast({
+                    title: "Thành công",
+                    message: "Lấy dữ liệu thành công",
+                    type: data.status,
+                    duration: 1000
+                });
                 // Hàm render
                 if (typeOfReport == "profit") {
                     reportProfitTableView(time, data);
@@ -166,6 +171,13 @@ $(document).ready(function() {
                     reportTableView(time, typeOfReport, data);
                 }
             },
+            error: function(log) {
+                toast({
+                    title: "Lỗi",
+                    message: log.message,
+                    type: log.status
+                });
+            }
         });
     }
 
