@@ -1,4 +1,4 @@
-    <main class="container pt-5">
+<main class="container pt-5">
         <!-- Page title -->
         <div class="row">
             <h1 class="page-title">QUẢN LÝ MÃ GIẢM GIÁ</h1>
@@ -47,59 +47,48 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <td>1</td>
-                            <td>10</td>
-                            <td>12/10/2024</td>
-                            <td>13/10/2024</td>
+                    <?php
+                            foreach($result as $discount) {
+                                extract($discount);                            
+                        ?>
+                        <tr class="discount_row">
+                            <td class="discount_id"><?=$idMGG?></td>
+                            <td class="discount_percentage"><?=$phantram?></td>
+                            <td class="discount_start_date"><?=$ngaybatdau?></td>
+                            <td class="discount_end_date"><?=$ngayketthuc?></td>
+                                <td class="discount_status <?php 
+                                                            if ($trangthai === "hd") echo 'hh'; 
+                                                            elseif ($trangthai === "cdr") echo 'cdr'; 
+                                                            elseif ($trangthai === "huy") echo 'huy'; 
+                                                            elseif ($trangthai === "hh") echo 'hh';
+                                                            ?>">    
+
+                                <?php
+                                    if($trangthai === "hd") echo '<span  class="bagde rounded-2 text-white bg-success p-2">Hoạt động</span></td>';
+                                    else if($trangthai === "cdr") echo '<span class="bagde rounded-2 text-white bg-primary p-2">Chưa diễn ra</span></td>';
+                                    else if($trangthai === "huy") echo '<span class="bagde rounded-2 text-white bg-danger p-2">Hủy</span></td>';
+                                    else if($trangthai === "hh") echo '<span class="bagde rounded-2 text-white bg-secondary p-2">Hết hạn</span></td>';
+                                ?>
                             <td>
-                                <span class="bagde rounded-2 text-white bg-success p-2">Hoạt động</span>
-                            </td>
-                            <td>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>2</td>
-                            <td>15</td>
-                            <td>25/10/2024</td>
-                            <td>26/10/2024</td>
-                            <td>
-                                <span class="bagde rounded-2 text-white bg-danger p-2">Bị hủy</span>
-                            </td>
-                            <td>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>3</td>
-                            <td>20</td>
-                            <td>11/10/2024</td>
-                            <td>12/10/2024</td>
-                            <td>
-                                <span class="bagde rounded-2 text-white bg-secondary p-2">Hết hạn</span>
-                            </td>
-                            <td>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>4</td>
-                            <td>25</td>
-                            <td>12/12/2024</td>
-                            <td>13/12/2024</td>
-                            <td>
-                                <span class="bagde rounded-2 text-white bg-primary p-2">Chưa diễn ra</span>
-                            </td>
-                            <td>
-                                <button class="btn fs-5 open_edit_form"
-                                        data-bs-toggle="modal"
-                                        data-bs-target="#discountModal"
-                                >
-                                    <i class="fa-regular fa-pen-to-square"></i>
-                                </button>
-                                <button class="btn fs-5">
-                                    <i class="fa-regular fa-trash"></i>
-                                </button>
+                                <?php 
+                                    if($trangthai=="cdr"){  ?>
+                                                <button class="btn fs-5 open_edit_form"
+                                                data-bs-toggle="modal"
+                                                data-bs-target="#discountModal"
+                                        >
+                                            <i class="fa-regular fa-pen-to-square"></i>
+                                        </button>
+                                        <button class="btn fs-5 lock_discount">
+                                            <i class="fa-regular fa-trash"></i>
+                                        </button>
+                                    <?php 
+                                    }
+                                    ?>
                             </td>
                         </tr>
+                        <?php 
+                            }
+                        ?>                           
                     </tbody>
                 </table>
             </div>

@@ -73,6 +73,41 @@ CREATE TABLE `ctphieunhap` (
   `chietkhau` float NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Dumping data for table `ctphieunhap`
+--
+
+INSERT INTO `ctphieunhap` (`idPN`, `idSach`, `soluong`, `chietkhau`) VALUES
+(106, 32, 100, 10),
+(106, 33, 100, 10),
+(106, 34, 100, 10),
+(107, 34, 100, 10),
+(107, 35, 100, 10),
+(107, 49, 100, 10),
+(108, 36, 100, 10),
+(108, 42, 100, 10),
+(108, 44, 100, 10),
+(108, 53, 40, 10),
+(108, 54, 50, 10),
+(109, 40, 100, 10),
+(109, 41, 40, 10),
+(109, 43, 50, 10),
+(110, 38, 100, 10),
+(110, 39, 100, 10),
+(110, 45, 100, 10),
+(111, 55, 120, 10),
+(111, 56, 100, 10),
+(112, 58, 100, 10),
+(112, 59, 100, 10),
+(112, 60, 100, 10),
+(112, 61, 100, 10),
+(113, 63, 50, 10),
+(113, 64, 50, 10),
+(113, 65, 50, 10),
+(114, 57, 100, 10),
+(114, 64, 20, 10),
+(115, 62, 100, 10),
+(116, 37, 100, 10);
 -- --------------------------------------------------------
 
 --
@@ -138,6 +173,18 @@ CREATE TABLE `magiamgia` (
   `trangthai` varchar(3) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Dumping data for table `magiamgia`
+--
+
+INSERT INTO magiamgia (idMGG, phantram, ngaybatdau, ngayketthuc, trangthai)
+VALUES
+(1, 10, '2024-10-20', '2024-11-30', 'hd'),
+(2, 15, '2024-10-25', '2024-10-26', 'hh'),
+(3, 23, '2024-11-14', '2024-11-30', 'cdr'),
+(4, 25, '2024-10-01', '2024-10-17', 'huy'),
+(5, 30, '2024-11-10', '2024-12-20', 'hd');
+
 -- --------------------------------------------------------
 
 --
@@ -169,10 +216,10 @@ CREATE TABLE `nhacungcap` (
 --
 
 INSERT INTO `nhacungcap` (`idNCC`, `tenNCC`, `diachi`, `email`, `dienthoai`, `trangthai`) VALUES
-(1, 'Phúc Minh', '123 Lê Văn Sỹ,2264,133,12', 'phucminh.books@gmail.com', '0123654789', b'1'),
-(2, 'Văn Học', '123 Lê Văn Sỹ,8842,561,50', 'vanhoc@books.com.vn', '0333444555', b'1'),
-(3, 'Thanh Niên', '123 Lê Văn Sỹ,8859,562,50', 'thanhnien@books.com.vn', '0777888999', b'1'),
-(4, 'Kép Già', '166 3/2,8134,503,45', 'kepold@gmail.com', '0999999999', b'1');
+(1, 'Nhã Nam', '123 Lê Văn Sỹ', 'nhanam.books@gmail.com', '0123654789', b'1'),
+(2, 'Văn Học', '123 Lê Văn Sỹ', 'vanhoc@books.com.vn', '0333444555', b'1'),
+(3, 'Tuổi Trẻ', '123 Lê Văn Sỹ', 'tuoitre@books.com.vn', '0777888999', b'1'),
+(4, 'IPM', '123 Lê Văn Sỹ', 'ipm@gmail.com', '0999999999', b'0');
 
 -- --------------------------------------------------------
 
@@ -200,6 +247,23 @@ CREATE TABLE `phieunhap` (
   `ngaycapnhat` date NOT NULL,
   `idNV` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `phieunhap`
+--
+
+INSERT INTO `phieunhap` (`idPN`, `tongtien`, `tongsoluong`, `ngaytao`, `trangthai`, `ngaycapnhat`, `idNV`) VALUES
+(106, 31050000, 300, '2024-09-18', 'ht', '2024-09-18', 12),
+(107, 22540000, 300, '2024-09-18', 'ht', '2024-09-18', 12),
+(108, 53820000, 390, '2024-09-18', 'ht', '2024-09-18', 12),
+(109, 12920000, 190, '2024-09-18', 'ht', '2024-09-18', 12),
+(110, 34040000, 300, '2024-09-18', 'ht', '2024-09-18', 12),
+(111, 16150000, 220, '2024-09-18', 'ht', '2024-09-18', 12),
+(112, 23310000, 400, '2024-09-18', 'ht', '2024-09-18', 12),
+(113, 25760000, 150, '2024-09-18', 'ht', '2024-09-18', 12),
+(114, 15120000, 120, '2024-09-18', 'ht', '2024-09-18', 12),
+(115, 5850000, 100, '2024-09-18', 'ht', '2024-09-18', 12),
+(116, 6300000, 100, '2024-09-18', 'ht', '2024-09-18', 12);
 
 -- --------------------------------------------------------
 
