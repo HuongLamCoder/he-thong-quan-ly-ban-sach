@@ -4,7 +4,7 @@ DELIMITER $$
 DROP EVENT IF EXISTS update_discount_status_event $$
 
 CREATE EVENT update_discount_status_event
-ON SCHEDULE EVERY 5 SECOND
+ON SCHEDULE EVERY 1 DAY
 DO
 BEGIN
     DECLARE curr_date DATE;
