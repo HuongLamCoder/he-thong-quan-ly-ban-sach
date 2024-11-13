@@ -1,18 +1,6 @@
 <?php
 // AJAX handle
 
-/* update status daily */
-if(isset($_POST['update_status'])){
-    include_once('../../lib/connect.php');
-    include_once('../model/Discount.php');
-    $discount_id = $_POST['discount_id'];
-    $status = $_POST['status'];
-    updateDiscountStatus($discount_id, $status);
-    echo json_encode(array('success'=>true));
-    exit;
-}
-/* update status daily */
-
 /* add-data */
 if(isset($_POST['submit_btn_add'])){
     include_once('../../lib/connect.php');

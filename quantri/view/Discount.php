@@ -56,13 +56,7 @@
                             <td class="discount_percentage"><?=$phantram?></td>
                             <td class="discount_start_date"><?=$ngaybatdau?></td>
                             <td class="discount_end_date"><?=$ngayketthuc?></td>
-                                <td class="discount_status <?php 
-                                                            if ($trangthai === "hd") echo 'hh'; 
-                                                            elseif ($trangthai === "cdr") echo 'cdr'; 
-                                                            elseif ($trangthai === "huy") echo 'huy'; 
-                                                            elseif ($trangthai === "hh") echo 'hh';
-                                                            ?>">    
-
+                            <td class="discount_status">
                                 <?php
                                     if($trangthai === "hd") echo '<span  class="bagde rounded-2 text-white bg-success p-2">Hoạt động</span></td>';
                                     else if($trangthai === "cdr") echo '<span class="bagde rounded-2 text-white bg-primary p-2">Chưa diễn ra</span></td>';

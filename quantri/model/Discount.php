@@ -53,11 +53,4 @@
         edit($sql);
     }
 
-    function updateDiscountStatus($idMGG, $trangthai) {
-        $sql = 
-        'UPDATE magiamgia 
-        SET trangthai = "'.$trangthai.'"
-        WHERE idMGG = '.$idMGG;
-        edit($sql);
-    }
 ?>

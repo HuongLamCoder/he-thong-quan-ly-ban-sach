@@ -8,64 +8,6 @@ document.getElementById('discountModal').addEventListener('hidden.bs.modal', fun
     location.reload();
 });
 
-// Function to check and update discount status daily
-function validDateUpdateDiscountDaily(curr_status, ngaybatdau, ngayketthuc) {
-    var curr_date = new Date();
-    var start = ngaybatdau;
-    var end =  ngayketthuc;
-    start.setHours(0, 0, 0, 0);
-    end.setHours(0, 0, 0, 0);
-    curr_date.setHours(0,0,0,0);  
-    let status =''; 
-    if (curr_status == 'huy') {
-        status = 'huy';
-    } else if (curr_date < start) {
-        status = 'cdr';
-    } else if (curr_date >= start && curr_date <= end) {
-        status = 'hd';
-    } else if (curr_date > end) {
-        status = 'hh';
-    }
-    return status;
-}
-function updateDiscountstatusDaily() {
-    // Set interval to run this check every 24 hours (86400000 milliseconds)
-    setInterval(() => {
-        // Loop through each discount and update status
-        $('.discount_row').each(function() {
-            const discountId = $(this).find('.discount_id').text();
-            let start = new Date($(this).find('.discount_start_date').text());
-            let end = new Date($(this).find('.discount_end_date').text());
-            
-            // Check the current status class
-            const currentstatusClass = $(this).find('.discount_status').attr('class').split(' ').find(className => ['hd', 'cdr', 'huy', 'hh'].includes(className));
-            const classStatusElement = $(this).find('.discount_status');
-            var status = validDateUpdateDiscountDaily(currentstatusClass, start, end);
-
-            // Only update the status if it has changed
-            if (currentstatusClass !== status) {
-                classStatusElement.removeClass('hh cdr huy hd');
-                classStatusElement.addClass(status);
-                
-                // Send AJAX request to update the status in the database
-                $.ajax({
-                    url: 'controller/Discount.php',
-                    type: 'POST',
-                    data: {
-                        'update_status': true,
-                        'discount_id': discountId,
-                        'status': status,
-                    },
-                    success: function(response) {
-                        console.log(response);
-                        // const obj = JSON.parse(response);
-                    }
-                });
-            }
-        });
-    }, 86400000); // Run every 24 hours 
-}
-// Function to check and update discount status daily
 
 /* function validate discount form */
 function formValidateDiscount(phantram, ngaybatdau, ngayketthuc) {
@@ -74,7 +16,7 @@ function formValidateDiscount(phantram, ngaybatdau, ngayketthuc) {
     var curr_date = new Date();
     //phantram
 
-    if(phantram < 0 || phantram>100 || isNaN(phantram)) {   //nếu tên rỗng
+    if(phantram <= 0 || phantram>=100 || isNaN(phantram)) {   //nếu tên rỗng
         alert = "<span class='red'>Phần trăm không hợp lệ</span>";
         return alert;
     }
@@ -108,7 +50,6 @@ function formValidateDiscount(phantram, ngaybatdau, ngayketthuc) {
 
 /* add-data form */
 $(document).ready(function() {
-    updateDiscountstatusDaily();
     const modalTitle = document.getElementById('discountModalLabel');
     const modalSaveBtn = document.getElementById('saveModalBtn');
     var submit_btn = document.getElementById('submit_btn');
@@ -218,18 +159,21 @@ $(document).ready(function() {
 
     /* Start: lock */
     $('.lock_discount').click(function() {
-        // Display the form as a pop-up
-        var discount_id = $(this).closest('tr').find('.discount_id').text();
+        var discount_id = $(this).closest('tr').find('.discount_id').text();      
+    
         $.ajax({
-            url: 'controller/Discount.php', // Replace with the actual PHP endpoint to fetch discount details
+            url: 'controller/Discount.php',
             type: 'POST',
             data: {
                 'lock_discount': true,
                 'discount_id': discount_id,
             },
-            success: function(response){
+            success: (response) => {
                 const obj = JSON.parse(response);
-                if(obj.success){
+                let status = '<span class="bagde rounded-2 text-white bg-danger p-2">Hủy</span>';
+                $(this).closest('tr').find('.discount_status').html(status);
+                $(this).closest('td').find('.lock_discount, .open_edit_form').remove();
+                if(obj.success) {
                     toast({
                         title: 'Thành công',
                         message: 'Khóa mã giảm giá thành công',
@@ -239,6 +183,6 @@ $(document).ready(function() {
                 }
             },
         });
-   });
+    });
     /* End: lock */
 });
