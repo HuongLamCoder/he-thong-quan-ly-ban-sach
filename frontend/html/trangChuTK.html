@@ -1,0 +1,619 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>vinabook</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" 
+        rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" 
+        crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" 
+        integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" 
+        crossorigin="anonymous"></script>
+    <script src="https://kit.fontawesome.com/1acf2d22a5.js" 
+        crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="../assets/css/KHCSS.css">
+    <link href="https://cdn.jsdelivr.net/gh/HuongLamCoder/font-awesome-pro-6.5.2/fontawesome-pro-6.5.2-web/css/all.min.css" 
+        rel="stylesheet" 
+        type="text/css"/>
+</head>
+<body>
+    <header class="header">
+        <!-- Dòng màu xanh hotline -->
+        <div class="hotline-line">
+            <i class="fa-solid fa-phone"></i>
+            <span> Hotline: 1900 704421</span>
+        </div>
+        <!-- Navigation bar -->
+        <div class="container navigation-bar">
+            <div class="row">
+                <!-- Vinabook logo -->
+                <div class="col-3">
+                    <div class="logo">
+                        <a href="" class="navbar-brand">
+                            <img src="/assets/vinabook-logo.png" alt="">
+                        </a>
+                    </div>
+                </div>
+                <!-- Tìm kiếm sách cơ bản -->
+                <div class="col-6">
+                    <div class="srch-field">
+                        <form action="" class="srch-form">
+                            <input type="text" placeholder="Tìm kiếm sản phẩm, tác giả,...">
+                            <button title="Tìm sách" class="btn srch-btn">Tìm sách</button>
+                        </form>
+                    </div>
+                </div>
+                <!-- 3 nút: Giỏ hàng - Đăng nhập - Đăng ký -->
+                <div class="col-3">
+                    <ul class="nav-btn-list">
+                        <li>
+                            <a href="" class="btn btn-1"><i class="fa-light fa-cart-shopping"></i></a>
+                        </li>
+                        <li>
+                            <a href="" class="nav-link">
+                                <span class="username">
+                                    username
+                                </span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="" class="btn btn-2 signin-btn">Đăng xuất</a>
+                        </li>
+                        <!-- x -->
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </header>
+    <main class="homepage">
+        <div class="container">
+            <div class="row homepage-content">
+                <!-- Cột bên trái gồm: danh mục sách, best seller -->
+                <div class="col-3">
+                    <!-- Danh mục sách -->
+                    <div class="category">
+                        <div class="category-box">
+                            <ul>
+                                <p>Danh mục</p>
+                                <li>
+                                    <a href="" class="nav-link">Kinh tế</a>
+                                </li>
+                                <li>
+                                    <a href="" class="nav-link">Văn học trong nước</a>
+                                </li>
+                                <li>
+                                    <a href="" class="nav-link">Sách thưởng thức đời sống</a>
+                                </li>
+                                <li>
+                                    <a href="" class="nav-link">Văn học nước ngoài</a>
+                                </li>
+                                <li>
+                                    <a href="" class="nav-link">Văn học thiếu nhi</a>
+                                </li>
+                                <li>
+                                    <a href="" class="nav-link">Sách phát triển bản thân</a>
+                                </li>
+                                <li>
+                                    <a href="" class="nav-link">Sách giáo khoa - giáo trình</a>
+                                </li>
+                                <li>
+                                    <a href="" class="nav-link">Sách giáo khoa - giáo trình</a>
+                                </li>
+                                <li>
+                                    <a href="" class="nav-link">Sách giáo khoa - giáo trình</a>
+                                </li>
+                                <li>
+                                    <a href="" class="nav-link">Sách giáo khoa - giáo trình</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <!-- Danh sách sách best seller -->
+                    <div class="best-seller">
+                        <div class="best-seller-box">
+                            <ul>
+                                <p>Best Seller</p>
+                                <li>
+                                    <a href="" class="nav-link book-card">
+                                        <div class="image-book">
+                                            <img src="/assets/example-book.jpg" alt="">
+                                        </div>
+                                        <div class="info-book">
+                                            <span class="book-title">
+                                                Công Chúa Tóc Cam - Yêu Đương Vui Phết (Trừ Những Lúc Không)
+                                            </span>
+                                            <span class="units-sold-text"><span class="units-sold">100</span> lượt bán</span>
+                                            <span class="price-text"> <span class="price">125,000</span> đ</span> 
+                                        </div>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="" class="nav-link book-card">
+                                        <div class="image-book">
+                                            <img src="/assets/example-book.jpg" alt="">
+                                        </div>
+                                        <div class="info-book">
+                                            <span class="book-title">
+                                                Công Chúa Tóc Cam - Yêu Đương Vui Phết (Trừ Những Lúc Không)
+                                            </span>
+                                            <span class="units-sold-text"><span class="units-sold">100</span> lượt bán</span>
+                                            <span class="price-text"> <span class="price">125,000</span> đ</span> 
+                                        </div>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="" class="nav-link book-card">
+                                        <div class="image-book">
+                                            <img src="/assets/example-book.jpg" alt="">
+                                        </div>
+                                        <div class="info-book">
+                                            <span class="book-title">
+                                                Công Chúa Tóc Cam - Yêu Đương Vui Phết (Trừ Những Lúc Không)
+                                            </span>
+                                            <span class="units-sold-text"><span class="units-sold">100</span> lượt bán</span>
+                                            <span class="price-text"> <span class="price">125,000</span> đ</span> 
+                                        </div>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="" class="nav-link book-card">
+                                        <div class="image-book">
+                                            <img src="/assets/example-book.jpg" alt="">
+                                        </div>
+                                        <div class="info-book">
+                                            <span class="book-title">
+                                                Công Chúa Tóc Cam - Yêu Đương Vui Phết (Trừ Những Lúc Không)
+                                            </span>
+                                            <span class="units-sold-text"><span class="units-sold">100</span> lượt bán</span>
+                                            <span class="price-text"> <span class="price">125,000</span> đ</span> 
+                                        </div>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="" class="nav-link book-card">
+                                        <div class="image-book">
+                                            <img src="/assets/example-book.jpg" alt="">
+                                        </div>
+                                        <div class="info-book">
+                                            <span class="book-title">
+                                                Công Chúa Tóc Cam - Yêu Đương Vui Phết (Trừ Những Lúc Không)
+                                            </span>
+                                            <span class="units-sold-text"><span class="units-sold">100</span> lượt bán</span>
+                                            <span class="price-text"> <span class="price">125,000</span> đ</span> 
+                                        </div>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="" class="nav-link book-card">
+                                        <div class="image-book">
+                                            <img src="/assets/example-book.jpg" alt="">
+                                        </div>
+                                        <div class="info-book">
+                                            <span class="book-title">
+                                                Công Chúa Tóc Cam - Yêu Đương Vui Phết (Trừ Những Lúc Không)
+                                            </span>
+                                            <span class="units-sold-text"><span class="units-sold">100</span> lượt bán</span>
+                                            <span class="price-text"> <span class="price">125,000</span> đ</span> 
+                                        </div>
+                                    </a>
+                                </li>
+                            </ul>
+                            <div class="see-more">
+                                <a href="" class="nav-link">Xem thêm</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Cột bên phải gồm: banner, hiển thị sách theo danh mục -->
+                <div class="col-9">
+                    <!-- banner -->
+                    <div class="banner">
+                        <div id="carouselExampleAutoplaying" class="carousel slide" data-bs-ride="carousel">
+                            <div class="carousel-inner">
+                              <div class="carousel-item active">
+                                <div class="banner-content">
+                                    <div class="image-book">
+                                        <img src="/assets/example-book2.jpg" class="d-block" alt="...">
+                                    </div>
+                                    <div class="info-book">
+                                        <div class="title">
+                                            <h4>Không Sợ Thất Bại, Chỉ Sợ Bạn Nuông Chiều Bản Thân Chưa Nỗ Lực Hết Mình</h4>
+                                        </div>
+                                        <div class="description">
+                                            <p>
+                                                Ai cũng thở dài nói cố gắng thế đủ rồi, những thành tựu to lớn dù sao cũng chẳng đến lượt mình. Thế nhưng, khi còn say sưa với giấc mộng hão huyền thì sao có thể tỉnh táo nói chuyện về ngày mai. Nếu bạn chỉ biết nghĩ quá nhiều và làm quá ít, một cái lắc đầu cũng sẽ dập tắt bao khát khao sục sôi.
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                              </div>
+                              <div class="carousel-item">
+                                <div class="banner-content" style="background-color: #eecbb7;">
+                                    <div class="image-book">
+                                        <img src="/assets/example-book3.jpg" class="d-block" alt="...">
+                                    </div>
+                                    <div class="info-book">
+                                        <div class="title">
+                                            <h4>Đập Chắn Thái Bình Dương
+                                            </h4>
+                                        </div>
+                                        <div class="description">
+                                            <p>
+                                                Bối cảnh của Đập chắn Thái Bình Dương là những năm 1930 của thế kỷ 20. Dufresne, một giáo viên người Pháp, góa chồng, quyết định tới Đông Dương lập nghiệp cùng hai đứa con. Bà khó nhọc xoay xở, chơi đàn piano suốt 10 năm ở rạp hát, dành dụm tiền mua một khu đất lập đồn điền. Không tiền lót tay cho quan chức chính quyền thực dân, bà chỉ nhận được một miếng đất xấu, ngập lụt mỗi lần lũ triều tháng 7 tràn về, không trồng cấy gì được.
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                              </div>
+                              <div class="carousel-item">
+                                <div class="banner-content" style="background-color: #cae6ff;">
+                                    <div class="image-book">
+                                        <img src="/assets/example-book4.jpg" class="d-block" alt="...">
+                                    </div>
+                                    <div class="info-book">
+                                        <div class="title">
+                                            <h4>
+                                                Một Thế Hệ Tan Vỡ
+                                            </h4>
+                                        </div>
+                                        <div class="description">
+                                            <p>
+                                                Cuộc sống đâu phải lúc nào cũng là một màu hồng và có ai chưa một lần tổn thương? Càng lớn, chúng ta lại càng thấy rõ hơn điều đó, càng thấy được những áp lực đang dồn nén, những nỗi buồn cứ gặm nhấm mãi chẳng thể nói lên lời. Phải chăng khi ấy, điều chúng ta cần nhất đó chính là ở một mình, "tịnh tâm" suy nghĩ về những điều đã qua để biết nên làm gì tiếp theo?
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                              </div>
+                            </div>
+                            <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleAutoplaying" data-bs-slide="prev">
+                              <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                              <span class="visually-hidden">Previous</span>
+                            </button>
+                            <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleAutoplaying" data-bs-slide="next">
+                              <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                              <span class="visually-hidden">Next</span>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="category-book">
+                        <div class="title">
+                            <h3>
+                                Sách Văn Học
+                            </h3>
+                        </div>
+                        <div class="category-book-box">
+                            <div class="category-book-content">
+                                <div class="book-card">
+                                    <a href="" class="nav-link">
+                                        <div class="image-book">
+                                            <img src="/assets/example-book5.jpg" alt="">
+                                        </div>
+                                        <div class="info-book">
+                                            <div class="title">
+                                                <h6>
+                                                    Điện Biên Phủ - Những Trang Vàng Lịch Sử
+                                                </h6>
+                                            </div>
+                                            <div class="units-sold-text"><span class="units-sold">100</span> lượt bán</div>
+                                            <div class="price-text"> <span class="price">125,000</span> đ</div> 
+                                        </div>
+                                    </a>
+                                </div>
+                                <div class="book-card">
+                                    <a href="" class="nav-link">
+                                        <div class="image-book">
+                                            <img src="/assets/example-book5.jpg" alt="">
+                                        </div>
+                                        <div class="info-book">
+                                            <div class="title">
+                                                <h6>
+                                                    Điện Biên Phủ - Những Trang Vàng Lịch Sử
+                                                </h6>
+                                            </div>
+                                            <div class="units-sold-text"><span class="units-sold">100</span> lượt bán</div>
+                                            <div class="price-text"> <span class="price">125,000</span> đ</div> 
+                                        </div>
+                                    </a>
+                                </div>
+                                <div class="book-card">
+                                    <a href="" class="nav-link">
+                                        <div class="image-book">
+                                            <img src="/assets/example-book5.jpg" alt="">
+                                        </div>
+                                        <div class="info-book">
+                                            <div class="title">
+                                                <h6>
+                                                    Điện Biên Phủ - Những Trang Vàng Lịch Sử
+                                                </h6>
+                                            </div>
+                                            <div class="units-sold-text"><span class="units-sold">100</span> lượt bán</div>
+                                            <div class="price-text"> <span class="price">125,000</span> đ</div> 
+                                        </div>
+                                    </a>
+                                </div>
+                                <div class="book-card">
+                                    <a href="" class="nav-link">
+                                        <div class="image-book">
+                                            <img src="/assets/example-book5.jpg" alt="">
+                                        </div>
+                                        <div class="info-book">
+                                            <div class="title">
+                                                <h6>
+                                                    Điện Biên Phủ - Những Trang Vàng Lịch Sử
+                                                </h6>
+                                            </div>
+                                            <div class="units-sold-text"><span class="units-sold">100</span> lượt bán</div>
+                                            <div class="price-text"> <span class="price">125,000</span> đ</div> 
+                                        </div>
+                                    </a>
+                                </div>
+                            </div>
+                            <div class="see-more">
+                                <a href="" class="btn nav-link">Xem thêm</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="category-book">
+                        <div class="title">
+                            <h3>
+                                Sách Văn Học
+                            </h3>
+                        </div>
+                        <div class="category-book-box">
+                            <div class="category-book-content">
+                                <div class="book-card">
+                                    <a href="" class="nav-link">
+                                        <div class="image-book">
+                                            <img src="/assets/example-book5.jpg" alt="">
+                                        </div>
+                                        <div class="info-book">
+                                            <div class="title">
+                                                <h6>
+                                                    Điện Biên Phủ - Những Trang Vàng Lịch Sử
+                                                </h6>
+                                            </div>
+                                            <div class="units-sold-text"><span class="units-sold">100</span> lượt bán</div>
+                                            <div class="price-text"> <span class="price">125,000</span> đ</div> 
+                                        </div>
+                                    </a>
+                                </div>
+                                <div class="book-card">
+                                    <a href="" class="nav-link">
+                                        <div class="image-book">
+                                            <img src="/assets/example-book5.jpg" alt="">
+                                        </div>
+                                        <div class="info-book">
+                                            <div class="title">
+                                                <h6>
+                                                    Điện Biên Phủ - Những Trang Vàng Lịch Sử
+                                                </h6>
+                                            </div>
+                                            <div class="units-sold-text"><span class="units-sold">100</span> lượt bán</div>
+                                            <div class="price-text"> <span class="price">125,000</span> đ</div> 
+                                        </div>
+                                    </a>
+                                </div>
+                                <div class="book-card">
+                                    <a href="" class="nav-link">
+                                        <div class="image-book">
+                                            <img src="/assets/example-book5.jpg" alt="">
+                                        </div>
+                                        <div class="info-book">
+                                            <div class="title">
+                                                <h6>
+                                                    Điện Biên Phủ - Những Trang Vàng Lịch Sử
+                                                </h6>
+                                            </div>
+                                            <div class="units-sold-text"><span class="units-sold">100</span> lượt bán</div>
+                                            <div class="price-text"> <span class="price">125,000</span> đ</div> 
+                                        </div>
+                                    </a>
+                                </div>
+                                <div class="book-card">
+                                    <a href="" class="nav-link">
+                                        <div class="image-book">
+                                            <img src="/assets/example-book5.jpg" alt="">
+                                        </div>
+                                        <div class="info-book">
+                                            <div class="title">
+                                                <h6>
+                                                    Điện Biên Phủ - Những Trang Vàng Lịch Sử
+                                                </h6>
+                                            </div>
+                                            <div class="units-sold-text"><span class="units-sold">100</span> lượt bán</div>
+                                            <div class="price-text"> <span class="price">125,000</span> đ</div> 
+                                        </div>
+                                    </a>
+                                </div>
+                            </div>
+                            <div class="see-more">
+                                <a href="" class="btn nav-link">Xem thêm</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="category-book">
+                        <div class="title">
+                            <h3>
+                                Sách Văn Học
+                            </h3>
+                        </div>
+                        <div class="category-book-box">
+                            <div class="category-book-content">
+                                <div class="book-card">
+                                    <a href="" class="nav-link">
+                                        <div class="image-book">
+                                            <img src="/assets/example-book5.jpg" alt="">
+                                        </div>
+                                        <div class="info-book">
+                                            <div class="title">
+                                                <h6>
+                                                    Điện Biên Phủ - Những Trang Vàng Lịch Sử
+                                                </h6>
+                                            </div>
+                                            <div class="units-sold-text"><span class="units-sold">100</span> lượt bán</div>
+                                            <div class="price-text"> <span class="price">125,000</span> đ</div> 
+                                        </div>
+                                    </a>
+                                </div>
+                                <div class="book-card">
+                                    <a href="" class="nav-link">
+                                        <div class="image-book">
+                                            <img src="/assets/example-book5.jpg" alt="">
+                                        </div>
+                                        <div class="info-book">
+                                            <div class="title">
+                                                <h6>
+                                                    Điện Biên Phủ - Những Trang Vàng Lịch Sử
+                                                </h6>
+                                            </div>
+                                            <div class="units-sold-text"><span class="units-sold">100</span> lượt bán</div>
+                                            <div class="price-text"> <span class="price">125,000</span> đ</div> 
+                                        </div>
+                                    </a>
+                                </div>
+                                <div class="book-card">
+                                    <a href="" class="nav-link">
+                                        <div class="image-book">
+                                            <img src="/assets/example-book5.jpg" alt="">
+                                        </div>
+                                        <div class="info-book">
+                                            <div class="title">
+                                                <h6>
+                                                    Điện Biên Phủ - Những Trang Vàng Lịch Sử
+                                                </h6>
+                                            </div>
+                                            <div class="units-sold-text"><span class="units-sold">100</span> lượt bán</div>
+                                            <div class="price-text"> <span class="price">125,000</span> đ</div> 
+                                        </div>
+                                    </a>
+                                </div>
+                                <div class="book-card">
+                                    <a href="" class="nav-link">
+                                        <div class="image-book">
+                                            <img src="/assets/example-book5.jpg" alt="">
+                                        </div>
+                                        <div class="info-book">
+                                            <div class="title">
+                                                <h6>
+                                                    Điện Biên Phủ - Những Trang Vàng Lịch Sử
+                                                </h6>
+                                            </div>
+                                            <div class="units-sold-text"><span class="units-sold">100</span> lượt bán</div>
+                                            <div class="price-text"> <span class="price">125,000</span> đ</div> 
+                                        </div>
+                                    </a>
+                                </div>
+                            </div>
+                            <div class="see-more">
+                                <a href="" class="btn nav-link">Xem thêm</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="category-book">
+                        <div class="title">
+                            <h3>
+                                Sách Văn Học
+                            </h3>
+                        </div>
+                        <div class="category-book-box">
+                            <div class="category-book-content">
+                                <div class="book-card">
+                                    <a href="" class="nav-link">
+                                        <div class="image-book">
+                                            <img src="/assets/example-book5.jpg" alt="">
+                                        </div>
+                                        <div class="info-book">
+                                            <div class="title">
+                                                <h6>
+                                                    Điện Biên Phủ - Những Trang Vàng Lịch Sử
+                                                </h6>
+                                            </div>
+                                            <div class="units-sold-text"><span class="units-sold">100</span> lượt bán</div>
+                                            <div class="price-text"> <span class="price">125,000</span> đ</div> 
+                                        </div>
+                                    </a>
+                                </div>
+                                <div class="book-card">
+                                    <a href="" class="nav-link">
+                                        <div class="image-book">
+                                            <img src="/assets/example-book5.jpg" alt="">
+                                        </div>
+                                        <div class="info-book">
+                                            <div class="title">
+                                                <h6>
+                                                    Điện Biên Phủ - Những Trang Vàng Lịch Sử
+                                                </h6>
+                                            </div>
+                                            <div class="units-sold-text"><span class="units-sold">100</span> lượt bán</div>
+                                            <div class="price-text"> <span class="price">125,000</span> đ</div> 
+                                        </div>
+                                    </a>
+                                </div>
+                                <div class="book-card">
+                                    <a href="" class="nav-link">
+                                        <div class="image-book">
+                                            <img src="/assets/example-book5.jpg" alt="">
+                                        </div>
+                                        <div class="info-book">
+                                            <div class="title">
+                                                <h6>
+                                                    Điện Biên Phủ - Những Trang Vàng Lịch Sử
+                                                </h6>
+                                            </div>
+                                            <div class="units-sold-text"><span class="units-sold">100</span> lượt bán</div>
+                                            <div class="price-text"> <span class="price">125,000</span> đ</div> 
+                                        </div>
+                                    </a>
+                                </div>
+                                <div class="book-card">
+                                    <a href="" class="nav-link">
+                                        <div class="image-book">
+                                            <img src="/assets/example-book5.jpg" alt="">
+                                        </div>
+                                        <div class="info-book">
+                                            <div class="title">
+                                                <h6>
+                                                    Điện Biên Phủ - Những Trang Vàng Lịch Sử
+                                                </h6>
+                                            </div>
+                                            <div class="units-sold-text"><span class="units-sold">100</span> lượt bán</div>
+                                            <div class="price-text"> <span class="price">125,000</span> đ</div> 
+                                        </div>
+                                    </a>
+                                </div>
+                            </div>
+                            <div class="see-more">
+                                <a href="" class="btn nav-link">Xem thêm</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+    <footer>
+        <div class="footer">
+            <div class="footer-img">
+                <div class="footer-logo">
+                    <img src="/assets/vinabook-logo.png" alt="">
+                </div>
+                <div class="bocongthuong">
+                    <img src="/assets/bocongthuong.png" alt="">
+                </div>
+            </div>
+            <div class="footer-info">
+                <p>CTY Cổ phần Thương Mại và Dịch vụ BINHCHANH COM</p>
+                <div class="contact">
+                    <span class="tel"><i class="fa-solid fa-phone"></i> Tel: 028.73008182 </span>
+                    <span class="fax"><i class="fa-solid fa-fax"></i> Fax: 028.39733234</span>
+                </div>
+                <div class="address">
+                    <span><i class="fa-solid fa-location-dot"></i>Huyện Bình Chánh, thành phố Hồ Chí Minh</span>
+                    <span>MST:030000007 do Sở Kế Hoạch Và Đầu Tư Tp.Hồ Chí Minh cấp ngày 17/01/2004</span>
+                </div>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>

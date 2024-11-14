@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>vinabook</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" 
+        rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" 
+        crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" 
+        integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" 
+        crossorigin="anonymous"></script>
+    <script src="https://kit.fontawesome.com/1acf2d22a5.js" 
+        crossorigin="anonymous"></script>
+        <link rel="stylesheet" href="../css/KHCSS.css">
+    <link href="https://cdn.jsdelivr.net/gh/HuongLamCoder/font-awesome-pro-6.5.2/fontawesome-pro-6.5.2-web/css/all.min.css" 
+        rel="stylesheet" 
+        type="text/css"/>
+</head>
+<body>
+    <header class="header">
+        <!-- Dòng màu xanh hotline -->
+        <div class="hotline-line">
+            <i class="fa-duotone fa-solid fa-phone"></i>
+            <span> Hotline: 1900 704421</span>
+        </div>
+        <!-- Navigation bar -->
+        <div class="container navigation-bar">
+            <div class="row">
+                <!-- Vinabook logo -->
+                <div class="col-3">
+                    <div class="logo">
+                        <a href="" class="navbar-brand">
+                            <img src="/assets/vinabook-logo.png" alt="">
+                        </a>
+                    </div>
+                </div>
+                <!-- Tìm kiếm sách cơ bản -->
+                <div class="col-6">
+                    <div class="srch-field">
+                        <form action="" class="srch-form">
+                            <input type="text" placeholder="Tìm kiếm sản phẩm, tác giả,...">
+                            <button title="Tìm sách" class="btn srch-btn">Tìm sách</button>
+                        </form>
+                    </div>
+                </div>
+                <!-- 3 nút: Giỏ hàng - Đăng nhập - Đăng ký -->
+                <div class="col-3">
+                    <ul class="nav-btn-list">
+                        <li>
+                            <a href="" class="btn btn-1"><i class="fa-light fa-cart-shopping"></i></a>
+                        </li>
+                        <li>
+                            <a href="" class="btn btn-2 signin-btn">Đăng nhập</a>
+                        </li>
+                        <li>
+                            <a href="" class="btn btn-1 signup-btn">Đăng ký</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </header>
+    <main class="detail-book">
+        <!-- Chi tiết sản phẩm -->
+        <div class="container">
+            <div class="detail-book-content b-shadow">
+                <div class="book-title row">
+                    <div class="image-book col-4">
+                        <img src="/assets/example-book6.jpg" alt="">
+                    </div>
+                    <div class="title-book col-8">
+                        <div class="title">
+                            <h3>
+                                Giáo trình Triết học Mác – Lênin (Dành cho bậc đại học hệ không chuyên lý luận chính trị)
+                            </h3>
+                        </div>
+                        <div class="price-text">
+                            <span class="price">70,000</span>đ
+                        </div>
+                        <div class="add-to-cart">
+                            <button type="button" class="btn add-to-cart-btn" id="liveToastBtn">
+                                <i class="fa-thin fa-cart-plus"></i>
+                                <span>
+                                    Thêm vào giỏ hàng
+                                </span>
+                            </button>
+                            <!-- toast message -->
+                            <div class="toast-container position-fixed bottom-0 end-0 p-3">
+                            <div id="liveToast" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+                                <div class="toast-header">
+                                    <span><i class="fa-light fa-square-check text-success"></i></span>
+                                    <strong class="me-auto">Thông báo</strong>
+                                    <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+                                    </div>
+                                    <div class="toast-body">
+                                        Thêm sách vào giỏ hàng thành công!
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="book-description">
+                    <h5>Giới thiệu sách</h5>
+                    <div class="book-description-content">
+                        <p>
+                            Giáo trình do Ban biên soạn gồm các tác giả là nhà nghiên cứu, nhà giáo dục thuộc Viện Triết học – Học viện Chính trị quốc gia Hồ Chí Minh, các học viện, trường đại học, Viện Triết học – Viện Hàn lâm Khoa học xã hội Việt Nam,… tổ chức biên soạn trên cơ sở kế thừa những kết quả nghiên cứu trước đây, đồng thời bổ sung nhiều nội dung, kiến thức, kết quả nghiên cứu mới, gắn với công cuộc đổi mới ở Việt Nam, nhất là những thành tựu trong 35 năm đổi mới đất nước.
+                        </p>
+                    </div>
+                </div>
+                <div class="book-details">
+                    <h5>Thông tin chi tiết</h5>
+                    <div class="book-details-content">
+                        <table class="table">
+                            <tbody>
+                                <tr>
+                                    <td>Thể loại</td>
+                                    <td><span class="category">Giáo trình</span></td>
+                                </tr>
+                                <tr>
+                                    <td>Tác giả</td>
+                                    <td><span class="author">Nhà xuất bản Chính trị quốc gia Sự thật</span></td>
+                                </tr>
+                                <tr>
+                                    <td>NXB</td>
+                                    <td><span class="nxb">Nhà xuất bản Chính trị quốc gia Sự thật</span></td>
+                                </tr>
+                                <tr>
+                                    <td>Năm xuất bản</td>
+                                    <td><span class="nhaxb">2021</span></td>
+                                </tr>
+                                <tr>
+                                    <td>Giá bìa</td>
+                                    <td><span class="price">70,000</span>đ</td>
+                                </tr>
+                              </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+    <footer>
+        <div class="footer">
+            <div class="footer-img">
+                <div class="footer-logo">
+                    <img src="/assets/vinabook-logo.png" alt="">
+                </div>
+                <div class="bocongthuong">
+                    <img src="/assets/bocongthuong.png" alt="">
+                </div>
+            </div>
+            <div class="footer-info">
+                <p>CTY Cổ phần Thương Mại và Dịch vụ BINHCHANH COM</p>
+                <div class="contact">
+                    <span class="tel"><i class="fa-duotone fa-solid fa-phone"></i> Tel: 028.73008182 </span>
+                    <span class="fax"><i class="fa-thin fa-fax"></i> Fax: 028.39733234</span>
+                </div>
+                <div class="address">
+                    <span><i class="fa-thin fa-location-dot"></i>Huyện Bình Chánh, thành phố Hồ Chí Minh</span>
+                    <span>MST:030000007 do Sở Kế Hoạch Và Đầu Tư Tp.Hồ Chí Minh cấp ngày 17/01/2004</span>
+                </div>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>
