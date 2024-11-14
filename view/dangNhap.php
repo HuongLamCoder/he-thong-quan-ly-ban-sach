@@ -16,7 +16,7 @@
                             <ul>
                                 <li class="input-field">
                                     <strong>Email<span class="mandatory-symbol">*</span></strong>
-                                    <input class="signin-input" type="text" placeholder="Nhập email...">
+                                    <input class="signin-input" type="email" placeholder="Nhập email...">
                                 </li>
                                 <li>
                                     <strong>Mật khẩu<span class="mandatory-symbol">*</span></strong>

@@ -33,27 +33,19 @@
                     </div>
                 </div>
                 <div class="col-9">
-                    <div class="info-personal-edit b-shadow">
-                        <h4>Thông Tin Cá Nhân</h4>
-                        <form action="">
-                            <fieldset>
-                                <label for="full-name">Họ và Tên</label>
-                                <input placeholder="Nhập họ và tên..." type="text" name="" id="full-name">  
-                            </fieldset>
-                            <fieldset>
-                                <label for="full-name">Email</label>
-                                <input placeholder="Nhập email..." type="text" name="" id="full-name">
-                            </fieldset>
-                            <fieldset>
-                                <label for="full-name">Số điện thoại</label>
-                                <input placeholder="Nhập số điện thoại..." type="text" name="" id="full-name">
-                            </fieldset>
-                            <div class="save-changes">
-                                <button class="btn">
-                                    Lưu thay đổi
-                                </button>
-                            </div>
-                        </form> 
+                    <div class="return-order-box b-shadow">
+                        <h4>Hướng Dẫn Hoàn Trả Đơn Hàng</h4>
+                        <div class="return-order-guide">
+                            <h5>Bước 1: Đóng gói và trả hàng</h5>
+                            <p>+ Khi yêu cầu trả hàng - hoàn tiền được chấp nhận.</p>
+                            <p>+ Tiến hành đóng gói bao gồm các bước sau:</p>
+                            <span>- Bước 1: Chuẩn bị thùng carton, xốp, tấm bong bóng nhỏ và băng keo.</span>
+                            <br><span>- Bước 2: Gói sách bằng tấm bong bóng nhỏ, sau đó bỏ vô thùng carton kèm theo xốp.</span>
+                            <br><span>- Bước 3: Đóng gói bằng băng keo  và gửi hàng về địa chỉ: Tiểu Vương quốc Bình Chánh, thành phố Hồ Chí Minh.</span>
+                            <h5 style="margin-top: 15px;">Bước 2: Nhận hoàn tiền</h5>
+                            <p>+ Sau khi nhận được hàng hoàn trả và kiểm tra sản phẩm, nhân viên tiến hành
+                            chuyển tiền hoàn vào tài khoản khách hàng đã nhập</p>
+                        </div>
                     </div>
                 </div>
             </div>

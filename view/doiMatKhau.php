@@ -34,26 +34,26 @@
                 </div>
                 <div class="col-9">
                     <div class="info-personal-edit b-shadow">
-                        <h4>Thông Tin Cá Nhân</h4>
+                        <h4>Thay đổi mật khẩu</h4>
                         <form action="">
                             <fieldset>
-                                <label for="full-name">Họ và Tên</label>
-                                <input placeholder="Nhập họ và tên..." type="text" name="" id="full-name">  
+                                <label for="full-name">Mật khẩu hiện tại</label>
+                                <input placeholder="Nhập mật khẩu hiện tại..." type="password" name="" id="full-name">
                             </fieldset>
                             <fieldset>
-                                <label for="full-name">Email</label>
-                                <input placeholder="Nhập email..." type="text" name="" id="full-name">
+                                <label for="full-name">Mật khẩu mới</label>
+                                <input placeholder="Nhập mật khẩu mới..." type="password" name="" id="full-name">
                             </fieldset>
                             <fieldset>
-                                <label for="full-name">Số điện thoại</label>
-                                <input placeholder="Nhập số điện thoại..." type="text" name="" id="full-name">
+                                <label for="full-name">Nhập lại mật khẩu</label>
+                                <input placeholder="Nhập lại mật khẩu..." type="password" name="" id="full-name">
                             </fieldset>
                             <div class="save-changes">
                                 <button class="btn">
                                     Lưu thay đổi
                                 </button>
                             </div>
-                        </form> 
+                        </form>
                     </div>
                 </div>
             </div>
