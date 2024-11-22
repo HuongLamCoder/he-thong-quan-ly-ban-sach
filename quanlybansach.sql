@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.2.1
+-- version 5.2.0
 -- https://www.phpmyadmin.net/
 --
--- Máy chủ: 127.0.0.1
--- Thời gian đã tạo: Th10 21, 2024 lúc 10:09 AM
--- Phiên bản máy phục vụ: 10.4.32-MariaDB
--- Phiên bản PHP: 8.2.12
+-- Host: localhost:3306
+-- Generation Time: Nov 22, 2024 at 07:20 PM
+-- Server version: 11.4.1-MariaDB-log
+-- PHP Version: 8.3.6
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -18,13 +18,13 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Cơ sở dữ liệu: `quanlybansach`
+-- Database: `quanlybansach`
 --
 
 -- --------------------------------------------------------
 
 --
--- Cấu trúc bảng cho bảng `chucnang`
+-- Table structure for table `chucnang`
 --
 
 CREATE TABLE `chucnang` (
@@ -33,7 +33,7 @@ CREATE TABLE `chucnang` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Đang đổ dữ liệu cho bảng `chucnang`
+-- Dumping data for table `chucnang`
 --
 
 INSERT INTO `chucnang` (`idCN`, `tenCN`) VALUES
@@ -70,7 +70,7 @@ INSERT INTO `chucnang` (`idCN`, `tenCN`) VALUES
 -- --------------------------------------------------------
 
 --
--- Cấu trúc bảng cho bảng `ctdonhang`
+-- Table structure for table `ctdonhang`
 --
 
 CREATE TABLE `ctdonhang` (
@@ -83,7 +83,7 @@ CREATE TABLE `ctdonhang` (
 -- --------------------------------------------------------
 
 --
--- Cấu trúc bảng cho bảng `ctnhomquyen`
+-- Table structure for table `ctnhomquyen`
 --
 
 CREATE TABLE `ctnhomquyen` (
@@ -92,7 +92,7 @@ CREATE TABLE `ctnhomquyen` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Đang đổ dữ liệu cho bảng `ctnhomquyen`
+-- Dumping data for table `ctnhomquyen`
 --
 
 INSERT INTO `ctnhomquyen` (`idNQ`, `idCN`) VALUES
@@ -109,12 +109,15 @@ INSERT INTO `ctnhomquyen` (`idNQ`, `idCN`) VALUES
 (44, 18),
 (44, 19),
 (44, 22),
-(44, 23);
+(44, 23),
+(44, 25),
+(44, 26),
+(44, 27);
 
 -- --------------------------------------------------------
 
 --
--- Cấu trúc bảng cho bảng `ctphieunhap`
+-- Table structure for table `ctphieunhap`
 --
 
 CREATE TABLE `ctphieunhap` (
@@ -127,7 +130,7 @@ CREATE TABLE `ctphieunhap` (
 -- --------------------------------------------------------
 
 --
--- Cấu trúc bảng cho bảng `donhang`
+-- Table structure for table `donhang`
 --
 
 CREATE TABLE `donhang` (
@@ -144,7 +147,7 @@ CREATE TABLE `donhang` (
 -- --------------------------------------------------------
 
 --
--- Cấu trúc bảng cho bảng `lidotrahang`
+-- Table structure for table `lidotrahang`
 --
 
 CREATE TABLE `lidotrahang` (
@@ -162,7 +165,7 @@ CREATE TABLE `lidotrahang` (
 -- --------------------------------------------------------
 
 --
--- Cấu trúc bảng cho bảng `magiamgia`
+-- Table structure for table `magiamgia`
 --
 
 CREATE TABLE `magiamgia` (
@@ -174,7 +177,7 @@ CREATE TABLE `magiamgia` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Đang đổ dữ liệu cho bảng `magiamgia`
+-- Dumping data for table `magiamgia`
 --
 
 INSERT INTO `magiamgia` (`idMGG`, `phantram`, `ngaybatdau`, `ngayketthuc`, `trangthai`) VALUES
@@ -182,12 +185,13 @@ INSERT INTO `magiamgia` (`idMGG`, `phantram`, `ngaybatdau`, `ngayketthuc`, `tran
 (2, 10, '2024-11-12', '2024-11-13', 'huy'),
 (3, 11, '2024-11-12', '2024-11-13', 'huy'),
 (4, 100, '2024-11-12', '2024-11-23', 'huy'),
-(5, 11, '2024-11-20', '2024-11-22', 'cdr');
+(5, 11, '2024-11-20', '2024-11-22', 'huy'),
+(6, 25, '2024-11-24', '2024-11-30', 'cdr');
 
 -- --------------------------------------------------------
 
 --
--- Cấu trúc bảng cho bảng `nganhang`
+-- Table structure for table `nganhang`
 --
 
 CREATE TABLE `nganhang` (
@@ -198,7 +202,7 @@ CREATE TABLE `nganhang` (
 -- --------------------------------------------------------
 
 --
--- Cấu trúc bảng cho bảng `nhacungcap`
+-- Table structure for table `nhacungcap`
 --
 
 CREATE TABLE `nhacungcap` (
@@ -211,18 +215,20 @@ CREATE TABLE `nhacungcap` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Đang đổ dữ liệu cho bảng `nhacungcap`
+-- Dumping data for table `nhacungcap`
 --
 
 INSERT INTO `nhacungcap` (`idNCC`, `tenNCC`, `diachi`, `email`, `dienthoai`, `trangthai`) VALUES
-(2, 'Yến Phi', '77,Xã Hương Cần,Huyện Thanh Sơn, Phú Thọ', 'yenphi@gmail.com', '0778052785', b'1'),
-(3, 'vy nguyen', '78,Xã Yên Lãng,Huyện Thanh Sơn, Phú Thọ', 'vynguyen@gmail.com', '0778052781', b'1'),
-(4, 'Yến Phiii', '77 phan dinh giot,Phường Vĩnh Hải,Thành phố Nha Trang, Khánh Hòa', 'yenphiii1@gmail.com', '0778052780', b'1');
+(2, 'Phuc Minh Books', ' Phòng 508,Phường Định Công,Quận Hoàng Mai, Hà Nội', 'phucminhbooks@gmail.com', '0778052785', b'1'),
+(3, 'IPM', ' Số 110 Nguyễn Ngọc Nại,Phường Khương Mai,Quận Thanh Xuân, Hà Nội', 'online.ipmvn@gmail.com', '0328383979', b'1'),
+(4, 'AZ Việt Nam', 'Số 50 đường 5,Phường Yên Phụ,Quận Tây Hồ, Hà Nội', 'bophanbanle@azbooks.vn', '0778052780', b'1'),
+(5, 'Nhã Nam', 'Số 59 Đỗ Quang,Phường Trung Hoà,Quận Cầu Giấy, Hà Nội', 'info@nhanam.vn', '0243514687', b'1'),
+(6, 'GitHub', '273 An Dương Vương,Phường 02,Quận 5, Tp. Hồ Chí Minh', 'github@microsoft.com', '0258794644', b'1');
 
 -- --------------------------------------------------------
 
 --
--- Cấu trúc bảng cho bảng `nhomquyen`
+-- Table structure for table `nhomquyen`
 --
 
 CREATE TABLE `nhomquyen` (
@@ -232,7 +238,7 @@ CREATE TABLE `nhomquyen` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Đang đổ dữ liệu cho bảng `nhomquyen`
+-- Dumping data for table `nhomquyen`
 --
 
 INSERT INTO `nhomquyen` (`idNQ`, `tenNQ`, `trangthai`) VALUES
@@ -242,7 +248,7 @@ INSERT INTO `nhomquyen` (`idNQ`, `tenNQ`, `trangthai`) VALUES
 -- --------------------------------------------------------
 
 --
--- Cấu trúc bảng cho bảng `phieunhap`
+-- Table structure for table `phieunhap`
 --
 
 CREATE TABLE `phieunhap` (
@@ -258,7 +264,7 @@ CREATE TABLE `phieunhap` (
 -- --------------------------------------------------------
 
 --
--- Cấu trúc bảng cho bảng `quan`
+-- Table structure for table `quan`
 --
 
 CREATE TABLE `quan` (
@@ -268,7 +274,7 @@ CREATE TABLE `quan` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='Quận huyện';
 
 --
--- Đang đổ dữ liệu cho bảng `quan`
+-- Dumping data for table `quan`
 --
 
 INSERT INTO `quan` (`idQuan`, `idTinh`, `tenQuan`) VALUES
@@ -981,7 +987,7 @@ INSERT INTO `quan` (`idQuan`, `idTinh`, `tenQuan`) VALUES
 -- --------------------------------------------------------
 
 --
--- Cấu trúc bảng cho bảng `sach`
+-- Table structure for table `sach`
 --
 
 CREATE TABLE `sach` (
@@ -1003,16 +1009,20 @@ CREATE TABLE `sach` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Đang đổ dữ liệu cho bảng `sach`
+-- Dumping data for table `sach`
 --
 
 INSERT INTO `sach` (`idSach`, `tuasach`, `mota`, `tonkho`, `luotban`, `NXB`, `namXB`, `giaban`, `giabia`, `trangthai`, `idMGG`, `idNCC`, `idTL`, `hinhanh`, `trongluong`) VALUES
-(1, 'abc', 'b', 10, 10, 'tuoi tre', '2014', 70000, 90000, b'1', 5, 3, 2, 'blank-image.png', 10);
+(5, 'Kẻ Nhìn Trộm', 'Tiếp nối Kẻ dọn rác và Người sống sót, Kẻ Nhìn Trộm là hành trình tìm ra chân tướng sự thật của tổ Pháp Y gồm 5 người: Tần Minh, Lâm Đào, Đại Bảo, Thi Vũ và Hàn Lượng. Truyện bao gồm 10 vụ án nhỏ tưởng chừng như chẳng hề liên quan đến nhau nhưng lại là những mắt xích quan trọng trong việc phá vụ án lớn nhất liên quan đến Kẻ nhìn trộm.\r\n\r\nMột người bạn của Đại Bảo là Đỗ Châu bỗng nhiên mất tích, vợ anh linh cảm điều chẳng lành. Khi vụ án còn chưa tìm ra manh mối, bỗng hai thi thể phụ nữ được phát hiện trong trang phục hành khất ở nơi hoang vắng. Điều đáng nói là trên tay một trong hai nạn nhân có chiếc nhẫn kết hôn của Đỗ Châu.\r\n\r\nLiệu Đỗ Châu có liên qua gì đến vụ án này? Là hung thủ? Kẻ bị haị? hay là một anh hùng cứu mĩ nhân?\r\n\r\nVẫn lối viết lạnh lùng khách quan, trong Kẻ nhìn trộm, độc giả lại tiếp tục theo dõi câu chuyện điều tra, tìm chứng cớ của đội pháp y. Thông qua đó hiểu rõ hơn về nghiệp vụ Pháp Y: hiện tượng chết ngạt CO2, mất máu đến chết, ngộ độc khí CO, chết cháy... Đặc biệt trong cuốn truyện này sẽ xuất hiện những vụ án giết người, phi tang xác chết. \r\n\r\nVới Kẻ nhìn trộm, tác giả Tần Minh đã có một bước tiến mới trong cách xây dựng tình huống, cốt truyện. Tất nhiên mọi thứ vẫn dựa trên \"sự thật\" nhưng tính bất ngờ khiến người đọc ngỡ ngàng và không hề nhàm chán dù đã đọc rất nhiều vụ phá án trước đó.                                        ', 0, 0, 'NXB Văn Học', 2020, 157000, 157000, b'0', NULL, 2, 3, 'SP_673f815783329.jpg', 250),
+(6, 'Pháp Y Tống Từ', 'VỀ TÁC GIẢ:\r\n\r\nVương Phương (năm sinh chưa rõ), bút danh là Hoàn Chỉ, sinh tại Bắc Kinh. Ông là tác giả trinh thám có kiến thức sâu rộng về khảo cổ học và di tích văn hoá, lịch sử vậy nên những sáng tác của ông thường mang màu sắc cổ xưa và không kém phần kì bí.  Tác phẩm tiêu biểu: Pháp y Tống Từ, Dấu vết của kẻ nghi phạm…\r\n\r\n \r\n\r\nVỀ TÁC PHẨM:\r\n\r\nPháp y Tống Từ là câu chuyện về Tống Từ, một trong những nhà pháp y học trứ danh cổ xưa của Trung Quốc. Ông nổi tiếng với cuốn sách Tẩy oan tạp lục, cuốn sách đặt nền móng cho pháp y học trên toàn thế giới.\r\n\r\nNhững vụ án kì bí liên tục xảy ra xung quanh Tống Từ, buộc chàng trai trẻ dấn thân vào cuộc truy tìm hung thủ tưởng chừng không hồi kết. Từ vụ án Tân nương ma đến vụ án Cái xác bé trai, độc giả được chứng kiến những màn đấu trí gay cấn, những vụ án trong án mà đã có lúc Tống Từ gần như chạm tay đến sự thật.', 0, 0, 'NXB Văn Học', 2022, 299000, 299000, b'1', NULL, 2, 3, 'SP_673f831239544.webp', 500),
+(10, '300 Bài Code Thiếu Nhi', 'Hãy để tôi dạy bạn trở thành lập trình viên nghìn đô\r\nQuê tôi miền biển, có gia đình cạnh nhà làm nghề chài lưới. Bữa đi kéo lưới, thấy gì nặng nặng tưởng được mẻ cá to, ai ngờ toàn sách là sách. Nào là \"300 bài code thiếu nhi\", \"Lập trình căn bản\", \" Machine Learning\", \"Deep learning\", \"AI\"...                                        ', 0, 0, 'Internet', 2024, 1000, 1000, b'0', NULL, 6, 5, 'SP_6740d73a043c0.jpg', 100),
+(11, 'Sóng mãi mãi nổi sóng', 'Sóng ở đáy sông                                    ', 0, 0, 'NXB Văn hóa thông tin', 2022, 100000, 100000, b'1', 6, 3, 3, 'SP_6740cf24a6a56.jpg', 100),
+(12, 'Chí Phèo', 'Rạch mặt ăn vạ                                        ', 0, 0, 'NXB Văn Học', 2024, 100000, 100000, b'1', NULL, 3, 2, 'SP_6740d05858b6a.webp', 150);
 
 -- --------------------------------------------------------
 
 --
--- Cấu trúc bảng cho bảng `sach_tacgia`
+-- Table structure for table `sach_tacgia`
 --
 
 CREATE TABLE `sach_tacgia` (
@@ -1020,10 +1030,24 @@ CREATE TABLE `sach_tacgia` (
   `idTG` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Dumping data for table `sach_tacgia`
+--
+
+INSERT INTO `sach_tacgia` (`idSach`, `idTG`) VALUES
+(12, 7),
+(11, 9),
+(5, 10),
+(6, 11),
+(10, 12),
+(10, 13),
+(10, 14),
+(11, 14);
+
 -- --------------------------------------------------------
 
 --
--- Cấu trúc bảng cho bảng `tacgia`
+-- Table structure for table `tacgia`
 --
 
 CREATE TABLE `tacgia` (
@@ -1033,21 +1057,26 @@ CREATE TABLE `tacgia` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Đang đổ dữ liệu cho bảng `tacgia`
+-- Dumping data for table `tacgia`
 --
 
 INSERT INTO `tacgia` (`idTG`, `tenTG`, `trangthai`) VALUES
-(1, 'Nguyễn Nhật Án', b'0'),
+(1, 'Nguyễn Nhật Ánh', b'0'),
 (2, 'Bạch Nguyệt', b'1'),
-(6, 'thao vy', b'1'),
-(7, 'yv', b'1'),
-(8, 'heh', b'1'),
-(9, 'hehj', b'1');
+(6, 'Hàn Mặc Tử', b'1'),
+(7, 'Nam Cao', b'1'),
+(8, 'Lý Mạc Sầu', b'1'),
+(9, 'Xuân Quỳnh', b'1'),
+(10, 'Bác sĩ Pháp Y Tần Minh', b'1'),
+(11, 'Vương Phương', b'1'),
+(12, 'GitHub', b'1'),
+(13, 'Microsoft', b'1'),
+(14, 'Google', b'1');
 
 -- --------------------------------------------------------
 
 --
--- Cấu trúc bảng cho bảng `taikhoan`
+-- Table structure for table `taikhoan`
 --
 
 CREATE TABLE `taikhoan` (
@@ -1061,7 +1090,7 @@ CREATE TABLE `taikhoan` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Đang đổ dữ liệu cho bảng `taikhoan`
+-- Dumping data for table `taikhoan`
 --
 
 INSERT INTO `taikhoan` (`idTK`, `tenTK`, `dienthoai`, `email`, `matkhau`, `trangthai`, `idNQ`) VALUES
@@ -1071,7 +1100,7 @@ INSERT INTO `taikhoan` (`idTK`, `tenTK`, `dienthoai`, `email`, `matkhau`, `trang
 -- --------------------------------------------------------
 
 --
--- Cấu trúc bảng cho bảng `theloai`
+-- Table structure for table `theloai`
 --
 
 CREATE TABLE `theloai` (
@@ -1081,19 +1110,20 @@ CREATE TABLE `theloai` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Đang đổ dữ liệu cho bảng `theloai`
+-- Dumping data for table `theloai`
 --
 
 INSERT INTO `theloai` (`idTL`, `tenTL`, `trangthai`) VALUES
-(1, 'Văn họcccc', b'0'),
+(1, 'Văn học Việt Nam', b'0'),
 (2, 'Kinh tế', b'1'),
-(3, 'hihi', b'1'),
-(4, 'hiih', b'0');
+(3, 'Trinh thám', b'1'),
+(4, 'Đời sống', b'0'),
+(5, 'Lập trình', b'1');
 
 -- --------------------------------------------------------
 
 --
--- Cấu trúc bảng cho bảng `tinh`
+-- Table structure for table `tinh`
 --
 
 CREATE TABLE `tinh` (
@@ -1102,7 +1132,7 @@ CREATE TABLE `tinh` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='Tỉnh thành';
 
 --
--- Đang đổ dữ liệu cho bảng `tinh`
+-- Dumping data for table `tinh`
 --
 
 INSERT INTO `tinh` (`idTinh`, `tenTinh`) VALUES
@@ -1173,7 +1203,7 @@ INSERT INTO `tinh` (`idTinh`, `tenTinh`) VALUES
 -- --------------------------------------------------------
 
 --
--- Cấu trúc bảng cho bảng `trangthaidh`
+-- Table structure for table `trangthaidh`
 --
 
 CREATE TABLE `trangthaidh` (
@@ -1184,7 +1214,7 @@ CREATE TABLE `trangthaidh` (
 -- --------------------------------------------------------
 
 --
--- Cấu trúc bảng cho bảng `xa`
+-- Table structure for table `xa`
 --
 
 CREATE TABLE `xa` (
@@ -1194,7 +1224,7 @@ CREATE TABLE `xa` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='Xã Phường';
 
 --
--- Đang đổ dữ liệu cho bảng `xa`
+-- Dumping data for table `xa`
 --
 
 INSERT INTO `xa` (`idXa`, `idQuan`, `tenXa`) VALUES
@@ -11789,38 +11819,38 @@ INSERT INTO `xa` (`idXa`, `idQuan`, `tenXa`) VALUES
 (10584, 705, 'Xã Đất Mũi');
 
 --
--- Chỉ mục cho các bảng đã đổ
+-- Indexes for dumped tables
 --
 
 --
--- Chỉ mục cho bảng `chucnang`
+-- Indexes for table `chucnang`
 --
 ALTER TABLE `chucnang`
   ADD PRIMARY KEY (`idCN`);
 
 --
--- Chỉ mục cho bảng `ctdonhang`
+-- Indexes for table `ctdonhang`
 --
 ALTER TABLE `ctdonhang`
   ADD PRIMARY KEY (`idSach`,`idDH`),
   ADD KEY `idDH` (`idDH`);
 
 --
--- Chỉ mục cho bảng `ctnhomquyen`
+-- Indexes for table `ctnhomquyen`
 --
 ALTER TABLE `ctnhomquyen`
   ADD PRIMARY KEY (`idNQ`,`idCN`),
   ADD KEY `idCN` (`idCN`);
 
 --
--- Chỉ mục cho bảng `ctphieunhap`
+-- Indexes for table `ctphieunhap`
 --
 ALTER TABLE `ctphieunhap`
   ADD PRIMARY KEY (`idPN`,`idSach`),
   ADD KEY `idSach` (`idSach`);
 
 --
--- Chỉ mục cho bảng `donhang`
+-- Indexes for table `donhang`
 --
 ALTER TABLE `donhang`
   ADD PRIMARY KEY (`idDH`),
@@ -11829,52 +11859,52 @@ ALTER TABLE `donhang`
   ADD KEY `idTT` (`idTT`);
 
 --
--- Chỉ mục cho bảng `lidotrahang`
+-- Indexes for table `lidotrahang`
 --
 ALTER TABLE `lidotrahang`
   ADD PRIMARY KEY (`idDH`),
   ADD KEY `idNH` (`idNH`);
 
 --
--- Chỉ mục cho bảng `magiamgia`
+-- Indexes for table `magiamgia`
 --
 ALTER TABLE `magiamgia`
   ADD PRIMARY KEY (`idMGG`);
 
 --
--- Chỉ mục cho bảng `nganhang`
+-- Indexes for table `nganhang`
 --
 ALTER TABLE `nganhang`
   ADD PRIMARY KEY (`idNH`);
 
 --
--- Chỉ mục cho bảng `nhacungcap`
+-- Indexes for table `nhacungcap`
 --
 ALTER TABLE `nhacungcap`
   ADD PRIMARY KEY (`idNCC`);
 
 --
--- Chỉ mục cho bảng `nhomquyen`
+-- Indexes for table `nhomquyen`
 --
 ALTER TABLE `nhomquyen`
   ADD PRIMARY KEY (`idNQ`);
 
 --
--- Chỉ mục cho bảng `phieunhap`
+-- Indexes for table `phieunhap`
 --
 ALTER TABLE `phieunhap`
   ADD PRIMARY KEY (`idPN`),
   ADD KEY `idNV` (`idNV`);
 
 --
--- Chỉ mục cho bảng `quan`
+-- Indexes for table `quan`
 --
 ALTER TABLE `quan`
   ADD PRIMARY KEY (`idQuan`),
   ADD KEY `fk_district_province` (`idTinh`);
 
 --
--- Chỉ mục cho bảng `sach`
+-- Indexes for table `sach`
 --
 ALTER TABLE `sach`
   ADD PRIMARY KEY (`idSach`),
@@ -11883,156 +11913,156 @@ ALTER TABLE `sach`
   ADD KEY `idTL` (`idTL`);
 
 --
--- Chỉ mục cho bảng `sach_tacgia`
+-- Indexes for table `sach_tacgia`
 --
 ALTER TABLE `sach_tacgia`
   ADD PRIMARY KEY (`idSach`,`idTG`),
   ADD KEY `idTG` (`idTG`);
 
 --
--- Chỉ mục cho bảng `tacgia`
+-- Indexes for table `tacgia`
 --
 ALTER TABLE `tacgia`
   ADD PRIMARY KEY (`idTG`);
 
 --
--- Chỉ mục cho bảng `taikhoan`
+-- Indexes for table `taikhoan`
 --
 ALTER TABLE `taikhoan`
   ADD PRIMARY KEY (`idTK`),
   ADD KEY `idNQ` (`idNQ`);
 
 --
--- Chỉ mục cho bảng `theloai`
+-- Indexes for table `theloai`
 --
 ALTER TABLE `theloai`
   ADD PRIMARY KEY (`idTL`);
 
 --
--- Chỉ mục cho bảng `tinh`
+-- Indexes for table `tinh`
 --
 ALTER TABLE `tinh`
   ADD PRIMARY KEY (`idTinh`);
 
 --
--- Chỉ mục cho bảng `trangthaidh`
+-- Indexes for table `trangthaidh`
 --
 ALTER TABLE `trangthaidh`
   ADD PRIMARY KEY (`idTT`);
 
 --
--- Chỉ mục cho bảng `xa`
+-- Indexes for table `xa`
 --
 ALTER TABLE `xa`
   ADD PRIMARY KEY (`idXa`),
   ADD KEY `fk_ward_district` (`idQuan`);
 
 --
--- AUTO_INCREMENT cho các bảng đã đổ
+-- AUTO_INCREMENT for dumped tables
 --
 
 --
--- AUTO_INCREMENT cho bảng `chucnang`
+-- AUTO_INCREMENT for table `chucnang`
 --
 ALTER TABLE `chucnang`
   MODIFY `idCN` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=43;
 
 --
--- AUTO_INCREMENT cho bảng `donhang`
+-- AUTO_INCREMENT for table `donhang`
 --
 ALTER TABLE `donhang`
   MODIFY `idDH` int(11) NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT cho bảng `lidotrahang`
+-- AUTO_INCREMENT for table `lidotrahang`
 --
 ALTER TABLE `lidotrahang`
   MODIFY `idDH` int(11) NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT cho bảng `magiamgia`
+-- AUTO_INCREMENT for table `magiamgia`
 --
 ALTER TABLE `magiamgia`
-  MODIFY `idMGG` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `idMGG` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
--- AUTO_INCREMENT cho bảng `nganhang`
+-- AUTO_INCREMENT for table `nganhang`
 --
 ALTER TABLE `nganhang`
   MODIFY `idNH` int(11) NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT cho bảng `nhacungcap`
+-- AUTO_INCREMENT for table `nhacungcap`
 --
 ALTER TABLE `nhacungcap`
-  MODIFY `idNCC` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `idNCC` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
--- AUTO_INCREMENT cho bảng `nhomquyen`
+-- AUTO_INCREMENT for table `nhomquyen`
 --
 ALTER TABLE `nhomquyen`
   MODIFY `idNQ` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=45;
 
 --
--- AUTO_INCREMENT cho bảng `phieunhap`
+-- AUTO_INCREMENT for table `phieunhap`
 --
 ALTER TABLE `phieunhap`
   MODIFY `idPN` int(11) NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT cho bảng `quan`
+-- AUTO_INCREMENT for table `quan`
 --
 ALTER TABLE `quan`
   MODIFY `idQuan` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=706;
 
 --
--- AUTO_INCREMENT cho bảng `sach`
+-- AUTO_INCREMENT for table `sach`
 --
 ALTER TABLE `sach`
-  MODIFY `idSach` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `idSach` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
--- AUTO_INCREMENT cho bảng `tacgia`
+-- AUTO_INCREMENT for table `tacgia`
 --
 ALTER TABLE `tacgia`
-  MODIFY `idTG` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `idTG` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 
 --
--- AUTO_INCREMENT cho bảng `taikhoan`
+-- AUTO_INCREMENT for table `taikhoan`
 --
 ALTER TABLE `taikhoan`
   MODIFY `idTK` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
--- AUTO_INCREMENT cho bảng `theloai`
+-- AUTO_INCREMENT for table `theloai`
 --
 ALTER TABLE `theloai`
-  MODIFY `idTL` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `idTL` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
--- AUTO_INCREMENT cho bảng `tinh`
+-- AUTO_INCREMENT for table `tinh`
 --
 ALTER TABLE `tinh`
   MODIFY `idTinh` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=64;
 
 --
--- AUTO_INCREMENT cho bảng `trangthaidh`
+-- AUTO_INCREMENT for table `trangthaidh`
 --
 ALTER TABLE `trangthaidh`
   MODIFY `idTT` int(11) NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT cho bảng `xa`
+-- AUTO_INCREMENT for table `xa`
 --
 ALTER TABLE `xa`
   MODIFY `idXa` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10585;
 
 --
--- Các ràng buộc cho các bảng đã đổ
+-- Constraints for dumped tables
 --
 
 --
--- Các ràng buộc cho bảng `ctdonhang`
+-- Constraints for table `ctdonhang`
 --
 ALTER TABLE `ctdonhang`
   ADD CONSTRAINT `ctdonhang_ibfk_1` FOREIGN KEY (`idDH`) REFERENCES `donhang` (`idDH`),
@@ -12040,14 +12070,14 @@ ALTER TABLE `ctdonhang`
   ADD CONSTRAINT `ctdonhang_ibfk_3` FOREIGN KEY (`idDH`) REFERENCES `donhang` (`idDH`);
 
 --
--- Các ràng buộc cho bảng `ctnhomquyen`
+-- Constraints for table `ctnhomquyen`
 --
 ALTER TABLE `ctnhomquyen`
   ADD CONSTRAINT `ctnhomquyen_ibfk_1` FOREIGN KEY (`idNQ`) REFERENCES `nhomquyen` (`idNQ`),
   ADD CONSTRAINT `ctnhomquyen_ibfk_2` FOREIGN KEY (`idCN`) REFERENCES `chucnang` (`idCN`);
 
 --
--- Các ràng buộc cho bảng `ctphieunhap`
+-- Constraints for table `ctphieunhap`
 --
 ALTER TABLE `ctphieunhap`
   ADD CONSTRAINT `ctphieunhap_ibfk_1` FOREIGN KEY (`idPN`) REFERENCES `phieunhap` (`idPN`),
@@ -12055,7 +12085,7 @@ ALTER TABLE `ctphieunhap`
   ADD CONSTRAINT `ctphieunhap_ibfk_3` FOREIGN KEY (`idPN`) REFERENCES `phieunhap` (`idPN`);
 
 --
--- Các ràng buộc cho bảng `donhang`
+-- Constraints for table `donhang`
 --
 ALTER TABLE `donhang`
   ADD CONSTRAINT `donhang_ibfk_1` FOREIGN KEY (`idTK`) REFERENCES `taikhoan` (`idTK`),
@@ -12063,26 +12093,26 @@ ALTER TABLE `donhang`
   ADD CONSTRAINT `donhang_ibfk_4` FOREIGN KEY (`idTT`) REFERENCES `trangthaidh` (`idTT`);
 
 --
--- Các ràng buộc cho bảng `lidotrahang`
+-- Constraints for table `lidotrahang`
 --
 ALTER TABLE `lidotrahang`
   ADD CONSTRAINT `lidotrahang_ibfk_1` FOREIGN KEY (`idNH`) REFERENCES `nganhang` (`idNH`),
   ADD CONSTRAINT `lidotrahang_ibfk_2` FOREIGN KEY (`idDH`) REFERENCES `donhang` (`idDH`);
 
 --
--- Các ràng buộc cho bảng `phieunhap`
+-- Constraints for table `phieunhap`
 --
 ALTER TABLE `phieunhap`
   ADD CONSTRAINT `phieunhap_ibfk_1` FOREIGN KEY (`idNV`) REFERENCES `taikhoan` (`idTK`);
 
 --
--- Các ràng buộc cho bảng `quan`
+-- Constraints for table `quan`
 --
 ALTER TABLE `quan`
   ADD CONSTRAINT `quan_ibfk_1` FOREIGN KEY (`idTinh`) REFERENCES `tinh` (`idTinh`);
 
 --
--- Các ràng buộc cho bảng `sach`
+-- Constraints for table `sach`
 --
 ALTER TABLE `sach`
   ADD CONSTRAINT `sach_ibfk_1` FOREIGN KEY (`idMGG`) REFERENCES `magiamgia` (`idMGG`),
@@ -12090,20 +12120,20 @@ ALTER TABLE `sach`
   ADD CONSTRAINT `sach_ibfk_3` FOREIGN KEY (`idTL`) REFERENCES `theloai` (`idTL`);
 
 --
--- Các ràng buộc cho bảng `sach_tacgia`
+-- Constraints for table `sach_tacgia`
 --
 ALTER TABLE `sach_tacgia`
   ADD CONSTRAINT `sach_tacgia_ibfk_1` FOREIGN KEY (`idSach`) REFERENCES `sach` (`idSach`),
   ADD CONSTRAINT `sach_tacgia_ibfk_2` FOREIGN KEY (`idTG`) REFERENCES `tacgia` (`idTG`);
 
 --
--- Các ràng buộc cho bảng `taikhoan`
+-- Constraints for table `taikhoan`
 --
 ALTER TABLE `taikhoan`
   ADD CONSTRAINT `taikhoan_ibfk_1` FOREIGN KEY (`idNQ`) REFERENCES `nhomquyen` (`idNQ`);
 
 --
--- Các ràng buộc cho bảng `xa`
+-- Constraints for table `xa`
 --
 ALTER TABLE `xa`
   ADD CONSTRAINT `xa_ibfk_1` FOREIGN KEY (`idQuan`) REFERENCES `quan` (`idQuan`);

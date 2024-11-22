@@ -6,52 +6,7 @@
     </div>
     <!-- ... -->
     <!-- Page tabs -->
-    <div class="row mb-2">
-        <div class="col">
-            <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
-                <li class="nav-item" role="presentation">
-                    <button class="nav-link"
-                        i class="text-end w-50"d="pills-all-tab"
-                        type="button"
-                        role="tab">
-                        Tất cả
-                    </button>
-                </li>
-                <li class="nav-item" role="presentation">
-                    <button class="nav-link"
-                        id="pills-on-sale-tab"
-                        type="button"
-                        role="tab">
-                        Đang bán
-                        <span class="badge rounded-pill bg-danger">
-                            13
-                        </span>
-                    </button>
-                </li>
-                <li class="nav-item" role="presentation">
-                    <button class="nav-link active"
-                        id="pills-out-of-stock-tab"
-                        type="button"
-                        role="tab">
-                        Hết hàng
-                        <span class="badge rounded-pill bg-danger">
-                            12
-                        </span>
-                    </button>
-                </li>
-                <li class="nav-item" role="presentation">
-                    <button class="nav-link"
-                        id="pills-disabled-tab"
-                        type="button"
-                        role="tab">
-                        Bị ẩn
-                        <span class="badge rounded-pill bg-danger">
-                            4
-                        </span>
-                    </button>
-                </li>
-            </ul>
-        </div>
+    <div class="row mb-3">
         <div class="col d-flex justify-content-end align-items-center">
             <button class="btn btn-control open_add_form"
                     type="button"
@@ -132,37 +87,37 @@
                         for($i=$paging->start; $i<$paging->start+$paging->num_per_page && $i<$paging->total_records; $i++){
                             $product = $result[$i];
                         ?>
-                    <tr>
-                        <td class="product_id"><?=$product->getIdSach()?></td>
-                        <td>
-                            <img src="../asset/uploads/<?=$product->getHinhanh()?>" class="book-img">
-                        </td>
-                        <td><?=$product->getTuasach()?></td>
-                        <td><?=$product->getTonkho()?></td>
-                        <td><?=number_format($product->getGiaban(),0,"",".");?>đ</td>
-                        <td>
-                            <?php
-                                    if($product->getTrangthai())
-                                        echo '<span class="bagde rounded-2 text-white bg-success p-2">Hoạt động</span>';
-                                    else
-                                        echo '<span class="bagde rounded-2 text-white bg-secondary p-2">Bị khóa</span>'
-                            ?>
-                        </td>
-                        <td>
-                            <button class="btn fs-5 open_view_form"
-                                    data-bs-toggle="modal"
-                                    data-bs-target="#productViewModal"
-                            >
-                                <i class="fa-regular fa-circle-info"></i>
-                            </button>
-                            <button class="btn fs-5 open_edit_form"
-                                    data-bs-toggle="modal"
-                                    data-bs-target="#productModal"
-                            >
-                                <i class="fa-regular fa-pen-to-square"></i>
-                            </button>
-                        </td>
-                    </tr>
+                        <tr>
+                            <td class="product_id"><?=$product->getIdSach()?></td>
+                            <td>
+                                <img src="../asset/uploads/<?=$product->getHinhanh()?>" class="book-img">
+                            </td>
+                            <td><?=$product->getTuasach()?></td>
+                            <td><?=$product->getTonkho()?></td>
+                            <td><?=number_format($product->getGiaban(),0,"",".");?>đ</td>
+                            <td>
+                                <?php
+                                        if($product->getTrangthai())
+                                            echo '<span class="bagde rounded-2 text-white bg-success p-2">Hoạt động</span>';
+                                        else
+                                            echo '<span class="bagde rounded-2 text-white bg-secondary p-2">Bị khóa</span>'
+                                ?>
+                            </td>
+                            <td>
+                                <button class="btn fs-5 open_view_form"
+                                        data-bs-toggle="modal"
+                                        data-bs-target="#productViewModal"
+                                >
+                                    <i class="fa-regular fa-circle-info"></i>
+                                </button>
+                                <button class="btn fs-5 open_edit_form"
+                                        data-bs-toggle="modal"
+                                        data-bs-target="#productModal"
+                                >
+                                    <i class="fa-regular fa-pen-to-square"></i>
+                                </button>
+                            </td>
+                        </tr>
                     <?php
                         }
                     ?>
@@ -197,8 +152,8 @@
                 <h2 class="modal-title text-success" id="productModalLabel">Thêm sản phẩm</h2>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-            <form action="" id="productForm" style="overflow-y: auto;">
-                <input type="hidden" name="product_id" id="product_id" value="">
+            <form action="" id="productForm" style="overflow-y: auto;" enctype="multipart/form-data">
+                <input type="hidden" name="product-id" id="product-id" value="">
                 <div class="modal-body">
                     <div class="row">
                         <div class="col-4 modal-body-left px-3">
@@ -212,12 +167,13 @@
                                     <i class="fa-regular fa-up-from-dotted-line"></i>
                                     Tải hình ảnh
                                 </label>
+                                <div class="text-message product-img-msg"></div>
                                 <input type="file"
-                                    name="productImg"
+                                    name="product-img"
                                     id="upload-img"
                                     class="form-control"
                                     accept="image/jpeg, image/png, image/jpg, image/webp">
-                                <input type="hidden" name="product_images">
+                                <!--<input type="hidden" name="product_images">-->
                             </div>
                         </div>
                         <div class="col-8 modal-body-right px-4">
@@ -247,7 +203,7 @@
                                 <label for="product-supplier" class="col-form-label col-sm-3 fw-bold">Nhà cung cấp</label>
                                 <div class="col">
                                     <select name="product-supplier" id="product-supplier" class="form-select">
-                                        <option selected="selected" value="-1">Chọn nhà cung cấp</option>
+                                        <option selected="selected" value="">Chọn nhà cung cấp</option>
                                         <?php
                                             $supplier = Supplier::getAllActive();
                                             foreach($supplier as $item){
@@ -276,7 +232,7 @@
                                 <label for="product-category" class="col-form-label col-sm-3 fw-bold">Thể loại</label>
                                 <div class="col">
                                     <select name="product-category" id="product-category" class="form-select">
-                                        <option selected="selected">Chọn thể loại</option>
+                                        <option value="" selected="selected">Chọn thể loại</option>
                                         <?php
                                             $category = Category::getAllActive();
                                             foreach($category as $item){
@@ -294,6 +250,7 @@
                                 <div class="col">
                                     <div class="input-group">
                                         <input type="number"
+                                               min="0"
                                             name="product-original-price"
                                             class="form-control"
                                             id="product-original-price"
@@ -304,23 +261,10 @@
                                 </div>
                             </div>
                             <div class="row mb-3">
-                                <label for="product-sale-price" class="col-form-label col-sm-3 fw-bold">Giá bán</label>
-                                <div class="col">
-                                    <div class="input-group">
-                                        <input type="number"
-                                            name="product-sale-price"
-                                            class="form-control"
-                                            id="product-sale-price"
-                                            placeholder="Nhập giá bán">
-                                        <span class="input-group-text">đồng</span>
-                                    </div>
-                                    <span class="text-message product-sale-price-msg"></span>
-                                </div>
-                            </div>
-                            <div class="row mb-3">
                                 <label for="product-publish-year" class="col-form-label col-sm-3 fw-bold">Năm xuất bản</label>
                                 <div class="col">
                                     <input type="number"
+                                           min="0"
                                         name="product-publish-year"
                                         class="form-control"
                                         id="product-publish-year"
@@ -333,6 +277,7 @@
                                 <div class="col">
                                     <div class="input-group">
                                         <input type="number"
+                                               min="0"
                                             name="product-weight"
                                             class="form-control"
                                             id="product-weight"
@@ -346,7 +291,7 @@
                                 <label for="product-discount" class="col-form-label col-sm-3 fw-bold">Giảm giá (%)</label>
                                 <div class="col">
                                     <select name="product-discount" id="product-discount" class="form-select">
-                                        <option selected="selected">Chọn mã giảm giá</option>
+                                        <option value="" selected="selected">Chọn mã giảm giá</option>
                                         <?php
                                             $discount = Discount::getAllWaiting();
                                             foreach($discount as $item){
@@ -395,6 +340,7 @@
         </div>
     </div>
 </div>
+<!-- selectAuthor -->
 <div
     class = "modal fade"                                       
     id="selectAuthorModal"
@@ -418,7 +364,7 @@
                                 <input  type="checkbox" 
                                         name="idTG"
                                         value="<?=$item->getIdTG()?>"
-                                        class="form-check-input me-2"
+                                        class="form-check-input me-2 select-author-checkbox"
                                 >
                                 <label class="form-check-label"><?=$item->getTenTG()?></label>
                             </div>
@@ -435,6 +381,7 @@
         </div>
     </div>
 </div>
+<!-- viewDetail -->
 <div    class="modal fade"
         id="productViewModal"
         tabindex="-1"
@@ -448,68 +395,7 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <div class="row">
-                    <div class="col-4 modal-body-left px-3">
-                        <div class="img-preview-container">
-                            <div class="upload-img-preview">
-                                <!-- Backend: đổi đường dẫn src thành .../uploads/... -->
-                                <img alt="" id="product-img-preview" class="img-preview view-img">
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-8 modal-body-right px-4">
-                        <ul class="list-group list-group-flush">
-                            <li class="list-group-item d-flex justify-content-between align-items-center">
-                                <span class="fw-bold">Tên sách</span>
-                                <span class="detail-value text-end w-50">Nghĩ hoài hổng ra tên sách nào dài dài, thôi thì ghi đỡ vậy nha</span>
-                            </li>
-                            <li class="list-group-item d-flex justify-content-between align-items-center">
-                                <span class="fw-bold">Nhà xuất bản</span>
-                                <span class="detail-value text-end w-50">AZ Việt Nam</span>
-                            </li>
-                            <li class="list-group-item d-flex justify-content-between align-items-center">
-                                <span class="fw-bold">Nhà cung cấp</span>
-                                <span class="detail-value text-end w-50">NXB Hội Nhà Văn</span>
-                            </li>
-                            <li class="list-group-item d-flex flex-column">
-                                <span class="fw-bold">Tác giả</span>
-                                <textarea disabled class="detail-value w-100 rounded-2 mt-2" rows="3">Nguyễn Ngọc Ánh, Nguyễn Ngọc Ngạn, Sherlock Holmes, Edogawa Conan, Kudo Shinichi</textarea>
-                            </li>
-                            <li class="list-group-item d-flex justify-content-between align-items-center">
-                                <span class="fw-bold">Thể loại</span>
-                                <span class="detail-value text-end w-50">Kinh dị</span>
-                            </li>
-                            <li class="list-group-item d-flex justify-content-between align-items-center">
-                                <span class="fw-bold">Giá bìa</span>
-                                <span class="detail-value text-end w-50">102.000.000 đ</span>
-                            </li>
-                            <li class="list-group-item d-flex justify-content-between align-items-center">
-                                <span class="fw-bold">Giá bán</span>
-                                <span class="detail-value text-end w-50">102.000.000 đ</span>
-                            </li>
-                            <li class="list-group-item d-flex justify-content-between align-items-center">
-                                <span class="fw-bold">Năm xuất bản</span>
-                                <span class="detail-value text-end w-50">2077</span>
-                            </li>
-                            <li class="list-group-item d-flex justify-content-between align-items-center">
-                                <span class="fw-bold">Trọng lượng</span>
-                                <span class="detail-value text-end w-50">65g</span>
-                            </li>
-                            <li class="list-group-item d-flex justify-content-between align-items-center">
-                                <span class="fw-bold">Giảm giá</span>
-                                <span class="detail-value text-end w-50">0%</span>
-                            </li>
-                            <li class="list-group-item d-flex flex-column">
-                                <span class="fw-bold">Mô tả</span>
-                                <textarea disabled class="detail-value w-100 rounded-2 mt-2" rows="5">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Corporis unde molestias laudantium inventore reiciendis? Velit similique tenetur doloremque ipsam corporis. Architecto excepturi iste doloremque maxime in ipsam dolorem adipisci minus?</textarea>
-                            </li>
-                            <li class="list-group-item d-flex justify-content-between align-items-center">
-                                <span class="fw-bold">Trạng thái</span>
-                                <span class="detail-value text-end w-50">Đang bán</span>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
+                <!-- Render... -->
             </div>
         </div>
     </div>

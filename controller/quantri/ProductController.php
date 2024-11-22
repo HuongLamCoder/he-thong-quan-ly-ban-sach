@@ -1,13 +1,12 @@
 <?php
-if(isset($_POST['action'])){
+if (isset($_POST['action'])) {
     require '../BaseController.php';
     require '../../model/Supplier.php';
     require '../../model/Discount.php';
     require '../../model/Author.php';
     require '../../model/Category.php';
     require '../../model/Product.php';
-}
-else{
+} else {
     require '../controller/BaseController.php';
     require '../model/Supplier.php';
     require '../model/Discount.php';
@@ -15,108 +14,160 @@ else{
     require '../model/Category.php';
     require '../model/Product.php';
 }
-    class ProductController extends BaseController{
-        private Product $product;
 
-        function __construct()
-        {
-            $this->folder = 'quantri';
-            $this->product = new Product();
-        }
+class ProductController extends BaseController
+{
+    // Bỏ
+    // private Product $product;
 
-        function index(){
-            $products = Product::getAll();
-            $this->render('Product', 'SP', $products, true);
-        }
-
-        function add(){
-            // image
-            $images = $_FILES['input_file']['name'];
-            $tmp_dir = $_FILES['input_file']['tmp_name'];
-            $imageSize = $_FILES['input_file']['size'];
-
-            if($imageSize===0){
-                $picProfile="blank-image.png";
-            }
-            else{
-            $upload_dir='../../asset/uploads/';
-            $imgExt=strtolower(pathinfo($images,PATHINFO_EXTENSION));
-            $valid_extensions = array('jpeg', 'jpg', 'png', 'gif', 'pdf');
-            $picProfile = rand(1000, 1000000).'.'.$imgExt;
-            move_uploaded_file($tmp_dir, $upload_dir.$picProfile);
-            }
-
-            $tuasach = $_POST['product-name'];
-            $nxb = $_POST['product-publisher'];
-            $idNCC = $_POST['product-supplier'];
-            $idTG = $_POST['idTG'];
-            $idTL = $_POST['product-category'];
-            $giabia = $_POST['product-original-price'];
-            $namxb = $_POST['product-publish-year'];
-            $mota = $_POST['product-description'];
-            $trongluong = $_POST['product-weight'];
-            $this->product->nhap($picProfile, $tuasach, $nxb, $idNCC, $idTL, $giabia, $namxb, 
-            $mota, $trongluong, 1, $giabia);
-            $req = $this->product->add();
-            if($req) echo json_encode(array('btn'=>'add', 'success'=>true));
-            else echo json_encode(array('btn'=>'add', 'success'=>false));
-            exit;
-        }
-
-        function edit(){
-            $product = Product::findByID($_POST['product_id']);
-            echo json_encode($product==null ? null: $product->toArray());
-            exit;
-        }
-
-        // function update(){
-        //     $id = $_POST['discount_id'];
-        //     $phantram = $_POST['discount-percent'];
-        //     $ngaybatdau = $_POST['discount-date-start'];
-        //     $ngayketthuc = $_POST['discount-date-end'];
-        //     $trangthai = 'cdr';
-        //     $this->discount->nhap($id,$phantram, $ngaybatdau, $ngayketthuc, $trangthai);
-        //     $req = $this->discount->update();
-        //     if($req) echo json_encode(array('btn'=>'update','success'=>true));
-        //     else echo json_encode(array('btn'=>'update','success'=>false));
-        //     exit;
-        // }
-
-        // function lock(){
-        //     $this->discount->setIdMGG($_POST['discount_id']);
-        //     $this->discount->setTrangthai('huy');
-        //     $this->discount->lock();
-        //     echo json_encode(array('success'=>true));
-        //     exit;
-        // }
-
-        function checkAction($action){
-            switch ($action){
-                case 'index':
-                    $this->index();
-                    break;
-
-                case 'submit_btn_add':
-                    $this->add();
-                    break;
-                
-                case 'edit_data':
-                    $this->edit();
-                    break;
-
-                // case 'submit_btn_update':
-                //     $this->update();
-                //     break;
-                
-                // case 'lock_discount':
-                //     $this->lock();
-                //     break;
-            }
-        }
+    function __construct()
+    {
+        $this->folder = 'quantri';
+        // $this->product = new Product();
     }
 
-    $productController = new ProductController();
-    if(!isset($_POST['action'])) $action = 'index';
-    else $action = $_POST['action'];
-    $productController->checkAction($action);
-?>
+    function index()
+    {
+        $products = Product::getAll();
+        $this->render('Product', 'SP', $products, true);
+    }
+
+    function uploadImage($file, $upload_dir)
+    {
+        $img_name = basename($file["name"]);
+        $img_extension = strtolower(pathinfo($img_name, PATHINFO_EXTENSION));
+        $img_new_name = uniqid("SP_") . "." . $img_extension;
+        $img_path = $upload_dir . $img_new_name;
+        move_uploaded_file($file["tmp_name"], $img_path);
+        return $img_new_name;
+    }
+
+    function add() {
+        $hinhanh = $this->uploadImage($_FILES['product-img'], '../../asset/uploads/');
+        $tuasach = $_POST['product-name'];
+        $nxb = $_POST['product-publisher'];
+        $idNCC = $_POST['product-supplier'];
+        $idTG = explode(',', $_POST['product-authors']);
+        $idTL = $_POST['product-category'];
+        $giabia = $_POST['product-original-price'];
+        $namxb = $_POST['product-publish-year'];
+        $mota = $_POST['product-description'];
+        $trongluong = $_POST['product-weight'];
+
+        $product = new Product(
+            0,
+            $tuasach,
+            $mota,
+            0,
+            0,
+            $nxb,
+            $namxb,
+            $giabia,
+            $giabia,
+            1,
+            $idNCC,
+            $hinhanh,
+            $trongluong,
+            null,
+            $idTG,
+            $idTL
+        );
+
+        $req = $product->add();
+        if ($req) 
+            echo json_encode(array('btn' => 'add', 'success' => true));
+        else 
+            echo json_encode(array('btn' => 'add', 'success' => false));
+        exit;
+    }
+
+    function getProductDetail()
+    {
+        $product = Product::getProductDetailByID($_POST['product_id']);
+        if($product == null) 
+            echo json_encode(array("status" => "fail"));
+        else 
+            echo json_encode(array("status" => "success", "data" => $product));
+        exit;
+    }
+
+    function update() {
+        $idSach = $_POST['product-id'];
+        $upload_dir = '../../asset/uploads/';
+        if ($_FILES['product-img']["size"] !== 0) {
+            $old_image = Product::getProductImage($idSach);
+            if (file_exists($upload_dir . $old_image)) {
+                unlink($upload_dir . $old_image);
+            }
+
+            $hinhanh = $this->uploadImage($_FILES['product-img'], $upload_dir);
+        } else {
+            $hinhanh = Product::getProductImage($idSach);
+        }
+
+        $tuasach = $_POST['product-name'];
+        $nxb = $_POST['product-publisher'];
+        $idNCC = (int)$_POST['product-supplier'];
+        $idTL = (int)$_POST['product-category'];
+        $giabia = $_POST['product-original-price'];
+        $idMGG = $_POST['product-discount'] == "" ? null : $_POST['product-discount'];
+        $namxb = $_POST['product-publish-year'];
+        $trangthai = isset($_POST['status']) ? 1 : 0;
+        $mota = $_POST['product-description'];
+        $trongluong = $_POST['product-weight'];
+
+        $idTG = explode(',', $_POST['product-authors']);
+
+        $product = new Product(
+            $idSach,
+            $tuasach,
+            $mota,
+            0,
+            0,
+            $nxb,
+            $namxb,
+            $giabia,
+            $giabia,
+            $trangthai,
+            $idNCC,
+            $hinhanh,
+            $trongluong,
+            $idMGG,
+            $idTG,
+            $idTL
+        );
+
+        $req = $product->update();
+        if ($req) 
+            echo json_encode(array('btn' => 'update', 'success' => true));
+        else 
+            echo json_encode(array('btn' => 'update', 'success' => false));
+        exit;
+    }
+
+    function checkAction($action)
+    {
+        switch ($action) {
+            case 'index':
+                $this->index();
+                break;
+            case 'submit_btn_add':
+                $this->add();
+                break;
+            case 'getProductDetail':
+                $this->getProductDetail();
+                break;
+            case 'edit_data':
+                $this->getProductDetail();
+                break;
+            case 'submit_btn_update':
+                $this->update();
+                break;
+        }
+    }
+}
+
+$productController = new ProductController();
+if (!isset($_POST['action'])) $action = 'index';
+else $action = $_POST['action'];
+$productController->checkAction($action);
