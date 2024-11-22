@@ -33,7 +33,7 @@
                         $MGG = false;
                         $SP = false;
                         $DH = false;
-                        $GRN = false;
+                        $PN = false;
                         $DT = false;
                         $NK = false;
                         $LN = false;
@@ -138,12 +138,12 @@
                                     </li>';
                                     }                                    
                                     break;
-                                case 'GRN':
-                                    if(!$GRN){
-                                        $GRN = true;
+                                case 'PN':
+                                    if(!$PN){
+                                        $PN = true;
                                         echo '
                                     <li class="nav-item sidebar-item">
-                                        <a href="index.php?page=grn" class="nav-link text-black fs-5 align-items-center">
+                                        <a href="index.php?page=goodsreceivenote" class="nav-link text-black fs-5 align-items-center">
                                             <i class="fa-regular fa-boxes-packing me-3"></i>
                                             Quản lý phiếu nhập
                                         </a>
@@ -225,7 +225,7 @@
                 </a>
             </div>
             <div class="nav-item">
-                <div class="btn btn-outline-custom">Đăng xuất</div>
+                <a class="btn btn-outline-custom" href="?page=logout">Đăng xuất</a>
             </div>
         </div>
     </div>

@@ -42,9 +42,10 @@
                     </thead>
                     <tbody>
                     <?php
+                        $roles = $result['paging'];
                         echo '<input type="hidden" name="curr_page" class="curr_page" value="'.$paging->curr_page.'">';
                         for($i=$paging->start; $i<$paging->start+$paging->num_per_page && $i<$paging->total_records; $i++){
-                            $role = $result[$i];
+                            $role = $roles[$i];
                         ?>
                         <tr>
                             <td class="role_id"><?=$role->getIdNQ()?></td>

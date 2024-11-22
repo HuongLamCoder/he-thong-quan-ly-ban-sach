@@ -18,7 +18,7 @@ else{
 
         function index(){
             $role = Role::getAll();
-            $this->render('Role', 'NQ', $role, true);
+            $this->render('Role', 'NQ', array('paging' => $role), true);
         }
 
         function add(){

@@ -1,7 +1,7 @@
 <?php
 session_start();
 if(isset($_GET['page']) && ($_GET['page'] !== "")){
-    if (in_array($_GET['page'], ['login', 'forgot_password', 'authentication_code', 'reset_password'])) {
+    if (in_array($_GET['page'], ['login', 'forgot_password', 'authentication_code', 'reset_password', 'logout'])) {
         include '../inc/quantri/Header.php';
         switch(trim($_GET['page'])){
             case 'login':
@@ -16,6 +16,8 @@ if(isset($_GET['page']) && ($_GET['page'] !== "")){
             case 'reset_password':
                 include './controller/ResetPassword.php';
                 break;
+            case 'logout':
+                session_destroy();
             default:
                 header('Location: index.php?page=login');
                 break;
@@ -49,8 +51,8 @@ if(isset($_GET['page']) && ($_GET['page'] !== "")){
             case 'order':
                 include './controller/Order.php';
                 break;
-            case 'grn':
-                include '../controller/quantri/GoodsReceiveNote.php';
+            case 'goodsreceivenote':
+                include '../controller/quantri/GRNController.php';
                 break;
             case 'income':
                 include './controller/Income.php';

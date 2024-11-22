@@ -27,7 +27,7 @@
         }
 
         function paging(){
-            $view = '<li class="page-item disabled">';
+            $view = '<li class="page-item">';
             if($this->curr_page>1)
             $view.='<a class="page-link" href="index.php?page='.$this->pageTitle.'&index='.($this->curr_page-1).'">Trước</a></li>';
             else $view.='<a class="page-link" href="index.php?page='.$this->pageTitle.'&index=1">Trước</a></li>';
@@ -43,6 +43,25 @@
             else $view.='<a class="page-link text-dark" href="index.php?page='.$this->pageTitle.'&index='.$this->total_pages.'">Sau</a></li>';
             return $view;
         }
+
+        function pagingSearch($folder, $pageTitle){
+            $view = '<li class="page-item">';
+            if($this->curr_page>1)
+            $view.='<a class="page-link" href="index.php?page='.$this->pageTitle.'&index='.($this->curr_page-1).'">Trước</a></li>';
+            else $view.='<a class="page-link" href="index.php?page='.$this->pageTitle.'&index=1">Trước</a></li>';
+            for($i=1; $i<=$this->total_pages; $i++){
+                $view.='<li class="page-item">';
+                if($this->curr_page==$i)
+                    $view.='<a class="page-link active" href="index.php?page='.$this->pageTitle.'&index='.$i.'">'.$i.'</li>';
+                else $view.='<a class="page-link" href="index.php?page='.$this->pageTitle.'&index='.$i.'">'.$i.'</li>';
+            }
+            $view.='<li class="page-item">';
+            if(($this->curr_page) < ($this->total_pages))
+                $view.='<a class="page-link text-dark" href="index.php?page='.$this->pageTitle.'&index='.($this->curr_page+1).'">Sau</a></li>';
+            else $view.='<a class="page-link text-dark" href="index.php?page='.$this->pageTitle.'&index='.$this->total_pages.'">Sau</a></li>';
+            return $view;
+        }
+
 
         function getCurrPage(){
             return isset($_GET['index']) ? $_GET['index'] : 1;

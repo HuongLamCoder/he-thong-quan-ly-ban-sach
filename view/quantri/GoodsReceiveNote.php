@@ -66,25 +66,25 @@
                 </thead>
                 <tbody>
                     <?php
+                        $grns = $result['paging'];
                         echo '<input type="hidden" name="curr_page" class="curr_page" value="'.$paging->curr_page.'">';
                         for($i=$paging->start; $i<$paging->start+$paging->num_per_page && $i<$paging->total_records; $i++){
-                            $grn = $result[$i];
+                            $grn = $grns[$i];
                     ?>
                     <tr>
-                        <td><?=$grn->getIdPN()?></td>
+                        <td class="grn_id"><?=$grn->getIdPN()?></td>
                         <td><?=$grn->getNgaytao()?></td>
-                        <td><?=$grn->getNgayCapNhat()?></td>
+                        <td><?=$grn->getNgaycapnhat()?></td>
                         <td><?=number_format($grn->getTongtien(),0,"",".");?>đ</td>
                         <td>
                             <?php
                                 $trangthai = $grn->getTrangthai();
                                 if($trangthai = 'cht')
-                                    echo 
-                                '<span class="bagde rounded-2 text-white bg-secondary p-2">Chưa hoàn thành</span>';
+                                    echo '<span class="bagde rounded-2 text-white bg-secondary p-2">Chưa hoàn thành</span>';
                                 else if($trangthai = 'ht')
-                                    
+                                    echo '<span class="bagde rounded-2 text-white bg-success p-2">Hoàn thành</span>';
+                                else echo '<span class="bagde rounded-2 bg-danger text-white p-2">Bị hủy</span>';
                             ?>
-                            
                         </td>
                         <td>
                             <button class="btn fs-5 open_view_form"
@@ -105,6 +105,9 @@
                             </button>
                         </td>
                     </tr>
+                    <?php 
+                        }
+                    ?>   
                 </tbody>
             </table>
         </div>
@@ -112,21 +115,15 @@
     <!-- ... -->
     <!-- Pagination -->
     <div class="row mt-4">
-        <nav aria-label="Page navigation">
-            <ul class="pagination justify-content-center">
-                <li class="page-item disabled">
-                    <a class="page-link">Trước</a>
-                </li>
-                <li class="page-item"><a class="page-link active" href="#">1</a></li>
-                <li class="page-item"><a class="page-link" href="#">2</a></li>
-                <li class="page-item"><a class="page-link" href="#">3</a></li>
-                <li class="page-item">
-                    <a class="page-link text-dark" href="#">Sau</a>
-                </li>
-            </ul>
-        </nav>
-    </div>
-    <!-- ... -->
+            <nav aria-label="Page navigation">
+                <ul class="pagination justify-content-center">
+                <?php
+                    echo $pagingButton;
+                ?>
+                </ul>
+              </nav>
+        </div>
+        <!-- ... -->
 </main>
 
 <!-- Modal: Tạo phiếu nhập -->
@@ -146,11 +143,16 @@
                     <div class="row mb-3 align-items-center">
                         <label for="grn-supplier-name" class="col-form-label col-sm-4 fw-bold">Tên nhà cung cấp</label>
                         <div class="col">
-                            <select name="supplier_name" id="supplier-name" class="form-select">
-                                <option value="" selected>Chọn nhà cung cấp</option>
-                                <option value="1">Nhã Nam</option>
-                                <option value="2">Cổ Nguyệt Books</option>
-                                <option value="3">IPM</option>
+                            <select name="supplier_id" id="supplier-id" class="form-select">
+                                <option value="-1">Chọn nhà cung cấp</option>
+                                <?php
+                                    $supplier = $result['supplier'];
+                                    foreach($supplier as $item){
+                                ?>
+                                <option value="<?=$item->getIdNCC()?>"><?=$item->getTenNCC()?></option>
+                                <?php
+                                    }
+                                ?>
                             </select>
                             <span class="text-message grn-supplier-name-msg"></span>
                         </div>
@@ -170,12 +172,10 @@
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <input type="hidden" name="" id="submit_btn">
+                    <!-- <input type="hidden" name="" id="submit_btn"> -->
                     <button type="button"
                         class="btn btn-success"
-                        id="saveCreateModalBtn"
-                        data-bs-toggle="modal"
-                        data-bs-target="#grnModal">
+                        id="saveCreateModalBtn">
                         Tạo phiếu nhập
                     </button>
                 </div>
@@ -200,14 +200,6 @@
             <div class="modal-body">
                 <form id="grnForm">
                     <div class="modal-grn-info d-flex flex-column gap-1">
-                        <div class="grn-info d-flex gap-2">
-                            <span class="grn-info-title">
-                                Mã phiếu nhập:
-                            </span>
-                            <span class="grn-info-content">
-                                1
-                            </span>
-                        </div>
                         <div class="grn-info-group d-flex">
                             <div class="grn-info-group-item d-flex flex-column gap-1 w-50">
                                 <div class="grn-info d-flex gap-2 w-100 align-items-center">
@@ -229,16 +221,18 @@
                                     <span class="grn-info-title">
                                         Nhà cung cấp:
                                     </span>
-                                    <span class="grn-info-content">
-                                        Công ty TNHH 8 thành viên
+                                    <input type="hidden" name="idNCC" id="idNCC">
+                                    <span class="grn-info-content" id="tenNCC">
                                     </span>
                                 </div>
                                 <div class="grn-info d-flex gap-2">
                                     <span class="grn-info-title">
                                         Nhân viên:
                                     </span>
-                                    <span class="grn-info-content">
-                                        95 - Tùng Sơn MTV
+                                    
+                                    <input type="hidden" name="idNV" value="<?=$_SESSION['user']['idTK']?>">
+                                    <span class="grn-info-content staff">
+                                        <?=$_SESSION['user']['idTK'].'-'.$_SESSION['user']['tenTK']?>
                                     </span>
                                 </div>
                             </div>
@@ -247,24 +241,26 @@
                                     <span class="grn-info-title">
                                         Ngày tạo phiếu:
                                     </span>
-                                    <span class="grn-info-content">
-                                        01/01/2024
+                                    <input type="hidden" name="ngaytao" value="<?=date("Y-m-d")?>">
+                                    <span class="grn-info-content" id="ngaytao">
+                                        <?=date("Y-m-d")?>
                                     </span>
                                 </div>
-                                <div class="grn-info d-flex gap-2">
+                                <div class="grn-info d-flex gap-2" >
                                     <span class="grn-info-title">
                                         Ngày cập nhật
                                     </span>
-                                    <span class="grn-info-content">
-                                        01/01/2024
+                                    <input type="hidden" name="ngaycapnhat" value="<?=date("Y-m-d")?>">
+                                    <span class="grn-info-content" id="ngaycapnhat">
+                                        <?=date("Y-m-d")?>
                                     </span>
                                 </div>
                                 <div class="grn-info d-flex gap-2">
                                     <span class="grn-info-title">
                                         Chiết khấu:
                                     </span>
-                                    <span class="grn-info-content">
-                                        50%
+                                    <input type="hidden" name="chietkhau">
+                                    <span class="grn-info-content" id="chietkhau">
                                     </span>
                                 </div>
                             </div>
@@ -274,8 +270,9 @@
                             <span class="grn-info-title">
                                 Tổng tiền:
                             </span>
-                            <span class="grn-info-content">
-                                8.000.000 đ
+                            <input type="hidden" name="tongtien">
+                            <span class="grn-info-content" id="tongtien">
+                                
                             </span>
                         </div>
                     </div>
@@ -284,7 +281,7 @@
                         <p class="row-count">
                             Đang có <span class="fw-bold">1</span> sản phẩm trong phiếu nhập.
                         </p>
-                        <button type="button" id="add-row-btn" class="btn btn-success grn-controls add-row not-view">
+                        <button type="button" id="add-row-btn" class="btn btn-success grn-controls add-row not-view not-edit">
                             <i class="fa-regular fa-file-plus"></i>
                             Thêm dòng
                         </button>
@@ -304,11 +301,10 @@
                             </thead>
                             <tbody>
                                 <tr class="grn-row-template">
-                                    <td>1</td>
+                                    <td></td>
                                     <td>
                                         <select name="grn_product[]" class="form-select not-view">
-                                            <option selected>Chọn tựa sách</option>
-                                            <option value="1">Hahaha</option>
+                                            
                                         </select>
                                         <span class="view"></span>
                                     </td>
@@ -316,48 +312,21 @@
                                         <input type="number" class="form-control grn-quantity not-view" name="grn_quantity[]" min="1">
                                         <span class="view"></span>
                                     </td>
-                                    <td>
+                                    <input type="hidden" name="gianhap[]">
+                                    <td class="gianhap">
+                                        
                                         <!-- Dùng JS tính giá nhập (dựa vào giá bìa & chiết khấu) -->
-                                        105.000 đ
+                                        
                                     </td>
-                                    <td>
+                                    <td class="giabia">
                                         <!-- Dùng AJAX hiển thị giá bìa -->
-                                        105.000 đ
+                                       
                                     </td>
-                                    <td>
+                                    <input type="hidden" name="thanhtien[]">
+                                    <td class="thanhtien">
+                                        
                                         <!-- Dùng JS tính thành tiền -->
-                                        105.000 đ
-                                    </td>
-                                    <td class="not-view">
-                                        <button type="button" class="btn delete-row" title="Xóa hàng">
-                                            <i class="fa-regular fa-delete-left"></i>
-                                        </button>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>1</td>
-                                    <td>
-                                        <select name="grn_product[]" class="form-select not-view">
-                                            <option selected>Chọn tựa sách</option>
-                                            <option value="1">Hahaha</option>
-                                        </select>
-                                        <span class="view">Đón ánh mặt trời</span>
-                                    </td>
-                                    <td>
-                                        <input type="number" class="form-control grn-quantity not-view" name="grn_quantity[]" min="1">
-                                        <span class="view">12</span>
-                                    </td>
-                                    <td>
-                                        <!-- Dùng JS tính giá nhập (dựa vào giá bìa & chiết khấu) -->
-                                        105.000 đ
-                                    </td>
-                                    <td>
-                                        <!-- Dùng AJAX hiển thị giá bìa -->
-                                        105.000 đ
-                                    </td>
-                                    <td>
-                                        <!-- Dùng JS tính thành tiền -->
-                                        105.000 đ
+                                       
                                     </td>
                                     <td class="not-view">
                                         <button type="button" class="btn delete-row" title="Xóa hàng">
@@ -368,12 +337,13 @@
                             </tbody>
                         </table>
                     </div>
+                    <div class="modal-footer not-view">
+                        <input type="hidden" name="" id="submit_btn">
+                        <button type="submit" class="btn btn-success" id="saveModalBtn">Thêm phiếu nhập</button>
+                    </div>
                 </form>
             </div>
-            <div class="modal-footer not-view">
-                <input type="hidden" name="" id="submit_btn">
-                <button type="submit" class="btn btn-success" id="saveModalBtn">Thêm phiếu nhập</button>
-            </div>
+            
         </div>
     </div>
 </div>
@@ -381,3 +351,5 @@
 
 <!-- Link JS -->
 <script src="../asset/quantri/js/GoodsReceiveNote.js"></script>
+</body>
+</html>

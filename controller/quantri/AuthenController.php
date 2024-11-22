@@ -63,21 +63,6 @@ else{
                 case 'login':
                     $this->login();
                     break;
-                // case 'open_add_form':
-                //     $this->openAddForm();
-                //     break;
-
-                // case 'submit_btn_add':
-                //     $this->add();
-                //     break;
-                
-                // case 'edit_data':
-                //     $this->edit();
-                //     break;
-
-                // case 'submit_btn_update':
-                //     $this->update();
-                //     break;
             }
         }
     }

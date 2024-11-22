@@ -2,33 +2,84 @@
 if(isset($_POST['action'])){
     require '../BaseController.php';
     require '../../model/GRN.php';
+    require '../../model/Supplier.php';
+    require '../../model/Product.php';
+    require '../../model/GRNDetail.php';
 }
 else{
     require '../controller/BaseController.php';
     require '../model/GRN.php';
+    require '../model/Supplier.php';
+    require '../model/Product.php';
+    require '../model/GRNDetail.php';
 }
     class GRNController extends BaseController{
-        private $grn;
+        private GRN $grn;
+        private GRNDetail $detail;
+        private Supplier $supplier;
 
         function __construct()
         {
             $this->folder = 'quantri';
             $this->grn = new Grn();
+            $this->supplier = new Supplier();
+            $this->detail = new GRNDetail();
         }
 
         function index(){
             $grn = GRN::getAll();
-            $this->render('GoodsReceiveNote', 'PN', $grn, true);
+            $supplier = Supplier::getAllActive();
+            $result = [
+                'paging' => $grn,
+                'supplier' => $supplier
+            ];
+            $this->render('GoodsReceiveNote', 'PN', $result, true);
         }
 
-        // function add(){
-        //     $this->category->setTenTL($_POST['category_name']);
-        //     $this->category->setTrangthai(1);
-        //     $req = $this->category->add();
-        //     if($req) echo json_encode(array('btn'=>'add', 'success'=>true));
-        //     else echo json_encode(array('btn'=>'add', 'success'=>false));
-        //     exit;
-        // }
+        function openAddForm(){
+            $product = Product::getAllBySupplier($_POST['supplier_id']);
+            echo json_encode($product==null ? null: $product);
+        }
+
+        function add(){
+            $ngaytao = $_POST['ngaytao'];
+            $ngaycapnhat = $_POST['ngaycapnhat'];
+            $chietkhau = $_POST['chietkhau'];
+            $idNV = $_POST['idNV'];
+            // tao moi phieu nhap kho
+            $this->grn->setIdNV($idNV);
+            $this->grn->addNewphieunhapkho();
+            $idPN = GRN::getLastPhieuNhapKhoID();
+            $this->grn->setIdPN($idPN);
+            // so san pham
+            $n = count($_POST['grn_product']);
+            $tongtien = $_POST['tongtien'];
+            $tongsoluong = 0;
+            $dupplicateProduct = false;
+            try {
+            for($i=1; $i<=$n; $i++){
+                $idSach = $_POST['grn_product'][$i-1];
+                $soluong = $_POST['grn_quantity'][$i];
+                $tongsoluong+=$soluong;
+                $this->detail->nhap($idPN, $idSach, $soluong);
+                $this->detail->addCTPhieuNhap();
+            }
+                $this->grn->nhapNew($ngaytao, $ngaycapnhat, $chietkhau, $tongsoluong, $tongtien, "cht");
+                $this->grn->createPhieuNhapKho();
+                echo json_encode(array('success'=>true));
+        } catch (Exception $e) {
+            echo json_encode(array(
+                'success' => false,
+                'message' => $e->getMessage(),
+            ));
+        }
+        }
+
+        function edit(){
+            $grn = GRN::findByID($_POST['grn_id']);
+            echo json_encode($grn==null ? null: $grn->toArray());
+            exit;
+        }
 
         // function edit(){
         //     $category = Category::findByID($_POST['category_id']);
@@ -53,9 +104,12 @@ else{
                     $this->index();
                     break;
 
-                // case 'submit_btn_add':
-                //     $this->add();
-                //     break;
+                case 'openAddForm':
+                    $this->openAddForm();
+                    break;
+                case 'submit_btn_add':
+                    $this->add();
+                    break;
                 
                 // case 'edit_data':
                 //     $this->edit();

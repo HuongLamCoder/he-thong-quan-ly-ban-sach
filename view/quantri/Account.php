@@ -75,9 +75,10 @@
                     </thead>
                     <tbody>
                     <?php
+                        $accounts = $result['paging'];
                         echo '<input type="hidden" name="curr_page" class="curr_page" value="'.$paging->curr_page.'">';
                         for($i=$paging->start; $i<$paging->start+$paging->num_per_page && $i<$paging->total_records; $i++){
-                            $account = $result[$i];
+                            $account = $accounts[$i];
                         ?>
                             <tr>
                                 <td class="account_id"><?=$account->getIdTK()?></td>

@@ -37,13 +37,23 @@
         }
 
         function nhap(string $hinhanh, string $tuasach, string $nxb, int $idNCC, int $idTL, float $giabia, int $namxb,
-         string $mota, float $trongluong, int $trangthai, float $giaban, int $idSach = 0, int $tonkho=0, array $idTG = []){
+         string $mota, float $trongluong, int $trangthai, float $giaban, int $luotban, int $idSach = 0, int $tonkho=0, array $idTG = []){
             $this->idSach = $idSach;
             $this->tuasach = $tuasach;
             $this->tonkho = $tonkho;
             $this->giaban = $giaban;
             $this->trangthai = $trangthai;
             $this->hinhanh = $hinhanh;
+            $this->nxb = $nxb;
+            $this->idNCC = $idNCC;
+            $this->idTL = $idTL;
+            $this->giabia = $giabia;
+            $this->namxb = $namxb;
+            $this->mota = $mota;
+            $this->trongluong = $trongluong;
+            $this->luotban = $luotban;
+            $this->idSach = $idSach;
+            $this->idTG = $idTG;
         }
 
         static function getAll(){
@@ -55,7 +65,7 @@
             foreach($req as $item){
                 $product = new self();
                 $product->nhap($item['hinhanh'], $item['tuasach'], $item['NXB'], $item['idNCC'], $item['idTL'], $item['giabia'], 
-                $item['namXB'], $item['mota'], $item['giaban'], $item['trongluong'], $item['trangthai'], $item['idSach'], $item['tonkho']);
+                $item['namXB'], $item['mota'], $item['giaban'], $item['trongluong'], $item['trangthai'], $item['luotban'], $item['idSach'], $item['tonkho']);
                 $list[] = $product;
             }
             return $list;
@@ -110,6 +120,39 @@
             $con->execute($sql);
         }
 
+        static function getAllBySupplier($idNCC){
+            $sql = 'SELECT * FROM sach WHERE idNCC = '.$idNCC;
+            $list = [];
+            $con = new Database();
+            $req = $con->getAll($sql);
+
+            foreach($req as $item){
+                $product = new self();
+                $product->nhap($item['hinhanh'], $item['tuasach'], $item['NXB'], $item['idNCC'], $item['idTL'], $item['giabia'], 
+                $item['namXB'], $item['mota'], $item['giaban'], $item['trongluong'], $item['trangthai'], $item['luotban'], $item['idSach'], $item['tonkho']);
+                $list[] = $product->toArray();
+            }
+            return $list;
+        }
+
+        function toArray(){
+            return [
+                'hinhanh' => $this->hinhanh,
+                'tuasach' => $this->tuasach,
+                'nxb' => $this->nxb,
+                'idNCC' => $this->idNCC,
+                'idTL' => $this->idTL,
+                'giabia' => $this->giabia,
+                'namxb' => $this->namxb,
+                'mota' => $this->mota,
+                'giaban' => $this->giaban,
+                'trongluong' => $this->trongluong,
+                'trangthai' => $this->trangthai,
+                'idSach' => $this->idSach,
+                'tonkho' => $this->tonkho,
+                'luotban' => $this->luotban
+            ];
+        }
         function getTuasach(){
             return $this->tuasach;
         }

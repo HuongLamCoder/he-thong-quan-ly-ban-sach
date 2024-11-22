@@ -159,9 +159,10 @@ $(document).ready(function() {
         /* update data */
 
     /* Start: lock */
-    $('.lock_discount').click(function() {
+    $(document).on('click', '.lock_discount', function(e) {
         // Display the form as a pop-up
         var discount_id = $(this).closest('tr').find('.discount_id').text();
+        var discount_status = $(this).closest('tr').find('.discount_status');
         $.ajax({
             url: '../controller/quantri/DiscountController.php', // Replace with the actual PHP endpoint to fetch discount details
             type: 'POST',
@@ -178,6 +179,7 @@ $(document).ready(function() {
                         type: 'success',
                         duration: 3000
                     });
+                    discount_status.html('<span class="bagde rounded-2 text-white bg-danger p-2">Hủy</span></td>');
                 }
             },
         });

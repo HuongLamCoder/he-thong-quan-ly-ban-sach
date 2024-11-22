@@ -30,7 +30,15 @@ else{
                 }
                 require($view_file);
             }
-            else require '../view/error';
+        }
+
+        function renderSearch($file, $result = array(), $searchTitle){
+            $view_file = '../view/'.$this->folder.'/'.$file.'.php';
+            if(is_file($view_file)){
+                    $paging = new Pagination($this->folder, strtolower($file), $result['paging']);
+                    $pagingButton = $paging->pagingSearch($this->folder, $searchTitle);
+                require($view_file);
+            }
 
         }
     }
