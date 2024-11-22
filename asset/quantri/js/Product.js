@@ -273,7 +273,7 @@ $(document).ready(function () {
                     </li>
                     <li class="list-group-item d-flex justify-content-between align-items-center">
                         <span class="fw-bold">Giảm giá</span>
-                        <span class="detail-value text-end w-50">${data.phantram == null ? 0 : data.phantram}%</span>
+                        <span class="detail-value text-end w-50">${data.discount == null ? 0 : data.discount}%</span>
                     </li>
                     <li class="list-group-item d-flex flex-column">
                         <span class="fw-bold">Mô tả</span>
