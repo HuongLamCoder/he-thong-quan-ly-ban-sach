@@ -1479,8 +1479,13 @@ input:focus {
     font-size: 14.5px;
 }
 
-.paying-content .delivery-info-box .customer-info-delivery .customer-name {
+.paying-content .delivery-info-box .customer-info-delivery .info {
+    margin-bottom: 7px;
+}
+
+.paying-content .delivery-info-box .customer-info-delivery .info .customer-name {
     font-weight: 600;
+    font-size: 18px;
 }
 
 .paying-content .delivery-info-box .customer-info-delivery .customer-address .default {
@@ -1491,8 +1496,14 @@ input:focus {
     margin: 0px 15px;
 }
 
-.paying-content .delivery-info-box .customer-info-delivery .customer-address a {
-    text-decoration: none;
+
+.paying-content .delivery-info-box .customer-info-delivery .customer-address .form-select {
+    margin-bottom: 15px; 
+    width: 95%;
+}
+
+.paying-content .delivery-info-box .customer-info-delivery .customer-address .form-control {
+    width: 95%;
 }
 
 .paying-content .product-paying .payment-method-box {
