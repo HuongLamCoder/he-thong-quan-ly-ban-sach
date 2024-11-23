@@ -67,8 +67,8 @@
                                 }
                                 break;
                                 case 'TG':
-                                if(!$TK){
-                                    $TK = true;
+                                if(!$TG){
+                                    $TG = true;
                                     echo '
                                 <li class="nav-item sidebar-item">
                                     <a href="index.php?page=author" class="nav-link text-black fs-5 align-items-center">

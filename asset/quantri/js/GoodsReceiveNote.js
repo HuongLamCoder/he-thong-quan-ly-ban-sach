@@ -2,10 +2,7 @@ $(document).ready(function () {
     const modal = document.getElementById('grnModal');
 
     document.getElementById('grnModal').addEventListener('hidden.bs.modal', function () {
-        document.getElementById('grnForm').reset();
-        if (!modal.classList.contains('view-modal')) {
-            location.reload();
-        }
+        location.reload();
     });
 
     const modalTitle = document.getElementById('grnModalLabel');
@@ -46,20 +43,35 @@ $(document).ready(function () {
         e.preventDefault();
         // kiem tra hop le
         if(checkCreateModal()){
-            // get thong tin
             var idNCC = $('#supplier-id').val();
             var tenNCC = $('#supplier-id option:selected').text();
             var chietkhau = $('#grn-discount').val();
             //fill thong tin
             $('#idNCC').val(idNCC);
             $('#tenNCC').html(tenNCC);
-            var current = new Date().toISOString().split('T')[0];
-            $('#ngaytao').html(current);
-            $('#ngaycapnhat').html(current);
             $('#chietkhau').html(chietkhau+"%");
             $('#grnForm input[name="chietkhau"]').val(chietkhau);
-            let grnModal = new bootstrap.Modal(document.getElementById('grnModal'));
-            grnModal.show();
+            $.ajax({
+                url: '../controller/quantri/GRNController.php', // Replace with the actual PHP endpoint to fetch user details
+                type: 'POST',
+                data: {
+                    'action': 'getBaseInfo'
+                },
+                success: function(response){
+                    console.log(response);
+                    const obj = JSON.parse(response);
+                    $('input[name="idNV"]').val(obj.idTK);
+                    $('.staff').html(obj.tenTK);
+                    $('input[name="ngaytao"]').val(obj.currentdate);
+                    $('#ngaytao').html(obj.currentdate);
+                    $('input[name="ngaycapnhat"]').val(obj.currentdate);
+                    $('#ngaycapnhat').html(obj.currentdate);
+                    let grnModal = new bootstrap.Modal(document.getElementById('grnModal'));
+                    grnModal.show();
+                },
+            
+            });
+            
         }
     });
 
@@ -70,12 +82,153 @@ $(document).ready(function () {
         modalSaveBtn.textContent = 'Lưu thay đổi';
         submit_btn.setAttribute('name', 'action');
         submit_btn.setAttribute('value', 'submit_btn_update');
+        var grn_id = $(this).closest('tr').find('.grn_id').text();
+        $.ajax({
+            url: '../controller/quantri/GRNController.php', // Replace with the actual PHP endpoint to fetch user details
+            type: 'POST',
+            data: {
+                'action': 'edit_data',
+                'grn_id': grn_id,
+            },
+            success: function(response){
+                console.log(response);
+                const obj = JSON.parse(response);
+                const grn = obj.grn;
+                const details = obj.details;
+                const supplier = obj.supplier;
+                const nhanvien = obj.nhanvien;
+                const products = obj.products;
+                // nhap thong tin cua phieu nhap
+                //hien thi danh sach trang thai
+                const trangthai = grn.trangthai;
+                var options = '';
+                if(trangthai == 'cht'){
+                    options+='<option value="cht">chưa hoàn thành</option>';
+                    options+='<option value="ht">Hoàn thành</option>';
+                    options+='<option value="huy">Hủy</option>';
+                }
+                else if(trangthai == 'ht'){
+                    options+='<option value="ht">Hoàn thành</option>';
+                    options+='<option value="huy">Hủy</option>';
+                }
+                $('#trangthai').html(options);
+                $('#trangthai').val(trangthai);
+                // idPN
+                $('#grnForm input[name="idPN"]').val(grn.idPN);
+                //nha cung cap
+                $('#tenNCC').html(supplier.tenNCC);
+                // nhanvien
+                $('.staff').html(nhanvien.idTK+"-"+nhanvien.tenTK);
+                // thoi gian
+                $('#ngaytao').html(grn.ngaytao);
+                $('#ngaycapnhat').html(grn.ngaycapnhat);
+                //chietkhau
+                $('#chietkhau').html(grn.chietkhau);
+                //tongtien
+                $('#grnForm input[name="tongtien"]').val(grn.tongtien);
+                tongtien = grn.tongtien.toLocaleString(
+                    undefined, // leave undefined to use the visitor's browser 
+                               // locale or a string like 'en-US' to override it.
+                    { maximumFractionDigits: 2 }
+                  ).replace(/,/g, '.');
+                tongtien +="đ";
+                $('#tongtien').html(tongtien);
+                
+                // hien thi chi tiet phieu nhap
+                let chietkhau = grn.chietkhau;
+                console.log(products.length);
+                let input;
+                for (let i = 0; i < products.length; i++) {
+                    let tr = $('<tr></tr>'); 
+                     // Create and append the first <td> for index
+                    let td1 = $('<td></td>');
+                    td1.text(i + 1); 
+                    tr.append(td1);
 
+                    // Create and append <td> for product name (tenSach)
+                    let td2 = $('<td></td>');
+                    input = $('<input>', {
+                        type: 'hidden',
+                        name: 'grn_product[]',
+                        value: products[i].idSach,
+                        class: 'grn_product' 
+                    });
+                    td2.append(input);
+                    td2.append(products[i].tuasach); 
+                    tr.append(td2);
+
+                    // Create and append <td> for quantity (soluong) from details array
+                    let td3 = $('<td></td>');
+                    input = $('<input>', {
+                        type: 'number',
+                        name: 'grn_quantity[]',
+                        value: details[i].soluong,
+                        class: "grn-quantity"
+                    });
+                    td3.append(input);
+                    tr.append(td3);
+
+                    // Calculate the 'gianhap' value
+                    var giabia = products[i].giabia;
+                    var gianhap = ((100 - chietkhau) / 100) * giabia;
+                    input = $('<input>', {
+                        type: 'hidden',
+                        name: 'gianhap[]',
+                        value: gianhap 
+                    });
+                    tr.append(input);
+                    var gianhapFormat = gianhap.toLocaleString(
+                        undefined, // leave undefined to use the visitor's browser 
+                                   // locale or a string like 'en-US' to override it.
+                        { maximumFractionDigits: 2 }
+                      ).replace(/,/g, '.');
+                    gianhapFormat +="đ";
+                    t3 = $('<td></td>', {
+                        class: 'gianhap' // Specify the class directly
+                    });
+                    t3.text(gianhapFormat);
+                    tr.append(t3);
+                    // gia bia
+                    giabia = giabia.toLocaleString(
+                        undefined, // leave undefined to use the visitor's browser 
+                                   // locale or a string like 'en-US' to override it.
+                        { maximumFractionDigits: 2 }
+                      ).replace(/,/g, '.');
+                    giabia +="đ";
+                    t3 = $('<td></td>');
+                    t3.text(giabia);
+                    tr.append(t3);
+                    // thanh tien
+                    var thanhtien = gianhap*details[i].soluong;
+                    input = $('<input>', {
+                        type: 'hidden',
+                        name: 'thanhtien[]',
+                        value: thanhtien
+                    });
+                    tr.append(input);
+                    thanhtien = thanhtien.toLocaleString(
+                        undefined, // leave undefined to use the visitor's browser 
+                                   // locale or a string like 'en-US' to override it.
+                        { maximumFractionDigits: 2 }
+                      ).replace(/,/g, '.');
+                    thanhtien +="đ";
+                    t3 = $('<td></td>', {
+                        class: 'thanhtien' // Specify the class directly
+                    });
+                    t3.text(thanhtien);
+                    tr.append(t3);
+                    // Append the completed <tr> to the .details table
+                    $('.details').append(tr);
+                }
+            },
+        });
         $('#add-row-btn').removeClass('not-view');
         $('#grnForm').find('.not-edit').hide();
         $('#grnModal').find('.view').hide();
         $('#grnModal').find('.not-view').show();
         $('#grnForm').find('.edit').show();
+        $('#grnModal').find('.not-view-edit').hide();
+        $('#grnModal').find('.row-count').hide();
     });
 
     $('.open_view_form').click(function (e) {
@@ -95,7 +248,93 @@ $(document).ready(function () {
             success: function(response){
                 console.log(response);
                 const obj = JSON.parse(response);
-                
+                const grn = obj.grn;
+                const details = obj.details;
+                const supplier = obj.supplier;
+                const nhanvien = obj.nhanvien;
+                const products = obj.products;
+                // nhap thong tin cua phieu nhap
+                //trangthai
+                var trangthai = '';
+                if(grn.trangthai == 'ht') trangthai = 'Hoàn thành';
+                else if(grn.trangthai == 'cht') trangthai = 'Chưa hoàn thành';
+                else trangthai = 'Hủy';
+                $('.not-edit.trangthai').html(trangthai);
+                //nha cung cap
+                $('#tenNCC').html(supplier.tenNCC);
+                // nhanvien
+                $('.staff').html(nhanvien.idTK+"-"+nhanvien.tenTK);
+                // thoi gian
+                $('#ngaytao').html(grn.ngaytao);
+                $('#ngaycapnhat').html(grn.ngaycapnhat);
+                //chietkhau
+                $('#chietkhau').html(grn.chietkhau);
+                //tongtien
+                tongtien = grn.tongtien.toLocaleString(
+                    undefined, // leave undefined to use the visitor's browser 
+                               // locale or a string like 'en-US' to override it.
+                    { maximumFractionDigits: 2 }
+                  ).replace(/,/g, '.');
+                tongtien +="đ";
+                $('#tongtien').html(tongtien);
+                // hien thi chi tiet phieu nhap
+                let chietkhau = grn.chietkhau;
+                console.log(products.length);
+                for (let i = 0; i < products.length; i++) {
+                    let tr = $('<tr></tr>'); 
+                     // Create and append the first <td> for index
+                    let td1 = $('<td></td>');
+                    td1.text(i + 1); // Index is usually 1-based in display
+                    tr.append(td1);
+
+                    // Create and append <td> for product name (tenSach)
+                    let td2 = $('<td></td>');
+                    td2.text(products[i].tuasach); // Assuming 'tenSach' is a property of the product object
+                    tr.append(td2);
+
+                    // Create and append <td> for quantity (soluong) from details array
+                    let td3 = $('<td></td>');
+                    td3.text(details[i].soluong); // Assuming 'soluong' is a property in the details array
+                    tr.append(td3);
+
+                    // Calculate the 'gianhap' value
+                    var giabia = products[i].giabia;
+                    var gianhap = ((100 - chietkhau) / 100) * giabia;
+                    var thanhtien = gianhap*details[i].soluong;
+                    gianhap = gianhap.toLocaleString(
+                        undefined, // leave undefined to use the visitor's browser 
+                                   // locale or a string like 'en-US' to override it.
+                        { maximumFractionDigits: 2 }
+                      ).replace(/,/g, '.');
+                    gianhap +="đ";
+                    giabia = giabia.toLocaleString(
+                        undefined, // leave undefined to use the visitor's browser 
+                                   // locale or a string like 'en-US' to override it.
+                        { maximumFractionDigits: 2 }
+                      ).replace(/,/g, '.');
+                    giabia +="đ";
+                    thanhtien = thanhtien.toLocaleString(
+                        undefined, // leave undefined to use the visitor's browser 
+                                   // locale or a string like 'en-US' to override it.
+                        { maximumFractionDigits: 2 }
+                      ).replace(/,/g, '.');
+                    thanhtien +="đ";
+                    // Create and append <td> for gianhap
+                    let td4 = $('<td></td>');
+                    td4.text(gianhap); // Format to two decimal places
+                    tr.append(td4);
+
+                    // Create and append <td> for giabia
+                    let td5 = $('<td></td>');
+                    td5.text(giabia); // Format to two decimal places
+                    tr.append(td5);
+                    // Create and append <td> for giabia
+                    let td6 = $('<td></td>');
+                    td6.text(thanhtien); // Format to two decimal places
+                    tr.append(td6);
+                    // Append the completed <tr> to the .details table
+                    $('.details').append(tr);
+                }
             },
         });
     });
@@ -139,6 +378,17 @@ $(document).ready(function () {
 $(document).on('change', '#grnForm select[name="grn_product[]"]', function(){
     var selectedOption = $(this).find('option:selected');
     var tr = $(this).closest('tr');
+    if(selectedOption.val() == -1){
+        tr.find('input[name="gianhap[]"]').val('');
+        tr.find('input[name="grn_quantity[]"]').val('');
+        tr.find('input[name="thanhtien[]"]').val('');
+        tr.find('.thanhtien').html('');
+        tr.find('.giabia').html('');
+        tr.find('.gianhap').html('');
+        $('#tongtien').html('');
+        $('grnForm input[name="tongtien"]').val('');
+    }
+    else{
     var giabia = selectedOption.data('giabia');
     // gia nhap
     var chietkhau = $('#grnForm input[name="chietkhau"]').val();
@@ -175,6 +425,7 @@ $(document).on('change', '#grnForm select[name="grn_product[]"]', function(){
       ).replace(/,/g, '.');
     gianhap +="đ";
     tr.find('.gianhap').html(gianhap);
+    }
 });
 /* End: search product */
 
@@ -202,7 +453,6 @@ function calculateTotal() {
     tongtien = tongtien.toLocaleString(undefined, { maximumFractionDigits: 2 }).replace(/,/g, '.');
     tongtien +="đ";
     $('#tongtien').html(tongtien);
-    
 }
 
 $(document).on('input', '.grn-quantity', function() {
@@ -235,7 +485,7 @@ $(document).on('input', '.grn-quantity', function() {
          }
      
          for(var i = 0; i<sanpham.length; i++)
-             if(sanpham[i].value == "-1"){
+             if(sanpham[i].value == -1){
                  return "Vui lòng nhập sản phẩm.\nLỗi: dòng "+(i+1);
              }
      
@@ -254,8 +504,8 @@ $(document).on('input', '.grn-quantity', function() {
         event.preventDefault();
          // validate form
     var list = $('#grnForm table tbody tr:not(.grn-row-template)')
-    var sanpham = list.find('input[name="grn_quantity[]"]');
-    var soluong = list.find('select[name="grn_product[]"]');
+    var soluong = list.find('input[name="grn_quantity[]"]');
+    var sanpham = list.find('.grn_product');
     var msg = formValidateInventory(sanpham, soluong)
     if(msg == ''){
         // Serialize form data

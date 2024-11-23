@@ -135,6 +135,19 @@
             return $list;
         }
 
+        static function findByID($idSach){
+            $sql = 'SELECT * FROM sach WHERE idSach='.$idSach;
+            $con = new Database();
+            $req = $con->getOne($sql);
+            if($req!=null){
+                $product = new Product();
+                $product->nhap($req['hinhanh'], $req['tuasach'], $req['NXB'], $req['idNCC'], $req['idTL'], $req['giabia'], 
+                $req['namXB'], $req['mota'], $req['giaban'], $req['trongluong'], $req['trangthai'], $req['luotban'], $req['idSach'], $req['tonkho']);
+                return $product;
+            }
+            return null;
+        }
+
         function toArray(){
             return [
                 'hinhanh' => $this->hinhanh,

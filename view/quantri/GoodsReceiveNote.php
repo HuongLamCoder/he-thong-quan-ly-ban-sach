@@ -79,9 +79,9 @@
                         <td>
                             <?php
                                 $trangthai = $grn->getTrangthai();
-                                if($trangthai = 'cht')
+                                if($trangthai == 'cht')
                                     echo '<span class="bagde rounded-2 text-white bg-secondary p-2">Chưa hoàn thành</span>';
-                                else if($trangthai = 'ht')
+                                else if($trangthai == 'ht')
                                     echo '<span class="bagde rounded-2 text-white bg-success p-2">Hoàn thành</span>';
                                 else echo '<span class="bagde rounded-2 bg-danger text-white p-2">Bị hủy</span>';
                             ?>
@@ -93,12 +93,18 @@
                                 title="Xem chi tiết">
                                 <i class="fa-regular fa-circle-info"></i>
                             </button>
+                            <?php
+                                if($trangthai == 'cht'){
+                            ?>
                             <button class="btn fs-5 open_edit_form"
                                 data-bs-toggle="modal"
                                 data-bs-target="#grnModal"
                                 title="Chỉnh sửa">
                                 <i class="fa-regular fa-pen-to-square"></i>
                             </button>
+                            <?php
+                                }
+                            ?>
                             <button class="btn fs-5 print_btn"
                                 title="In">
                                 <i class="fa-regular fa-print"></i>
@@ -199,6 +205,7 @@
             </div>
             <div class="modal-body">
                 <form id="grnForm">
+                    <input type="hidden" name="idPN">
                     <div class="modal-grn-info d-flex flex-column gap-1">
                         <div class="grn-info-group d-flex">
                             <div class="grn-info-group-item d-flex flex-column gap-1 w-50">
@@ -206,14 +213,11 @@
                                     <span class="grn-info-title">
                                         Trạng thái:
                                     </span>
-                                    <span class="grn-info-content not-edit">
+                                    <span class="grn-info-content not-edit trangthai">
                                         Chưa hoàn thành
                                     </span>
                                     <div class="edit not-view">
-                                        <select name="status" id="status" class="form-select grn-status-select">
-                                            <option value="1">Chưa hoàn thành</option>
-                                            <option value="2">Hoàn thành</option>
-                                            <option value="3">Hủy phiếu nhập</option>
+                                        <select name="status" id="trangthai" class="form-select grn-status-select">
                                         </select>
                                     </div>
                                 </div>
@@ -230,9 +234,9 @@
                                         Nhân viên:
                                     </span>
                                     
-                                    <input type="hidden" name="idNV" value="<?=$_SESSION['user']['idTK']?>">
+                                    <input type="hidden" name="idNV" value="">
                                     <span class="grn-info-content staff">
-                                        <?=$_SESSION['user']['idTK'].'-'.$_SESSION['user']['tenTK']?>
+                                        
                                     </span>
                                 </div>
                             </div>
@@ -241,18 +245,18 @@
                                     <span class="grn-info-title">
                                         Ngày tạo phiếu:
                                     </span>
-                                    <input type="hidden" name="ngaytao" value="<?=date("Y-m-d")?>">
+                                    <input type="hidden" name="ngaytao" value="">
                                     <span class="grn-info-content" id="ngaytao">
-                                        <?=date("Y-m-d")?>
+                                        
                                     </span>
                                 </div>
                                 <div class="grn-info d-flex gap-2" >
                                     <span class="grn-info-title">
                                         Ngày cập nhật
                                     </span>
-                                    <input type="hidden" name="ngaycapnhat" value="<?=date("Y-m-d")?>">
+                                    <input type="hidden" name="ngaycapnhat" value="">
                                     <span class="grn-info-content" id="ngaycapnhat">
-                                        <?=date("Y-m-d")?>
+                                       
                                     </span>
                                 </div>
                                 <div class="grn-info d-flex gap-2">
@@ -296,14 +300,14 @@
                                     <th>Đơn giá</th>
                                     <th>Đơn giá bìa</th>
                                     <th>Thành tiền</th>
-                                    <th class="not-view">Thao tác</th>
+                                    <th class="not-view not-view-edit">Thao tác</th>
                                 </tr>
                             </thead>
-                            <tbody>
+                            <tbody class="details">
                                 <tr class="grn-row-template">
                                     <td></td>
                                     <td>
-                                        <select name="grn_product[]" class="form-select not-view">
+                                        <select name="grn_product[]" class="form-select not-view grn_product">
                                             
                                         </select>
                                         <span class="view"></span>

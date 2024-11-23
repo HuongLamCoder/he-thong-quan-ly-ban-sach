@@ -42,7 +42,7 @@ else{
 
         function edit(){
             $account = Account::findByID($_POST['account_id']);
-            $role = Role::getAll();
+            $role = Role::getAllForAccount();
             $list = [];
             foreach($role as $item)
                 $list[] = $item->toArrayNQ();

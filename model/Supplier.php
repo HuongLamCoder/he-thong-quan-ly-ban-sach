@@ -83,6 +83,21 @@ else require '../model/Address.php';
             return null;
         }
 
+        static function findByIdSach($idSach){
+            $sql = 'SELECT * FROM nhacungcap 
+            INNER JOIN sach ON nhacungcap.idNCC = sach.idNCC
+            WHERE idSach = '.$idSach.'
+            LIMIT 1';
+            $con = new Database();
+            $req = $con->getOne($sql);
+            if($req!=null){
+                $supplier = new self();
+                $supplier->nhapFull($req['idNCC'], $req['tenNCC'], $req['email'], $req['dienthoai'], $req['trangthai'], $req['diachi']);
+                return $supplier;
+            }
+            return null;
+        }
+
         function add(){
             if(!(self::isExist($this->idNCC, $this->tenNCC, $this->email, $this->dienthoai))){
                 $sql='INSERT INTO nhacungcap(tenNCC, email, dienthoai, diachi, trangthai) VALUES ("'.$this->tenNCC.'","'.$this->email.'","'.$this->dienthoai.'","'.$this->diachi->convertToStore().'",'.$this->trangthai.')';

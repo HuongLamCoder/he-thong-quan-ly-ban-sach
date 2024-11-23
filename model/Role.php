@@ -137,7 +137,6 @@ else require '../model/Permission.php';
                 for($i = 0; $i < $n; $i++){
                     $permission = Permission::findByName($permission_name[$i]);
                     $idCN[] = $permission->getIdCN();
-                    
                 }
                 $this->addDetail($idCN);
                 return true;

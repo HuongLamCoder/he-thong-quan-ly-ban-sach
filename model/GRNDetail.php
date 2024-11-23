@@ -16,5 +16,36 @@
         $con = new Database();
         $con->execute($sql);
         }
+
+        static function findByGRN($idPN){
+            $list = [];
+            $sql = 'SELECT * FROM ctphieunhap
+            WHERE idPN = '.$idPN;
+            $con = new Database();
+            $req = $con->getAll($sql);
+            foreach($req as $item){
+                $detail = new GRNDetail();
+                $detail->nhap($item['idPN'], $item['idSach'], $item['soluong']);
+                $list[] = $detail->toArray();
+            }
+            return $list;
+        }
+
+        function updateCTPhieuNhap(){
+            $sql = 'UPDATE ctphieunhap
+            SET soluong = '.$this->soluong.'
+            WHERE idPN = '.$this->idPN.'
+            AND idSach = '.$this->idSach;
+            $con = new Database();
+            $con->execute($sql);
+        }
+
+        function toArray(){
+            return [
+                'idSach' => $this->idSach,
+                'idPN' => $this->idPN,
+                'soluong' => $this->soluong
+            ];
+        }
     }
 ?>

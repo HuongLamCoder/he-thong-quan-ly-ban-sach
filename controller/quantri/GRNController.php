@@ -5,6 +5,7 @@ if(isset($_POST['action'])){
     require '../../model/Supplier.php';
     require '../../model/Product.php';
     require '../../model/GRNDetail.php';
+    require '../../model/Account.php';
 }
 else{
     require '../controller/BaseController.php';
@@ -12,17 +13,16 @@ else{
     require '../model/Supplier.php';
     require '../model/Product.php';
     require '../model/GRNDetail.php';
+    require '../model/Account.php';
 }
     class GRNController extends BaseController{
         private GRN $grn;
         private GRNDetail $detail;
-        private Supplier $supplier;
 
         function __construct()
         {
             $this->folder = 'quantri';
             $this->grn = new Grn();
-            $this->supplier = new Supplier();
             $this->detail = new GRNDetail();
         }
 
@@ -55,7 +55,6 @@ else{
             $n = count($_POST['grn_product']);
             $tongtien = $_POST['tongtien'];
             $tongsoluong = 0;
-            $dupplicateProduct = false;
             try {
             for($i=1; $i<=$n; $i++){
                 $idSach = $_POST['grn_product'][$i-1];
@@ -64,7 +63,7 @@ else{
                 $this->detail->nhap($idPN, $idSach, $soluong);
                 $this->detail->addCTPhieuNhap();
             }
-                $this->grn->nhapNew($ngaytao, $ngaycapnhat, $chietkhau, $tongsoluong, $tongtien, "cht");
+                $this->grn->nhapUpdate($ngaycapnhat, $tongsoluong, $tongtien, "cht", $ngaytao, $chietkhau);
                 $this->grn->createPhieuNhapKho();
                 echo json_encode(array('success'=>true));
         } catch (Exception $e) {
@@ -76,27 +75,58 @@ else{
         }
 
         function edit(){
-            $grn = GRN::findByID($_POST['grn_id']);
-            echo json_encode($grn==null ? null: $grn->toArray());
+            $this->grn = GRN::findByID($_POST['grn_id']);
+            $details = GRNDetail::findByGRN($_POST['grn_id']);
+            $products = [];
+            foreach($details as $item){
+                $product = Product::findByID($item['idSach']);
+                $products[] = $product->toArray();
+            }
+            $supplier = Supplier::findByIdSach($details[0]['idSach']);
+            $nhanvien = Account::findByID($this->grn->getIdNV());
+            $result = [
+                'grn' => $this->grn->toArray(),
+                'details' => $details,
+                'supplier' => $supplier->toArray(),
+                'nhanvien' => $nhanvien->toArray(),
+                'products' => $products
+            ];
+            echo json_encode($result);
             exit;
         }
 
-        // function edit(){
-        //     $category = Category::findByID($_POST['category_id']);
-        //     echo json_encode($category==null ? null: $category->toArray());
-        //     exit;
-        // }
+        function getBaseInfo(){
+            session_start();
+            $result = [
+                'idTK' => $_SESSION['user']['idTK'],
+                'tenTK' => $_SESSION['user']['tenTK'],
+                'currentdate' => date("Y-m-d")
+            ];
+            echo json_encode($result);
+        }
 
-        // function update(){
-        //     $idTL = $_POST['category_id'];
-        //     $tenTL = $_POST['category_name'];
-        //     $trangthai = isset($_POST['status']) ? 1 : 0;
-        //     $this->category->nhap($idTL, $tenTL, $trangthai);
-        //     $req = $this->category->update();
-        //     if($req) echo json_encode(array('btn'=>'update','success'=>true));
-        //     else echo json_encode(array('btn'=>'update','success'=>false));
-        //     exit;
-        // }
+        function update(){
+            $ngaycapnhat = date("Y-m-d");
+            session_start();
+            $idNV = $_SESSION['user']['idTK'];
+            $idPN = $_POST['idPN'];
+            $trangthai = $_POST['status'];
+            $this->grn->setIdPN($idPN);
+            // so san pham
+            $n = count($_POST['grn_product']);
+            $tongtien = $_POST['tongtien'];
+            $tongsoluong = 0;
+            for($i=1; $i<=$n; $i++){
+                $idSach = $_POST['grn_product'][$i-1];
+                $soluong = $_POST['grn_quantity'][$i];
+                $tongsoluong+=$soluong;
+                $this->detail->nhap($idPN, $idSach, $soluong);
+                $this->detail->updateCTPhieuNhap();
+            }
+                $this->grn->nhapUpdate($ngaycapnhat, $tongsoluong, $tongtien, $trangthai);
+                $this->grn->update();
+                echo json_encode(array('success'=>true));
+        }
 
         function checkAction($action){
             switch ($action){
@@ -104,20 +134,25 @@ else{
                     $this->index();
                     break;
 
+                case 'getBaseInfo':
+                    $this->getBaseInfo();
+                    break;
+
                 case 'openAddForm':
                     $this->openAddForm();
                     break;
+
                 case 'submit_btn_add':
                     $this->add();
                     break;
                 
-                // case 'edit_data':
-                //     $this->edit();
-                //     break;
+                case 'edit_data':
+                    $this->edit();
+                    break;
 
-                // case 'submit_btn_update':
-                //     $this->update();
-                //     break;
+                case 'submit_btn_update':
+                    $this->update();
+                    break;
             }
         }
     }

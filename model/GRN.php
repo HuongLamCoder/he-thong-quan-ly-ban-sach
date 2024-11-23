@@ -50,7 +50,7 @@
             return $req['idPN'];
         }
 
-        function nhapNew($ngaytao, $ngaycapnhat, $chietkhau, $tongsoluong, $tongtien, $trangthai){
+        function nhapUpdate($ngaycapnhat, $tongsoluong, $tongtien, $trangthai, $ngaytao='', $chietkhau=0){
             $this->ngaytao = $ngaytao;
             $this->ngaycapnhat = $ngaycapnhat;
             $this->trangthai = $trangthai;
@@ -84,11 +84,27 @@
             return null;
         }
 
+        function update(){
+            $sql = 'UPDATE phieunhap
+            SET ngaycapnhat = "'.$this->ngaycapnhat.'",
+            tongsoluong = '.$this->tongsoluong.',
+            tongtien = '.$this->tongtien.',
+            trangthai = "'.$this->trangthai.'"
+            WHERE idPN = '.$this->idPN;
+            $con = new Database();
+            $con->execute($sql);
+        }
+
         function toArray(){
             return [
-                'idNQ' => $this->idNQ,
-                'tenNQ' => $this->tenNQ,
-                'trangthai' => $this->trangthai
+                'idPN' => $this->idPN,
+                'ngaytao' => $this->ngaytao,
+                'ngaycapnhat' => $this->ngaycapnhat,
+                'tongtien' => $this->tongtien,
+                'trangthai' => $this->trangthai, 
+                'idNV' => $this->idNV,
+                'chietkhau' => $this->chietkhau,
+                'tongsoluong' => $this->tongsoluong
             ];
         }
 
@@ -119,6 +135,9 @@
         function getTrangthai(){
             return $this->trangthai;
         }
-        
+
+        function getIdNV(){
+            return $this->idNV;
+        }
     }
 ?>

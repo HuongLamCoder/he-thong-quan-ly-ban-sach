@@ -49,7 +49,7 @@ if(isset($_GET['page']) && ($_GET['page'] !== "")){
                 include '../controller/quantri/ProductController.php';
                 break;
             case 'order':
-                include './controller/Order.php';
+                include '../controller/quantri/OrderController.php';
                 break;
             case 'goodsreceivenote':
                 include '../controller/quantri/GRNController.php';

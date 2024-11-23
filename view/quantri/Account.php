@@ -7,7 +7,7 @@
         <!-- ... -->
         <!-- Page control -->
         <div class="row d-flex justify-content-between">
-            <!-- <div class="col-auto">
+            <div class="col-auto">
                 <button class="btn btn-control open_add_form" 
                         type="button" 
                         data-bs-toggle="modal" 
@@ -16,7 +16,7 @@
                     <i class="fa-regular fa-plus me-2"></i>
                     Thêm tài khoản
                 </button>
-            </div> -->
+            </div>
 
             <div class="col">
                 <div class="row">

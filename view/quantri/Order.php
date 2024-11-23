@@ -51,7 +51,6 @@
                 <thead class="table-header">
                     <tr>
                         <th scope="col">Mã đơn hàng</th>
-                        <th>Tên khách hàng</th>
                         <th>Ngày tạo</th>
                         <th>Ngày cập nhật</th>
                         <th>Tổng tiền</th>
@@ -60,14 +59,33 @@
                     </tr>
                 </thead>
                 <tbody>
+                    <?php
+                        $orders = $result['paging'];
+                        echo '<input type="hidden" name="curr_page" class="curr_page" value="'.$paging->curr_page.'">';
+                        for($i=$paging->start; $i<$paging->start+$paging->num_per_page && $i<$paging->total_records; $i++){
+                            $order = $orders[$i];
+                    ?>
                     <tr>
-                        <td>1</td>
-                        <td>Nguyễn Phạm Quỳnh Hương</td>
-                        <td>13/10/2024</td>
-                        <td>28/10/2024</td>
-                        <td>105.000 đ</td>
+                        <td class="order_id"><?=$order->getIdDH()?></td>
+                        <td><?=$order->getNgaytao()?></td>
+                        <td><?=$order->getNgaycapnhat()?></td>
+                        <td><?=number_format($order->getTongtien(),0,"",".");?>đ</td>
                         <td>
-                            <span class="bagde rounded-2 text-white bg-secondary p-2">Chờ duyệt</span>
+                            <?php
+                                $trangthai = $order->getTenTT();
+                            if($trangthai == "Chờ duyệt")
+                                echo '<span class="bagde rounded-2 text-white bg-secondary p-2">Chờ duyệt</span>';
+                            else if($trangthai == "Hủy bởi khách hàng")
+                                echo '';
+                            else if($trangthai == "Đang giao")
+                                echo '<span class="bagde rounded-2 text-white bg-primary p-2">Đang giao</span>';
+                            else if($trangthai == "Đã giao")
+                                echo '<span class="bagde rounded-2 text-white bg-success p-2">Đã giao</span>';
+                            else if($trangthai == "Hủy bởi khách hàng")
+                                echo '<span class="bagde rounded-2 text-white bg-danger p-2">Hủy bởi khách hàng</span>';
+                            else echo '<span class="bagde rounded-2 text-white bg-danger p-2">Hủy bởi người bán</span>';
+                            ?>
+                            
                         </td>
                         <td>
                             <button class="btn fs-5 open_view_form"
@@ -76,134 +94,27 @@
                                 title="Xem chi tiết">
                                 <i class="fa-regular fa-circle-info"></i>
                             </button>
+                            <?php
+                                if($trangthai == "Chờ duyệt" || $trangthai == "Đang giao"){
+                            ?>
                             <button class="btn fs-5 open_edit_form"
                                 data-bs-toggle="modal"
                                 data-bs-target="#orderModal"
                                 title="Chỉnh sửa">
                                 <i class="fa-regular fa-pen-to-square"></i>
                             </button>
+                            <?php
+                                }
+                            ?>
                             <button class="btn fs-5 print_btn"
                                 title="In">
                                 <i class="fa-regular fa-print"></i>
                             </button>
                         </td>
                     </tr>
-                    <tr>
-                        <td>2</td>
-                        <td>Nguyễn Phạm Quỳnh Hương</td>
-                        <td>13/10/2024</td>
-                        <td>28/10/2024</td>
-                        <td>105.000 đ</td>
-                        <td>
-                            <span class="bagde rounded-2 text-white bg-primary p-2">Đang vận chuyển</span>
-                        </td>
-                        <td>
-                            <button class="btn fs-5 open_view_form"
-                                data-bs-toggle="modal"
-                                data-bs-target="#orderModal"
-                                title="Xem chi tiết">
-                                <i class="fa-regular fa-circle-info"></i>
-                            </button>
-                            <button class="btn fs-5 open_edit_form"
-                                data-bs-toggle="modal"
-                                data-bs-target="#orderModal"
-                                title="Chỉnh sửa">
-                                <i class="fa-regular fa-pen-to-square"></i>
-                            </button>
-                            <button class="btn fs-5 print_btn"
-                                title="In">
-                                <i class="fa-regular fa-print"></i>
-                            </button>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>3</td>
-                        <td>Nguyễn Phạm Quỳnh Hương</td>
-                        <td>13/10/2024</td>
-                        <td>28/10/2024</td>
-                        <td>105.000 đ</td>
-                        <td>
-                            <span class="bagde rounded-2 text-white bg-success p-2">Hoàn tất</span>
-                        </td>
-                        <td>
-                            <button class="btn fs-5 open_view_form"
-                                data-bs-toggle="modal"
-                                data-bs-target="#orderModal"
-                                title="Xem chi tiết">
-                                <i class="fa-regular fa-circle-info"></i>
-                            </button>
-                            <button class="btn fs-5 print_btn"
-                                title="In">
-                                <i class="fa-regular fa-print"></i>
-                            </button>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>4</td>
-                        <td>Nguyễn Phạm Quỳnh Hương</td>
-                        <td>13/10/2024</td>
-                        <td>28/10/2024</td>
-                        <td>105.000 đ</td>
-                        <td>
-                            <span class="bagde rounded-2 text-white bg-danger p-2">Hủy bởi khách hàng</span>
-                        </td>
-                        <td>
-                            <button class="btn fs-5 open_view_form"
-                                data-bs-toggle="modal"
-                                data-bs-target="#orderModal"
-                                title="Xem chi tiết">
-                                <i class="fa-regular fa-circle-info"></i>
-                            </button>
-                            <button class="btn fs-5 print_btn"
-                                title="In">
-                                <i class="fa-regular fa-print"></i>
-                            </button>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>5</td>
-                        <td>Nguyễn Phạm Quỳnh Hương</td>
-                        <td>13/10/2024</td>
-                        <td>28/10/2024</td>
-                        <td>105.000 đ</td>
-                        <td>
-                            <span class="bagde rounded-2 text-white bg-danger p-2">Hủy bởi người bán</span>
-                        </td>
-                        <td>
-                            <button class="btn fs-5 open_view_form"
-                                data-bs-toggle="modal"
-                                data-bs-target="#orderModal"
-                                title="Xem chi tiết">
-                                <i class="fa-regular fa-circle-info"></i>
-                            </button>
-                            <button class="btn fs-5 print_btn"
-                                title="In">
-                                <i class="fa-regular fa-print"></i>
-                            </button>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>6</td>
-                        <td>Nguyễn Phạm Quỳnh Hương</td>
-                        <td>13/10/2024</td>
-                        <td>28/10/2024</td>
-                        <td>105.000 đ</td>
-                        <td>
-                            <span class="bagde rounded-2 text-white bg-warning-custom p-2">Trả hàng - hoàn tiền</span>
-                        </td>
-                        <td>
-                            <button class="btn fs-5 open_view_form"
-                                data-bs-toggle="modal"
-                                data-bs-target="#orderModal"
-                                title="Xem chi tiết">
-                                <i class="fa-regular fa-circle-info"></i>
-                            </button>
-                            <button class="btn fs-5 print_btn"
-                                title="In">
-                                <i class="fa-regular fa-print"></i>
-                            </button>
-                        </td>
-                    </tr>
+                    <?php
+                        }
+                    ?>
                 </tbody>
             </table>
         </div>
@@ -211,20 +122,14 @@
     <!-- ... -->
     <!-- Pagination -->
     <div class="row mt-4">
-        <nav aria-label="Page navigation">
-            <ul class="pagination justify-content-center">
-                <li class="page-item disabled">
-                    <a class="page-link">Trước</a>
-                </li>
-                <li class="page-item"><a class="page-link active" href="#">1</a></li>
-                <li class="page-item"><a class="page-link" href="#">2</a></li>
-                <li class="page-item"><a class="page-link" href="#">3</a></li>
-                <li class="page-item">
-                    <a class="page-link text-dark" href="#">Sau</a>
-                </li>
-            </ul>
-        </nav>
-    </div>
+            <nav aria-label="Page navigation">
+                <ul class="pagination justify-content-center">
+                <?php
+                    echo $pagingButton;
+                ?>
+                </ul>
+              </nav>
+        </div>
     <!-- ... -->
 
 </main>
@@ -255,168 +160,56 @@
                                         <th>Thành tiền</th>
                                     </tr>
                                 </thead>
-                                <tbody>
-                                    <tr>
-                                        <td>1</td>
-                                        <td>Thiên Lý Ơi</td>
-                                        <td>97</td>
-                                        <td>997.000 đ</td>
-                                        <td>997.997.000 đ</td>
-                                    </tr>
-                                    <tr>
-                                        <td>9</td>
-                                        <td>Đom đóm</td>
-                                        <td>97</td>
-                                        <td>997.000 đ</td>
-                                        <td>997.997.000 đ</td>
-                                    </tr>
-                                    <tr>
-                                        <td>9</td>
-                                        <td>Hồng Nhan</td>
-                                        <td>97</td>
-                                        <td>997.000 đ</td>
-                                        <td>997.997.000 đ</td>
-                                    </tr>
-                                    <tr>
-                                        <td>7</td>
-                                        <td>Bạc Phận</td>
-                                        <td>97</td>
-                                        <td>997.000 đ</td>
-                                        <td>997.997.000 đ</td>
-                                    </tr>
-                                    <tr>
-                                        <td>1</td>
-                                        <td>Thiên Lý Ơi</td>
-                                        <td>97</td>
-                                        <td>997.000 đ</td>
-                                        <td>997.997.000 đ</td>
-                                    </tr>
-                                    <tr>
-                                        <td>9</td>
-                                        <td>Đom đóm</td>
-                                        <td>97</td>
-                                        <td>997.000 đ</td>
-                                        <td>997.997.000 đ</td>
-                                    </tr>
-                                    <tr>
-                                        <td>9</td>
-                                        <td>Hồng Nhan</td>
-                                        <td>97</td>
-                                        <td>997.000 đ</td>
-                                        <td>997.997.000 đ</td>
-                                    </tr>
-                                    <tr>
-                                        <td>7</td>
-                                        <td>Bạc Phận</td>
-                                        <td>97</td>
-                                        <td>997.000 đ</td>
-                                        <td>997.997.000 đ</td>
-                                    </tr>
-                                    <tr>
-                                        <td>1</td>
-                                        <td>Thiên Lý Ơi</td>
-                                        <td>97</td>
-                                        <td>997.000 đ</td>
-                                        <td>997.997.000 đ</td>
-                                    </tr>
-                                    <tr>
-                                        <td>9</td>
-                                        <td>Đom đóm</td>
-                                        <td>97</td>
-                                        <td>997.000 đ</td>
-                                        <td>997.997.000 đ</td>
-                                    </tr>
-                                    <tr>
-                                        <td>9</td>
-                                        <td>Hồng Nhan</td>
-                                        <td>97</td>
-                                        <td>997.000 đ</td>
-                                        <td>997.997.000 đ</td>
-                                    </tr>
-                                    <tr>
-                                        <td>7</td>
-                                        <td>Bạc Phận</td>
-                                        <td>97</td>
-                                        <td>997.000 đ</td>
-                                        <td>997.997.000 đ</td>
-                                    </tr>
-                                    <tr>
-                                        <td>1</td>
-                                        <td>Thiên Lý Ơi</td>
-                                        <td>97</td>
-                                        <td>997.000 đ</td>
-                                        <td>997.997.000 đ</td>
-                                    </tr>
-                                    <tr>
-                                        <td>9</td>
-                                        <td>Đom đóm</td>
-                                        <td>97</td>
-                                        <td>997.000 đ</td>
-                                        <td>997.997.000 đ</td>
-                                    </tr>
-                                    <tr>
-                                        <td>9</td>
-                                        <td>Hồng Nhan</td>
-                                        <td>97</td>
-                                        <td>997.000 đ</td>
-                                        <td>997.997.000 đ</td>
-                                    </tr>
-                                    <tr>
-                                        <td>7</td>
-                                        <td>Bạc Phận</td>
-                                        <td>97</td>
-                                        <td>997.000 đ</td>
-                                        <td>997.997.000 đ</td>
-                                    </tr>
-                                </tbody>
+                                <tbody></tbody>
                             </table>
                         </div>
                         <div class="col-6 modal-body-right px-3">
                             <ul class="list-group list-group-flush">
                                 <li class="list-group-item d-flex justify-content-between align-items-center">
                                     <span class="fw-bold">Mã đơn hàng</span>
-                                    <span class="detail-value text-end w-50">1</span>
+                                    <span class="detail-value text-end w-50" id="idDH"></span>
                                 </li>
                                 <li class="list-group-item d-flex justify-content-between align-items-center">
                                     <span class="fw-bold">Tên khách hàng</span>
-                                    <span class="detail-value text-end w-50">Gabriel García Márquez</span>
+                                    <span class="detail-value text-end w-50" id="khachhang"></span>
                                 </li>
                                 <li class="list-group-item d-flex justify-content-between align-items-center">
                                     <span class="fw-bold">Số điện thoại</span>
-                                    <span class="detail-value text-end w-50">0123456789</span>
+                                    <span class="detail-value text-end w-50" id="dienthoai"></span>
                                 </li>
                                 <li class="list-group-item d-flex flex-column">
                                     <span class="fw-bold">Địa chỉ giao</span>
-                                    <textarea disabled class="detail-value w-100 rounded-2 mt-2 text-dark" rows="2">999/98/101/22C Nguyễn Thị Minh Khai, Phường Phạm Ngũ Lão, Quận Bình Thạnh, Tp Hồ Chí Minh</textarea>
+                                    <textarea disabled class="detail-value w-100 rounded-2 mt-2 text-dark" rows="2" id="diachi"></textarea>
                                 </li>
                                 <li class="list-group-item d-flex justify-content-between align-items-center">
                                     <span class="fw-bold">Ngày tạo đơn</span>
-                                    <span class="detail-value text-end w-60">13/10/2024</span>
+                                    <span class="detail-value text-end w-60" id="ngaytao"></span>
                                 </li>
                                 <li class="list-group-item d-flex justify-content-between align-items-center">
                                     <span class="fw-bold">Ngày cập nhật</span>
-                                    <span class="detail-value text-end w-50">28/10/2024</span>
+                                    <span class="detail-value text-end w-50" id="ngaycapnhat"></span>
+                                </li>
+                                <li class="list-group-item d-flex justify-content-between align-items-center">
+                                    <span class="fw-bold">Phí ship</span>
+                                    <span class="detail-value text-end w-50" id="phiship"></span>
                                 </li>
                                 <li class="list-group-item d-flex justify-content-between align-items-center">
                                     <span class="fw-bold">Tổng tiền</span>
-                                    <span class="detail-value text-end w-50">102.000.000 đ</span>
+                                    <span class="detail-value text-end w-50" id="tongtien"></span>
                                 </li>
                                 <li class="list-group-item not-edit d-flex justify-content-between align-items-center">
                                     <span class="fw-bold">Trạng thái</span>
-                                    <span class="detail-value text-end w-50">Chờ duyệt</span>
+                                    <span class="detail-value text-end w-50" id="trangthai"></span>
                                 </li>
                                 <li class="list-group-item edit d-flex justify-content-between align-items-center">
                                     <label for="status-select" class="fw-bold">Trạng thái</label>
                                     <select name="status-select" id="status-select" class="border-success form-select align-content-end detail-value w-50">
-                                        <option value="2">Chờ duyệt</option>
-                                        <option value="1">Đang vận chuyển</option>
-                                        <option value="3">Hủy bởi người bán</option>
                                     </select>
                                 </li>
                                 <li class="list-group-item d-flex justify-content-between align-items-center">
                                     <span class="fw-bold">Nhân viên cập nhật</span>
                                     <!-- Ko có thì để trống -->
-                                    <span class="detail-value text-end w-50">97 - Trịnh Trần Phương Tứn</span>
+                                    <span class="detail-value text-end w-50" id="nhanvien"></span>
                                 </li>
                             </ul>
                         </div>
