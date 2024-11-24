@@ -120,13 +120,18 @@ $(document).ready(function() {
     })
     $('#supplierForm').submit(function(event) {
         event.preventDefault();
-    
         var ten = $('#supplierForm input[name="supplier_name"]').val();
         var email = $('#supplierForm input[name="supplier_email"]').val();
         var dienthoai = $('#supplierForm input[name="supplier_phone"]').val();
         var diachi = $('#supplierForm input[name="supplier_address"]').val();
-    
-        var isValid = formValidateSupplier(ten, email, dienthoai, diachi);
+        var city = $('#supplier-city').val();
+        console.log(city);
+        var district = $('#supplier-district').val();
+        console.log(district);
+        var ward = $('#supplier-ward').val();
+        console.log(ward);
+        var isValid = formValidateSupplier(ten, email, dienthoai, diachi, city, district,ward);
+        console.log(isValid);
         if (isValid) {
             var formData = new FormData($('#supplierForm')[0]);
     
@@ -177,9 +182,9 @@ $(document).ready(function() {
         let isValid = true;
         let phoneRegex = /^0[0-9]{9}$/;
         let emailRegex = /^[\w-]+(?:\.[\w-]+)*@(?:[\w-]+\.)+[a-zA-Z]{2,7}$/;
-    
+        let sonharegex = /^\d+(\/\d+)*\s([A-Za-z]+\s?)+$/;
         // Validate name
-        if (ten === '') {
+        if (ten == '') {
             $('.supplier-name-msg').text('Vui lòng nhập họ tên');
             isValid = false;
         } else if (ten.length < 3) {
@@ -188,7 +193,7 @@ $(document).ready(function() {
         }
     
         // Validate email
-        if (email === '') {
+        if (email == '') {
             $('.supplier-email-msg').text('Vui lòng nhập email.');
             isValid = false;
         } else if (!emailRegex.test(email)) {
@@ -197,7 +202,7 @@ $(document).ready(function() {
         }
     
         // Validate phone number
-        if (dienthoai === '') {
+        if (dienthoai == '') {
             $('.supplier-phone-msg').text('Vui lòng nhập số điện thoại.');
             isValid = false;
         } else if (!phoneRegex.test(dienthoai)) {
@@ -206,8 +211,26 @@ $(document).ready(function() {
         }
     
         // Validate address số cách rồi thêm 1 chuỗi chữ(chưa làm)
-        if (diachi === '') {
+        if (diachi == '') {
             $('.supplier-address-msg').text('Vui lòng nhập địa chỉ.');
+            isValid = false;
+        }else if(!sonharegex.test(diachi)){
+            $('.supplier-address-msg').text('Vui lòng nhập địa chỉ đúng định dạng. VD: 77 Phan Đình Giót.');
+            isValid = false;
+        }
+
+        if(city == -1){
+            $('.supplier-province-msg').text('Vui lòng chọn tỉnh.');
+            isValid = false;
+        }
+
+        if(district == -1){
+            $('.supplier-district-msg').text('Vui lòng chọn quận.');
+            isValid = false;
+        }
+
+        if(ward == -1){
+            $('.supplier-ward-msg').text('Vui lòng chọn quận.');
             isValid = false;
         }
     
@@ -220,30 +243,29 @@ $(document).ready(function() {
         document.getElementById('supplierForm').querySelector('.not-view').style.display = 'none';
         var supplier_id = $(this).closest('tr').find('.supplier_id').text(); 
         $.ajax({
-            url: 'controller/Supplier.php',
+            url: '../controller/quantri/SupplierController.php',
             type: 'POST',
             data: {
-                'view_data_supplier': true,
+                'action':'open_edit_form',
                 'supplier_id': supplier_id,
             },
             success: function(response) {
                 const obj = JSON.parse(response);
-                
-                $('#supplierForm input[name="supplier_name"]').val(obj.tenNCC);
-                $('#supplierForm input[name="supplier_email"]').val(obj.email);
-                $('#supplierForm input[name="supplier_phone"]').val(obj.dienthoai);
-                $('#supplierForm input[name="supplier_address"]').val(obj.diachi);               
+                const supplier = obj.supplier;
+                $('#supplierForm input[name="supplier_id"]').val(supplier.idNCC);
+                    $('#supplierForm input[name="supplier_name"]').val(supplier.tenNCC);
+                    $('#supplierForm input[name="supplier_email"]').val(supplier.email);
+                    $('#supplierForm input[name="supplier_phone"]').val(supplier.dienthoai);
+                    $('#supplierForm input[name="supplier_address"]').val(supplier.diachi);
                 // Handle status
                // Handle status
-               if(parseInt(obj.trangthai)){
-                    $('#status').prop('checked', true);
-                    $('#switch-label').text('Đang hoạt động');
-                }
-                else {
-                    $('#status').prop('checked', false);
-                    $('#switch-label').text('Bị khóa');
-                }
-            document.getElementById('supplierForm').querySelector('.view').style.display = 'flex';
+               if (parseInt(supplier.trangthai)) {
+                $('#status').prop('checked', true);
+                $('#switch-label').text('Đang hoạt động');
+            } else {
+                $('#status').prop('checked', false);
+                $('#switch-label').text('Bị khóa');
+            }
             
             },
         });
@@ -274,11 +296,11 @@ $(document).ready(function() {
                 const obj = JSON.parse(response);
                 if(obj.success){
                     const supplier = obj.supplier;
-                    const diachi = supplier.diachi;
-                    $('#supplierForm input[name="supplier_id"]').val(obj.supplier.idNCC);
-                    $('#supplierForm input[name="supplier_name"]').val(obj.supplier.tenNCC);
-                    $('#supplierForm input[name="supplier_email"]').val(obj.supplier.email);
-                    $('#supplierForm input[name="supplier_phone"]').val(obj.supplier.dienthoai);
+                    const diachi = obj.supplierAddress;
+                    $('#supplierForm input[name="supplier_id"]').val(supplier.idNCC);
+                    $('#supplierForm input[name="supplier_name"]').val(supplier.tenNCC);
+                    $('#supplierForm input[name="supplier_email"]').val(supplier.email);
+                    $('#supplierForm input[name="supplier_phone"]').val(supplier.dienthoai);
                     $('#supplierForm input[name="supplier_address"]').val(diachi.sonha);
 
             $.each(obj.city, function(index, value) {
@@ -299,9 +321,9 @@ $(document).ready(function() {
                 );
             });
 
-            $('#supplier-city').val(parseInt(diachi.city.idTinh));
-            $('#supplier-district').val(diachi.district.idQuan);
-            $('#supplier-ward').val(diachi.ward.idXa);
+            $('#supplier-city').val(parseInt(diachi.idTinh));
+            $('#supplier-district').val(diachi.idQuan);
+            $('#supplier-ward').val(diachi.idXa);
             if (parseInt(supplier.trangthai)) {
                 $('#status').prop('checked', true);
                 $('#switch-label').text('Đang hoạt động');

@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <!-- Favicon -->
-    <link rel="shortcut icon" href="./asset/img/favicon.png" type="image/x-icon">
+    <link rel="shortcut icon" href="./asset/quantri/img/favicon.png" type="image/x-icon">
     
     <!-- Font awesome cnd -->
     <link href="https://cdn.jsdelivr.net/gh/HuongLamCoder/font-awesome-pro-6.5.2/fontawesome-pro-6.5.2-web/css/all.min.css" rel="stylesheet" type="text/css"/>

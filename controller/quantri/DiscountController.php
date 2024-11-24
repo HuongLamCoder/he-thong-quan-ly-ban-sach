@@ -1,12 +1,7 @@
 <?php
-if(isset($_POST['action'])){
-    require '../BaseController.php';
-    require '../../model/Discount.php';
-}
-else{
-    require '../controller/BaseController.php';
-    require '../model/Discount.php';
-}
+    include dirname(__FILE__).'/../BaseController.php';
+    include dirname(__FILE__).'/../../model/Discount.php';
+
     class DiscountController extends BaseController{
         private $discount;
 
@@ -18,7 +13,7 @@ else{
 
         function index(){
             $discounts = Discount::getAll();
-            $this->render('Discount', 'MGG', array('paging' => $discounts), true);
+            $this->render('Discount', array('paging' => $discounts), true);
         }
 
         function add(){
@@ -59,6 +54,19 @@ else{
             exit;
         }
 
+        function search(){
+            $pageTitle = 'searchDiscount';
+            $kyw = NULL;
+            if(isset($_GET['kyw']) && isset($_GET['kyw']) != "") {
+                $kyw = $_GET['kyw'];
+                $pageTitle .= '&kyw='.$kyw;
+            }
+            $result = [
+                'paging' => Discount::search($kyw)
+            ];
+            $this->renderSearch('Discount', $result, $pageTitle);
+        }
+
         function checkAction($action){
             switch ($action){
                 case 'index':
@@ -80,12 +88,17 @@ else{
                 case 'lock_discount':
                     $this->lock();
                     break;
+
+                case 'search':
+                    $this->search();
+                    break;
             }
         }
     }
 
     $discountController = new DiscountController();
-    if(!isset($_POST['action'])) $action = 'index';
+    if(isset($_GET['page']) && $_GET['page'] == 'searchDiscount') $action = 'search';
+    else if(!isset($_POST['action'])) $action = 'index';
     else $action = $_POST['action'];
     $discountController->checkAction($action);
 ?>

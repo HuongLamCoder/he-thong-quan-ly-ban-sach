@@ -17,13 +17,12 @@ include __DiR__.'/../../model/Product.php';
 
         function index(){
             $order = Order::getAll();
-            $this->render('Order', 'DH', array('paging' => $order), true);
+            $this->render('Order', array('paging' => $order), true);
         }
 
         function edit(){
             $this->order = Order::findByID($_POST['order_id']);
             $details = OrderDetail::findByOrder($_POST['order_id']);
-            $orderstatus = OrderStatus::getAll();
             $products = [];
             foreach($details as $item){
                 $product = Product::findByID($item['idSach']);
@@ -36,11 +35,21 @@ include __DiR__.'/../../model/Product.php';
                 'details' => $details,
                 'nhanvien' => $nhanvien->toArray(),
                 'khachhang' => $khachhang->toArray(),
-                'products' => $products,
-                'orderstatus' => $orderstatus
+                'products' => $products
             ];
             echo json_encode($result);
             exit;
+        }
+
+        function update(){
+            $ngaycapnhat = date("Y-m-d");
+            session_start();
+            $idNV = $_SESSION['user']['idTK'];
+            $idDH = $_POST['idDH'];
+            $trangthai = $_POST['status-option'];
+            $this->order->setIdDH($idDH);
+            $this->order->update($ngaycapnhat, $idNV, $trangthai);
+            echo json_encode(array('success'=>true));
         }
 
         function checkAction($action){
@@ -50,6 +59,10 @@ include __DiR__.'/../../model/Product.php';
                     break;
                 case 'edit_data':
                     $this->edit();
+                    break;
+
+                case 'submit_btn_update':
+                    $this->update();
                     break;
             }
         }

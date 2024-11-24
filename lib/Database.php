@@ -20,6 +20,11 @@ private function connectDB(){
     }
 }
 
+public function getLink()
+{
+    return $this->link;
+}
+
 public function execute($sql){
     if($this->link->query($sql)) return true;
     return false;

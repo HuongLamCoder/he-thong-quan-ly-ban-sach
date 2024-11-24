@@ -8,9 +8,9 @@
         <!-- Page control -->
         <div class="row d-flex justify-content-between">
             <div class="col-auto">
-                <button class="btn btn-control open_add_form" 
-                        type="button" 
-                        data-bs-toggle="modal" 
+                <button class="btn btn-control open_add_form"
+                        type="button"
+                        data-bs-toggle="modal"
                         data-bs-target="#permissionModal"
                 >
                     <i class="fa-regular fa-plus me-2"></i>
@@ -18,14 +18,17 @@
                 </button>
             </div>
             <div class="col">
-                <div class="input-group">
-                    <input type="text" class="form-control" placeholder="Nhập id, tên nhóm quyền" aria-label="Tìm kiếm nhóm quyền" aria-describedby="search-bar">
-                    <button class="btn btn-outline-custom" type="button" id="search-btn">Tìm</button>
-                </div>
+                <form id="form-search">
+                    <div class="input-group">
+                        <input type="hidden" name="page" value="searchRole">
+                        <input type="text" name="kyw" id="search-role" class="form-control" placeholder="Nhập id, tên nhóm quyền" aria-label="Tìm kiếm nhóm quyền" aria-describedby="search-bar">
+                        <button class="btn btn-control" type="submit" id="search-btn">Tìm kiếm</button>
+                    </div>
+                </form>
             </div>
-            <div class="col-auto">
-                <button onclick="location.reload()" type="button" class="btn btn-control">Làm mới</button>
-            </div>
+            <!-- <div class="col-auto">
+                <button type="button" class="btn btn-control">Tìm kiếm</button>
+            </div> -->
         </div>
         <!-- ... -->
         <!-- Table data -->
@@ -43,6 +46,9 @@
                     <tbody>
                     <?php
                         $roles = $result['paging'];
+                        if($roles == null){
+                            echo '<tr><td colspan="4">Không tìm thấy kết quả cần tìm!</td> </tr>';
+                        }else{
                         echo '<input type="hidden" name="curr_page" class="curr_page" value="'.$paging->curr_page.'">';
                         for($i=$paging->start; $i<$paging->start+$paging->num_per_page && $i<$paging->total_records; $i++){
                             $role = $roles[$i];
@@ -59,7 +65,7 @@
                                 ?>
                             </td>
                             <td>
-                                <button class="btn fs-5 open_view_form" 
+                                <button class="btn fs-5 open_view_form"
                                         data-bs-toggle="modal"
                                         data-bs-target="#permissionModal"
                                 >
@@ -105,9 +111,13 @@
                 </ul>
               </nav>
         </div>
+        <?php
+        }
+        ?>
         <!-- ... -->
     </main>
     <!-- ... -->
+    
 
     <!-- MODAL-->
     <div class="modal fade" id="permissionModal" tabindex="-1" aria-labelledby="permissionModalLabel" aria-hidden="true">
@@ -125,7 +135,7 @@
                             <label for="permissionGroupName" style="color: #1D712C;">Tên nhóm quyền</label>
                             <span class="text-message role-name-msg"></span>
                         </div>
-    
+   
                         <table class="table table-borderless permission-group">
                             <thead>
                                 <tr>
@@ -134,7 +144,7 @@
                                     <th>Tạo mới</th>
                                     <th>Cập nhật</th>
                                     <th>Khóa</th>
-                                    <th>In</th> 
+                                    <th>In</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -246,8 +256,8 @@
         </div>
     </div>
     <!-- ... -->
-
     <!-- Link JS ở chỗ này nè!!! -->
     <script src="../asset/quantri/js/Role.js"></script>
 </body>
 </html>
+

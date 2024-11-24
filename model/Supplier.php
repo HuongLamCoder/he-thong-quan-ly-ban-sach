@@ -1,11 +1,12 @@
 <?php
-if(isset($_POST['action'])) require '../../model/Address.php';
-else require '../model/Address.php';
+include __DIR__.'/City.php';
+include __DIR__.'/District.php';
+include __DIR__.'/Ward.php';
 
     class Supplier{
         private int $idNCC;
         private string $tenNCC;
-        private Address $diachi;
+        private string $diachi;
         private string $email;
         private string $dienthoai;
         private int $trangthai;
@@ -13,23 +14,19 @@ else require '../model/Address.php';
         function __construct(){
             $this->idNCC = 0;
             $this->tenNCC = '';
-            $this->diachi = new Address();
+            $this->diachi = '';
             $this->email = '';
             $this->dienthoai = '';
             $this->trangthai = 0;
         }
 
-        function nhap(int $idNCC, string $tenNCC, string $email, string $dienthoai, int $trangthai){
+        function nhap(int $idNCC, string $tenNCC, string $diachi, string $email, string $dienthoai, int $trangthai){
             $this->idNCC = $idNCC;
             $this->tenNCC = $tenNCC;
+            $this->diachi = $diachi;
             $this->email = $email;
             $this->dienthoai = $dienthoai;
             $this->trangthai = $trangthai;
-        }
-
-        function nhapFull(int $idNCC, string $tenNCC, string $email, string $dienthoai, int $trangthai, string $diachi){
-            $this->nhap($idNCC, $tenNCC, $email, $dienthoai, $trangthai);
-            $this->diachi->nhapFromString($diachi);
         }
 
         static function getAll(){
@@ -40,7 +37,7 @@ else require '../model/Address.php';
 
             foreach($req as $item){
                 $supplier = new self();
-                $supplier->nhap($item['idNCC'], $item['tenNCC'], $item['email'], $item['dienthoai'], $item['trangthai']);
+                $supplier->nhap($item['idNCC'], $item['tenNCC'], $item['diachi'], $item['email'], $item['dienthoai'], $item['trangthai']);
                 $list[] = $supplier;
             }
             return $list;
@@ -54,7 +51,7 @@ else require '../model/Address.php';
 
             foreach($req as $item){
                 $supplier = new self();
-                $supplier->nhap($item['idNCC'], $item['tenNCC'], $item['email'], $item['dienthoai'], $item['trangthai']);
+                $supplier->nhap($item['idNCC'], $item['tenNCC'],$item['diachi'], $item['email'], $item['dienthoai'], $item['trangthai']);
                 $list[] = $supplier;
             }
             return $list;
@@ -77,7 +74,7 @@ else require '../model/Address.php';
             $req = $con->getOne($sql);
             if($req!=null){
                 $supplier = new self();
-                $supplier->nhapFull($req['idNCC'], $req['tenNCC'], $req['email'], $req['dienthoai'], $req['trangthai'], $req['diachi']);
+                $supplier->nhap($req['idNCC'], $req['tenNCC'], $req['diachi'], $req['email'], $req['dienthoai'], $req['trangthai'], $req['diachi']);
                 return $supplier;
             }
             return null;
@@ -92,7 +89,7 @@ else require '../model/Address.php';
             $req = $con->getOne($sql);
             if($req!=null){
                 $supplier = new self();
-                $supplier->nhapFull($req['idNCC'], $req['tenNCC'], $req['email'], $req['dienthoai'], $req['trangthai'], $req['diachi']);
+                $supplier->nhap($req['idNCC'], $req['tenNCC'], $req['diachi'], $req['email'], $req['dienthoai'], $req['trangthai'], $req['diachi']);
                 return $supplier;
             }
             return null;
@@ -100,7 +97,7 @@ else require '../model/Address.php';
 
         function add(){
             if(!(self::isExist($this->idNCC, $this->tenNCC, $this->email, $this->dienthoai))){
-                $sql='INSERT INTO nhacungcap(tenNCC, email, dienthoai, diachi, trangthai) VALUES ("'.$this->tenNCC.'","'.$this->email.'","'.$this->dienthoai.'","'.$this->diachi->convertToStore().'",'.$this->trangthai.')';
+                $sql='INSERT INTO nhacungcap(tenNCC, email, dienthoai, diachi, trangthai) VALUES ("'.$this->tenNCC.'","'.$this->email.'","'.$this->dienthoai.'","'.$this->diachi.'",'.$this->trangthai.')';
                 $con = new Database();
                 $con->execute($sql);
                 return true;
@@ -111,13 +108,27 @@ else require '../model/Address.php';
         function update(){
             if(!(self::isExist($this->idNCC, $this->tenNCC, $this->email, $this->dienthoai))){
                 $sql = 'UPDATE nhacungcap 
-                SET tenNCC = "'.$this->tenNCC.'", email = "'.$this->email.'", dienthoai = "'.$this->dienthoai.'", diachi = "'.$this->diachi->convertToStore().'",trangthai='.$this->trangthai.'
+                SET tenNCC = "'.$this->tenNCC.'", email = "'.$this->email.'", dienthoai = "'.$this->dienthoai.'", diachi = "'.$this->diachi.'",trangthai='.$this->trangthai.'
                 WHERE idNCC = '.$this->idNCC;
                 $con = new Database();
                 $con->execute($sql);
                 return true;
             }
             return false;
+        }
+
+        function convertToShow(){
+            $diachi = explode(",", $this->diachi);
+            $city = City::find($diachi[3]);
+            $district = District::find($diachi[2], $city->getIdTinh());
+            $ward = Ward::find($diachi[1], $district->getIdQuan());
+            $sonha = $this->setSonha($diachi[0]);
+            return [
+                'idTinh' => $city->getIdTinh(),
+                'idQuan' => $district->getIdQuan(),
+                'idXa' => $ward->getIdXa(),
+                'sonha' => $sonha
+            ];
         }
         
         function toArray() {
@@ -126,9 +137,26 @@ else require '../model/Address.php';
                 'tenNCC' => $this->tenNCC,
                 'email' => $this->email,
                 'dienthoai' => $this->dienthoai,
-                'diachi' => $this->diachi->toArray(),
+                'diachi' => $this->diachi,
                 'trangthai' => $this->trangthai
             ];
+        }
+
+        static function searchSupplier($kyw, $trangthai) {
+            $sql = 'SELECT idNCC, tenNCC, diachi, email, dienthoai, trangthai
+                FROM nhacungcap
+                WHERE 1';
+            if($kyw != NULL) $sql .= ' AND (idNCC LIKE "%'.$kyw.'%" OR tenNCC LIKE "%'.$kyw.'%")';
+            if($trangthai != NULL) $sql .= ' AND trangthai = '.$trangthai;
+            $list = [];
+            $con = new Database();
+            $req = $con->getAll($sql);
+            foreach($req as $item){
+                $supp = new self();
+                $supp->nhap($item['idNCC'], $item['tenNCC'], $item['diachi'], $item['email'], $item['dienthoai'], $item['trangthai']);
+                $list[] = $supp;
+            }
+            return $list;
         }
 
         function getIdNCC(){
@@ -151,14 +179,6 @@ else require '../model/Address.php';
             return $this->trangthai;
         }
 
-        function getIdTinh(){
-            return $this->diachi->getIdTinh();
-        }
-
-        function getIdQuan(){
-            return $this->diachi->getIdQuan();
-        }
-
         function setTenNCC(string $tenNCC){
             $this->tenNCC= $tenNCC;
         }
@@ -171,12 +191,24 @@ else require '../model/Address.php';
             $this->dienthoai = $dienthoai;
         }
 
-        function setAddress(string $sonha, int $idTinh, int $idQuan, int $idXa){
-            $this->diachi->nhap($sonha,$idTinh, $idQuan, $idXa);
-        }
-
         function setTrangthai(int $trangthai){
             $this->trangthai = $trangthai;
+        }
+
+        function setDiachi($sonha, $idTinh, $idQuan, $idXa){
+            $sonha = $this->setSonha($sonha);
+            $tinh =  City::findByID($idTinh);
+            $tenTinh = $tinh->getTentinh();
+            $quan = District::findByID($idQuan);
+            $tenQuan = $quan->getTenquan();
+            $xa = Ward::findByID($idXa);
+            $tenXa = $xa->getTenxa();
+            $this->diachi = $sonha.','.$tenXa.','.$tenQuan.','.$tenTinh;
+        }
+
+        private function setSonha($sonha){
+            $commaPos = strpos($sonha, ',');
+            return $commaPos !== false ? substr($sonha, 0, $commaPos) : $sonha;
         }
     }
 ?>

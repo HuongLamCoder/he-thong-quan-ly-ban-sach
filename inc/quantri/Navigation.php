@@ -12,7 +12,7 @@
             >
                 <span class="navbar-toggler-icon"></span>
             </button>
-            <a href="#" class="navbar-brand ms-3">
+            <a href="index.php" class="navbar-brand ms-3">
                 <img src="../asset/quantri/img/vinabook-logo.png" alt="Vinabook" style="width: 250px;">
             </a>
         </div>

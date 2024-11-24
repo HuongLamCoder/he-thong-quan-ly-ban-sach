@@ -1,14 +1,12 @@
 <?php
-if(isset($_POST['action'])) require '../../model/Role.php';
-else require '../model/Role.php';
     class Account{
-        private int $idTK;
+        private ?int $idTK;
         private string $tenTK;
         private string $dienthoai;
         private string $email;
-        private string $matkhau;
+        private ?string $matkhau;
         private int $trangthai;
-        private Role $nhomquyen;
+        private int $idNQ;
 
         function __construct(){
             $this->idTK=0;
@@ -17,18 +15,17 @@ else require '../model/Role.php';
             $this->email = '';
             $this->matkhau = '';
             $this->trangthai = 0;
-            $this->nhomquyen = new Role();
+            $this->idNQ = 0;
         }
 
-        function nhap(int $idTK, string $tenTK, string $dienthoai, string $email, string $matkhau, int $trangthai, $nhomquyen){
+        function nhap(?int $idTK = NULL, string $tenTK, string $dienthoai, string $email, string $matkhau = NULL, int $trangthai, $idNQ){
             $this->idTK = $idTK;
             $this->tenTK = $tenTK;
             $this->dienthoai = $dienthoai;
             $this->email = $email;
             $this->matkhau = $matkhau;
             $this->trangthai = $trangthai;
-            if($nhomquyen instanceof Role) $this->nhomquyen = $nhomquyen;
-            else $this->nhomquyen->setIdNQ($nhomquyen);
+            $this->idNQ = $idNQ;
         }
 
         static function getAll(){
@@ -38,11 +35,12 @@ else require '../model/Role.php';
             $con = new Database();
             $req = $con->getAll($sql);
             foreach($req as $item){
-                $role = new Role();
-                $role->nhap($item['idNQ'], $item['tenNQ'], $item['trangthaiNQ']);
                 $account = new self();
-                $account->nhap($item['idTK'], $item['tenTK'], $item['dienthoai'], $item['email'], $item['matkhau'], $item['trangthai'], $role);
-                $list[] = $account;
+                $account->nhap($item['idTK'], $item['tenTK'], $item['dienthoai'], $item['email'], $item['matkhau'], $item['trangthai'], $item['idNQ']);
+                $list[] = [
+                    'account' => $account->toArray(),
+                    'tenNQ' => $item['tenNQ']
+                ];
             }
             return $list;
         }
@@ -78,9 +76,31 @@ else require '../model/Role.php';
             return null;
         }
 
+        static function search($kyw, $idNQ, $trangthai){
+            $sql = 'SELECT idTK, tenTK, email, matkhau, dienthoai, taikhoan.idNQ AS idNQ, tenNQ, nhomquyen.trangthai AS trangthaiNQ, taikhoan.trangthai AS trangthai
+                FROM taikhoan
+                    LEFT JOIN nhomquyen ON taikhoan.idNQ = nhomquyen.idNQ
+                WHERE 1';
+            if($kyw != NULL)  $sql .= ' AND (idTK LIKE "%'.$kyw.'%" OR tenTK LIKE "%'.$kyw.'%")';
+            if($idNQ != NULL)  $sql .= ' AND taikhoan.idNQ = '.$idNQ;
+            if($trangthai != NULL) $sql .= ' AND taikhoan.trangthai = '.$trangthai;
+            $list = [];
+            $con = new Database();
+            $req = $con->getAll($sql);
+            foreach($req as $item){
+                $account = new self();
+                $account->nhap($item['idTK'], $item['tenTK'], $item['dienthoai'], $item['email'], $item['matkhau'], $item['trangthai'], $item['idNQ']);
+                $list[] = [
+                    'account' => $account->toArray(),
+                    'tenNQ' => $item['tenNQ']
+                ];
+            }
+            return $list;
+        }
+
         function add(){
             if(!(self::isExist($this->idTK, $this->email))){
-                $sql = 'INSERT INTO taikhoan (tenTK, email, matkhau, dienthoai, trangthai, idNQ) VALUES ("' . $this->tenTK . '", "' . $this->email . '", "' . $this->matkhau . '", "' . $this->dienthoai . '", "' . $this->trangthai . '", ' . $this->nhomquyen->getIdNQ() . ')';
+                $sql = 'INSERT INTO taikhoan (tenTK, email, matkhau, dienthoai, trangthai, idNQ) VALUES ("' . $this->tenTK . '", "' . $this->email . '", "' . $this->matkhau . '", "' . $this->dienthoai . '", "' . $this->trangthai . '", ' . $this->idNQ . ')';
                 $con = new Database();
                 $con->execute($sql);
                 return true;
@@ -95,7 +115,7 @@ else require '../model/Role.php';
                         dienthoai = "' . $this->dienthoai . '", 
                         email = "' . $this->email . '",
                         trangthai = "' . $this->trangthai . '", 
-                        idNQ = ' . $this->nhomquyen->getIdNQ() . ' 
+                        idNQ = ' . $this->idNQ . ' 
                     WHERE idTK = ' . $this->idTK;
                 $con = new Database();
                 $con->execute($sql);
@@ -111,7 +131,7 @@ else require '../model/Role.php';
                 'dienthoai' => $this->dienthoai,
                 'email' => $this->email,
                 'trangthai' => $this->trangthai,
-                'idNQ' => $this->nhomquyen->getIdNQ()
+                'idNQ' => $this->idNQ
             ];
         }
 
@@ -135,12 +155,12 @@ else require '../model/Role.php';
             $this->matkhau = $matkhau;
         }
 
-        function setTrangthai(string $trangthai){
+        function setTrangthai(int $trangthai){
             $this->trangthai = $trangthai;
         }
 
-        function setIdNQ(string $idNQ){
-            $this->nhomquyen->setIdNQ($idNQ);
+        function setIdNQ(int $idNQ){
+            $this->idNQ = $idNQ;
         }
 
         function getIdTK(){
@@ -163,16 +183,12 @@ else require '../model/Role.php';
             return $this->trangthai;
         }
 
-        function getTenNQ(){
-            return $this->nhomquyen->getTenNQ();
+        function getMatkhau(){
+            return $this->matkhau;
         }
 
         function getIdNQ(){
-            return $this->nhomquyen->getIdNQ();
-        }
-
-        function getMatkhau(){
-            return $this->matkhau;
+            return $this->idNQ;
         }
 
     }

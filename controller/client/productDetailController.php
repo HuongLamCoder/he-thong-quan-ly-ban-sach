@@ -1,19 +1,10 @@
 <?php
-if (isset($_POST['action'])) {
-    require '../BaseController.php';
-    require '../../model/Supplier.php';
-    require '../../model/Discount.php';
-    require '../../model/Author.php';
-    require '../../model/Category.php';
-    require '../../model/Product.php';
-} else {
-    require '../controller/BaseController.php';
+    require __DIR__.'../controller/BaseController.php';
     require '../model/Supplier.php';
     require '../model/Discount.php';
     require '../model/Author.php';
     require '../model/Category.php';
     require '../model/Product.php';
-}
 
 class ProductController extends BaseController
 {

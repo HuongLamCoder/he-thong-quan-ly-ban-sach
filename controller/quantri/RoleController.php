@@ -18,7 +18,7 @@ else{
 
         function index(){
             $role = Role::getAll();
-            $this->render('Role', 'NQ', array('paging' => $role), true);
+            $this->render('Role', array('paging' => $role), true);
         }
 
         function add(){
@@ -26,8 +26,8 @@ else{
             $this->role->setTrangthai(1);
             $permission_name = array_slice(array_keys($_POST), 2);
             $req = $this->role->add($permission_name);
-            if($req) echo json_encode(array('btn'=>'add', 'success'=>true));
-            else echo json_encode(array('btn'=>'add', 'success'=>false));
+            if($req == '') echo json_encode(array('btn'=>'add', 'success'=>true));
+            else echo json_encode(array('btn'=>'add', 'success'=>false, 'msg' => $req));
             exit;
         }
 
@@ -61,6 +61,19 @@ else{
             exit;
         }
 
+        function search(){
+            $pageTitle = 'searchRole';
+            $kyw = NULL;
+            if(isset($_GET['kyw']) && isset($_GET['kyw']) != "") {
+                $kyw = $_GET['kyw'];
+                $pageTitle .= '&kyw='.$kyw;
+            }
+            $result = [
+                'paging' => Role::search($kyw)
+            ];
+            $this->renderSearch('Role', $result, $pageTitle);
+        }
+
         function checkAction($action){
             switch ($action){
                 case 'index':
@@ -86,12 +99,18 @@ else{
                 case 'unlock_role':
                     $this->unlock();
                     break;
+
+                case 'search':
+                    $this->search();
+                    break;
             }
         }
     }
 
     $roleController = new RoleController();
-    if(!isset($_POST['action'])) $action = 'index';
+    if(isset($_GET['page']) && $_GET['page'] == 'searchRole') $action = 'search';
+    else if(!isset($_POST['action'])) $action = 'index';    
     else $action = $_POST['action'];
     $roleController->checkAction($action);
+
 ?>

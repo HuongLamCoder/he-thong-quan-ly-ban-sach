@@ -120,7 +120,7 @@ $(document).ready(function() {
                     }
                     else toast({
                         title: 'Lỗi',
-                        message: 'Nhóm quyền đã tồn tại',
+                        message: obj.msg,
                         type: 'error',
                         duration: 3000
                     });

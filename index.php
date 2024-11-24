@@ -1,9 +1,6 @@
 <?php
-require 'lib/connect.php';
-require 'model/book.php';
-require 'model/category.php';
-require 'model/author.php';
-
+session_start();
+$_SESSION['user'] = ["idTK" => 1];
 include_once "inc/header.php";
 if(isset($_GET['page'])&&($_GET['page']!=="")){
     switch(trim($_GET['page'])){   
@@ -12,21 +9,13 @@ if(isset($_GET['page'])&&($_GET['page']!=="")){
             break;
 
         case 'productDetail':
-            require "controller/productDetail.php";
+            require "controller/client/productDetailController.php";
             break;
 
-        case 'search':
-            require 'controller/search.php';
+        case 'signUp':
+            require 'controller/client/AuthenController.php';
             break;
         
-        case 'signUp':
-            require 'controller/signUp.php';
-            break;
-
-        case 'signIn':
-            require 'controller/signIn.php';
-            break;
-            
         default:
             require "controller/home.php";
             break;

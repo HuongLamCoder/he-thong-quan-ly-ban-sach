@@ -4,6 +4,7 @@
             <h1 class="page-title">QUẢN LÝ MÃ GIẢM GIÁ</h1>
         </div>
         <!-- ... -->
+        
         <!-- Page control -->
         <div class="row d-flex justify-content-between">
             <div class="col-auto">
@@ -17,19 +18,23 @@
                 </button>
             </div>
             <div class="col">
-                <div class="input-group">
-                    <input type="text" 
-                            class="form-control" 
-                            placeholder="Nhập id, phần trăm giảm giá" 
-                            aria-label="Tìm kiếm mã giảm giá" 
-                            aria-describedby="search-bar"
-                    >
-                    <button class="btn btn-outline-custom" type="button" id="search-btn">Tìm</button>
-                </div>
+                <form>
+                    <input type="hidden" name="page" value="searchDiscount">
+                    <div class="input-group">
+                        <input type="text"
+                                class="form-control"
+                                placeholder="Nhập id, phần trăm giảm giá"
+                                aria-label="Tìm kiếm mã giảm giá"
+                                aria-describedby="search-bar"
+                                name="kyw"
+                        >
+                        <button class="btn btn-control" type="submit" id="search-btn">Tìm kiếm</button>
+                    </div>
+                </form>
             </div>
-            <div class="col-auto">
+            <!-- <div class="col-auto">
                 <button onclick="location.reload()" type="button" class="btn btn-control">Làm mới</button>
-            </div>
+            </div> -->
         </div>
         <!-- ... -->
         <!-- Table data -->
@@ -48,9 +53,13 @@
                     </thead>
                     <tbody>
                     <?php
+                    $discounts = $result['paging'];
+                    if($discounts == null) {
+                        echo '<tr><td colspan="6">Không tìm thấy kết quả cần tìm!</td> </tr>';
+                    } else {
                         echo '<input type="hidden" name="curr_page" class="curr_page" value="'.$paging->curr_page.'">';
                         for($i=$paging->start; $i<$paging->start+$paging->num_per_page && $i<$paging->total_records; $i++){
-                            $discount = $result[$i];
+                            $discount = $discounts[$i];
                     ?>
                         <tr class="discount_row">
                             <td class="discount_id"><?=$discount->getIdMGG()?></td>
@@ -104,6 +113,9 @@
                 </ul>
               </nav>
         </div>
+        <?php
+            }
+        ?>
         <!-- ... -->
     </main>
     <!-- ... -->

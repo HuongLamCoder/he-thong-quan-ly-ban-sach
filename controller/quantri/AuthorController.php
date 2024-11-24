@@ -1,12 +1,7 @@
 <?php
-if(isset($_POST['action'])){
-    require '../BaseController.php';
-    require '../../model/Author.php';
-}
-else{
-    require '../controller/BaseController.php';
-    require '../model/Author.php';
-}
+include dirname(__FILE__).'/../BaseController.php';
+include dirname(__FILE__).'/../../model/Author.php';
+
     class AuthorController extends BaseController{
         private $author;
 
@@ -18,7 +13,7 @@ else{
 
         function index(){
             $authors = Author::getAll();
-            $this->render('Author','TG', array('paging' => $authors), true);
+            $this->render('Author', array('paging' => $authors), true);
         }
 
         function add(){
@@ -47,6 +42,21 @@ else{
             exit;
         }
 
+        function search(){
+            $pageTitle = 'searchAuthor';
+            $kyw = NULL;
+            if(isset($_GET['kyw']) && isset($_GET['kyw']) != "") {
+                $kyw = $_GET['kyw'];
+                $pageTitle .= '&kyw='.$kyw;
+            }
+            $result = [
+                'paging' => Author::search($kyw)
+            ];
+            $this->renderSearch('Author', $result, $pageTitle);
+
+
+        }
+
         function checkAction($action){
             switch ($action){
                 case 'index':
@@ -64,12 +74,18 @@ else{
                 case 'submit_btn_update':
                     $this->update();
                     break;
+
+                case 'search':
+                    $this->search();
+                    break;
             }
         }
     }
 
     $authorController = new AuthorController();
-    if(!isset($_POST['action'])) $action = 'index';
+    if(isset($_GET['page']) && $_GET['page'] == 'searchAuthor') $action = 'search';
+    else if(!isset($_POST['action'])) $action = 'index';
     else $action = $_POST['action'];
     $authorController->checkAction($action);
+
 ?>

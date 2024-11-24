@@ -5,6 +5,7 @@ if(isset($_GET['page']) && ($_GET['page'] !== "")){
         include '../inc/quantri/Header.php';
         switch(trim($_GET['page'])){
             case 'login':
+                if(isset($_SESSION)) session_destroy();
                 include '../controller/quantri/AuthenController.php';
                 break;
             case 'forgot_password':
@@ -16,8 +17,7 @@ if(isset($_GET['page']) && ($_GET['page'] !== "")){
             case 'reset_password':
                 include './controller/ResetPassword.php';
                 break;
-            case 'logout':
-                session_destroy();
+            
             default:
                 header('Location: index.php?page=login');
                 break;
@@ -63,13 +63,55 @@ if(isset($_GET['page']) && ($_GET['page'] !== "")){
             case 'profit':
                 include './controller/Profit.php';
                 break;
+
+            case 'searchRole':
+                include '../controller/quantri/RoleController.php';
+                break;
+            case 'searchAccount':
+                include '../controller/quantri/AccountController.php';
+                break;
+            case 'searchCategory':
+                include '../controller/quantri/CategoryController.php';
+                break;
+            case 'searchSupplier':
+                include '../controller/quantri/SupplierController.php';
+                break;
+            case 'searchDiscount':
+                include '../controller/quantri/DiscountController.php';
+                break;
+            case 'searchAuthor':
+                include '../controller/quantri/AuthorController.php';
+                break;
+            case 'searchProduct':
+                include '../controller/quantri/ProductController.php';
+                break;
+
             default:
                 header('Location: index.php?page=login');
                 break;
         }
     }
 }
+else if(!isset($_GET['page']) && isset($_SESSION['user'])){
+    $chucnang = $_SESSION['permission'][0];
+    var_dump($chucnang['tenCN']);
+    $page = explode("_", $chucnang['tenCN'])[0];
+    switch($page){
+        case 'NQ': $page = 'role'; break;
+        case 'TK': $page = 'account'; break;
+        case 'TG': $page = 'author'; break;
+        case 'TL': $page = 'category'; break;
+        case 'NCC': $page = 'supplier'; break;
+        case 'MGG': $page = 'discount'; break;
+        case 'SP': $page = 'product'; break;
+        case 'DH': $page = 'order'; break;
+        case 'DT': $page = 'income'; break;
+        case 'NK': $page = 'cost'; break;
+        case 'LN': $page = 'profit'; break;
+    }
+header('Location: http://localhost/he-thong-quan-ly-ban-sach/quantri/index.php?page='.$page);
+}
 else{ 
     header('Location: index.php?page=login');
 }
-?>
+?> 

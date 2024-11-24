@@ -18,26 +18,27 @@
                 </button>
             </div> 
             <div class="col">
-                <form action="index.php" method="GET" id="search">
+            <form id="search">
                     <input type="hidden" name="page" value="searchCategory">
+                    <!-- <input type="hidden" name="page" value="searchCategory"> -->
                     <div class="input-group">
-                        <input type="text" 
-                                class="form-control" 
-                                placeholder="Nhập id, tên danh mục" 
-                                aria-label="Tìm kiếm danh mục" 
+                        <input type="text"
+                                class="form-control"
+                                placeholder="Nhập id, tên danh mục"
+                                aria-label="Tìm kiếm danh mục"
                                 aria-describedby="search-bar"
-                                name="tukhoa"
+                                name="kyw"
                                 id="search-input"
                         >
-                        <button class="btn btn-outline-custom" type="submit" id="search-btn">Tìm</button>
+                        <button class="btn btn-control" type="submit" id="search-btn">Tìm kiếm</button>
                     </div>
-                    <input type="hidden" name="action" value="tim-kiem">
                 </form>
+
             </div>
 
-            <div class="col-auto">
+            <!-- <div class="col-auto">
                 <button onclick="location.reload()" type="button" class="btn btn-control">Làm mới</button>
-            </div>
+            </div> -->
         </div>
         <!-- ... -->
         <!-- Table data -->
@@ -54,9 +55,13 @@
                     </thead>
                     <tbody>
                         <?php
+                        $categories = $result['paging'];
+                         if($categories == null) {
+                            echo '<tr><td colspan="4">Không tìm thấy kết quả cần tìm!</td> </tr>';
+                        } else {
                         echo '<input type="hidden" name="curr_page" class="curr_page" value="'.$paging->curr_page.'">';
                         for($i=$paging->start; $i<$paging->start+$paging->num_per_page && $i<$paging->total_records; $i++){
-                            $category = $result[$i];
+                            $category = $categories[$i];
                         ?>
                         <tr>
                             <td class="category_id"><?=$category->getIdTL()?></td>
@@ -96,6 +101,9 @@
                 </ul>
               </nav>
         </div>
+        <?php
+            }
+        ?>
         <!-- ... -->
     </main>
     <!-- ... -->

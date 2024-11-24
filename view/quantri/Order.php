@@ -147,6 +147,7 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <form id="orderForm">
+                <input type="hidden" name="idDH">
                 <div class="modal-body">
                     <div class="row">
                         <div class="col-6 modal-body-left px-3" style="max-height: 450px; overflow-y:auto;">
@@ -202,8 +203,8 @@
                                     <span class="detail-value text-end w-50" id="trangthai"></span>
                                 </li>
                                 <li class="list-group-item edit d-flex justify-content-between align-items-center">
-                                    <label for="status-select" class="fw-bold">Trạng thái</label>
-                                    <select name="status-select" id="status-select" class="border-success form-select align-content-end detail-value w-50">
+                                    <label for="status-option" class="fw-bold">Trạng thái</label>
+                                    <select name="status-option" id="status-option" class="border-success form-select align-content-end detail-value w-50">
                                     </select>
                                 </li>
                                 <li class="list-group-item d-flex justify-content-between align-items-center">

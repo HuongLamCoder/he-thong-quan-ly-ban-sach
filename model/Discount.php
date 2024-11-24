@@ -61,6 +61,22 @@
             return null;
         }
 
+        static function search($kyw){
+            $sql = 'SELECT DISTINCT idMGG, phantram, ngaybatdau, ngayketthuc, trangthai
+                    FROM magiamgia
+                    WHERE 1';
+            if($kyw != NULL) $sql .= ' AND (idMGG LIKE "%'.$kyw.'%" OR phantram LIKE "%'.$kyw.'%")';
+            $list = [];
+            $con = new Database();
+            $req = $con->getAll($sql);
+            foreach($req as $item){
+                $discount = new Discount();
+                $discount->nhap($item['idMGG'], $item['phantram'], $item['ngaybatdau'], $item['ngayketthuc'], $item['trangthai']);
+                $list[] = $discount;
+            }
+            return $list;
+        }
+
         function add(){
             if(!(Discount::isExist($this->idMGG, $this->phantram, $this->ngaybatdau, $this->ngayketthuc))){
                 $sql='INSERT INTO magiamgia(phantram, ngaybatdau, ngayketthuc, trangthai) values ('.$this->phantram.',"'.$this->ngaybatdau.'","'.$this->ngayketthuc.'","'.$this->trangthai.'")';

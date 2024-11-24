@@ -78,6 +78,22 @@
             }
             return false;
         }
+
+        static function search($kyw){
+            $sql = 'SELECT DISTINCT idTG, tenTG, trangthai
+            FROM tacgia
+            WHERE 1';
+            if($kyw != NULL) $sql .= ' AND (idTG LIKE "%'.$kyw.'%" OR tenTG LIKE "%'.$kyw.'%")';
+            $list = [];
+            $con = new Database();
+            $req = $con->getAll($sql);
+            foreach($req as $item){
+                $messi = new self();
+                $messi->nhap($item['idTG'], $item['tenTG'], $item['trangthai']);
+                $list[] = $messi;
+            }
+            return $list;
+        }
         
         function toArray() {
             return [

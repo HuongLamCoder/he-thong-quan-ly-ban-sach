@@ -1,12 +1,8 @@
 <?php
-if(isset($_POST['action'])){
-    require '../BaseController.php';
-    require '../../model/Account.php';
-}
-else{
-    require '../controller/BaseController.php';
-    require '../model/Account.php';
-}
+    include dirname(__FILE__).'/../BaseController.php';
+    include dirname(__FILE__).'/../../model/Account.php';
+    include dirname(__FILE__).'/../../model/Role.php';
+
     class AccountController extends BaseController{
         private $account;
 
@@ -18,16 +14,17 @@ else{
 
         function index(){
             $account = Account::getAll();
-            $this->render('Account','TK', array('paging' => $account), true);
+            $role = Role::getAll();
+            $result = [
+                'paging' => $account,
+                'role' => $role
+            ];
+            $this->render('Account', $result, true);
         }
 
         function add(){
-            $this->account->setTenTK($_POST['username']);
-            $this->account->setEmail($_POST['usermail']);
-            $this->account->setMatkhau(password_hash($_POST['password'], PASSWORD_DEFAULT));
-            $this->account->setDienthoai($_POST['userphone']);
-            $this->account->setIdNQ($_POST['role-select']);
-            $this->account->setTrangthai(1);
+            $matkhau = password_hash($_POST['password'], PASSWORD_DEFAULT);
+            $this->account->nhap(NULL, $_POST['username'], $_POST['userphone'], $_POST['usermail'], $matkhau, 1, $_POST['role-select']);
             $req = $this->account->add();
             if($req) echo json_encode(array('btn'=>'add', 'success'=>true));
             else echo json_encode(array('btn'=>'add', 'success'=>false));
@@ -57,17 +54,44 @@ else{
         }
 
         function update(){
-            $this->account->setIdTK($_POST['account_id']);
-            $this->account->setTenTK($_POST['username']);
-            $this->account->setEmail($_POST['usermail']);
-            $this->account->setDienthoai($_POST['userphone']);
-            $this->account->setIdNQ($_POST['role-select']);
-            $trangthai = isset($_POST['status']) ? 1 : 0;
-            $this->account->setTrangthai($trangthai);
+            $trangthai = isset($_POST['status']) ? 1 : 0;$trangthai = isset($_POST['status']) ? 1 : 0;
+            $this->account->nhap($_POST['account_id'], $_POST['username'], $_POST['userphone'], $_POST['usermail'], NULL, $trangthai, $_POST['role-select']);
             $req = $this->account->update();
             if($req) echo json_encode(array('btn'=>'update','success'=>true));
             else echo json_encode(array('btn'=>'update','success'=>false));
             exit;
+        }
+
+        function search(){
+            session_start();
+            var_dump($_SESSION['user']);
+            $pageTitle = 'searchAccount';
+            $kyw = NULL;
+            $idNQ = NULL;
+            $trangthai = NULL;
+
+            if(isset($_GET['kyw']) && ($_GET['kyw']) != "") {
+                $kyw = $_GET['kyw'];
+                $pageTitle .= '&kyw='.$kyw;
+            }
+
+            if(isset($_GET['role_select']) && $_GET['role_select'] != -1) {
+                $idNQ = $_GET['role_select'];
+                $pageTitle .= '&role_select='.$idNQ;
+            }
+
+            if(isset($_GET['status_select']) && $_GET['status_select'] != -1 ) {
+                $trangthai = $_GET['status_select'];
+                $pageTitle .= '&status_select='.$trangthai;
+            }
+
+            $role = Role::getAll();
+
+            $result = [
+                'paging' => Account::search($kyw, $idNQ, $trangthai),
+                'role' => $role
+            ];
+            $this->renderSearch('Account', $result, $pageTitle);
         }
 
         function checkAction($action){
@@ -91,12 +115,17 @@ else{
                 case 'submit_btn_update':
                     $this->update();
                     break;
+
+                case 'search':
+                    $this->search();
+                    break;
             }
         }
     }
 
     $accountController = new AccountController();
-    if(!isset($_POST['action'])) $action = 'index';
+    if(isset($_GET['page']) && $_GET['page'] == 'searchAccount') $action = 'search';
+    else if(!isset($_POST['action'])) $action = 'index';
     else $action = $_POST['action'];
     $accountController->checkAction($action);
 ?>

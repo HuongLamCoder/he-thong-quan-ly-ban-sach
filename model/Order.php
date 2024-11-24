@@ -58,6 +58,16 @@ include __DIR__.'/OrderStatus.php';
             return null;
         }
 
+        function update($ngaycapnhat, $idNV, $trangthai){
+            $sql = 'UPDATE donhang 
+            SET ngaycapnhat = "'.$ngaycapnhat.'",
+            idNV = "'.$idNV.'",
+            idTT = "'.$trangthai.'"
+            WHERE idDH ='.$this->idDH;
+            $con = new Database();
+            $con->execute($sql);
+        }
+
         function toArray(){
             return [
               'idDH' => $this->idDH,
@@ -70,6 +80,10 @@ include __DIR__.'/OrderStatus.php';
               'idTK' => $this->idTK,
               'idNV' => $this->idNV
             ];
+        }
+
+        function setIdDH($idDH){
+            $this->idDH = $idDH;
         }
 
         function getIdNV(){

@@ -17,19 +17,24 @@
                 </button>
             </div>
             <div class="col">
-                <div class="input-group">
-                    <input type="text" 
-                            class="form-control" 
-                            placeholder="Nhập id, tên tác giả" 
-                            aria-label="Tìm kiếm tác giả" 
-                            aria-describedby="search-bar"
-                    >
-                    <button class="btn btn-outline-custom" type="button" id="search-btn">Tìm</button>
-                </div>
+                <form action="">
+                    <div class="input-group">
+                    <input type="hidden" name="page" value="searchAuthor">
+                        <input type="text" 
+                                class="form-control" 
+                                placeholder="Nhập id, tên tác giả" 
+                                aria-label="Tìm kiếm tác giả" 
+                                aria-describedby="search-bar"
+                                name="kyw"
+                        >
+                        <button class="btn btn-control" type="submit" id="search-btn">Tìm kiếm</button>
+                    </div>
+                </form>
+
             </div>
-            <div class="col-auto">
+            <!-- <div class="col-auto">
                 <button onclick="location.reload()" type="button" class="btn btn-control">Làm mới</button>
-            </div>
+            </div> -->
         </div>
         <!-- ... -->
         <!-- Table data -->
@@ -46,9 +51,13 @@
                     </thead>
                     <tbody>
                         <?php
+                        $authors = $result['paging'];
+                         if($authors == null) {
+                            echo '<tr><td colspan="4">Không tìm thấy kết quả cần tìm!</td> </tr>';
+                        } else {
                         echo '<input type="hidden" name="curr_page" class="curr_page" value="'.$paging->curr_page.'">';
                         for($i=$paging->start; $i<$paging->start+$paging->num_per_page && $i<$paging->total_records; $i++){
-                            $author = $result[$i];
+                            $author = $authors[$i];
                         ?>
                         <tr>
                             <td class="author_id"><?=$author->getIdTG()?></td>
@@ -88,8 +97,11 @@
                 </ul>
               </nav>
         </div>
+        <?php
+            }
+        ?>
         <!-- ... -->
-    </div>
+</main>
     <!-- ... -->
 
     <!-- Modal -->

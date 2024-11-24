@@ -61,6 +61,22 @@ else require '../model/Permission.php';
             return ($con->getOne($sql))!=null;
         }
 
+        static function search($kyw){
+            $sql = 'SELECT DISTINCT idNQ, tenNQ, trangthai
+                    FROM nhomquyen
+                    WHERE trangthai = 1';
+            if($kyw != NULL) $sql .= ' AND (idNQ LIKE "%'.$kyw.'%" OR tenNQ LIKE "%'.$kyw.'%")';
+            $list = [];
+                $con = new Database();
+                $req = $con->getAll($sql);
+                foreach($req as $item){
+                    $ronaldo = new Role();
+                    $ronaldo->nhap($item['idNQ'], $item['tenNQ'], $item['trangthai']);
+                    $list[] = $ronaldo;
+                }
+                return $list;
+        }
+
         static function findByID($idNQ){
             $sql = 'SELECT * FROM nhomquyen WHERE idNQ='.$idNQ;
             $con = new Database();
@@ -87,24 +103,31 @@ else require '../model/Permission.php';
         }
 
         function add($permission_name){
+            $msg = '';
             if(!(self::isExist($this->idNQ, $this->tenNQ))){
-                // tao moi nhom quyen
-                $sql = 'INSERT INTO nhomquyen(tenNQ, trangthai) VALUE("'.$this->tenNQ.'", '.$this->trangthai.')';
-                $con = new Database();
-                $con->execute($sql);
-                //getLastID
-                $this->idNQ = $this->getLastID();
-                //addDetail
-                $n = count($permission_name)-1; // except 'btn_submit_add'
-                $idCN = [];
-                for($i = 0; $i < $n; $i++){
-                    $permission = Permission::findByName($permission_name[$i]);
-                    $idCN[] = $permission->getIdCN();
+                // kiem tra co chon chuc nang chua // except 'btn_submit_add'
+                $n = count($permission_name)-1;
+                if($n>0){
+                    // tao moi nhom quyen
+                    $sql = 'INSERT INTO nhomquyen(tenNQ, trangthai) VALUE("'.$this->tenNQ.'", '.$this->trangthai.')';
+                    $con = new Database();
+                    $con->execute($sql);
+                    //getLastID
+                    $this->idNQ = $this->getLastID();
+                    //addDetail
+                    
+                    $idCN = [];
+                    for($i = 0; $i < $n; $i++){
+                        $permission = Permission::findByName($permission_name[$i]);
+                        $idCN[] = $permission->getIdCN();
+                    }
+                    $this->addDetail($idCN);
                 }
-                $this->addDetail($idCN);
-                return true;
+                else $msg = 'Vui lòng chọn chức năng';
+                
             }
-            return false;
+            else $msg = 'Nhóm quyền đã tồn tại';
+            return $msg;
         }
 
         function getLastID(){

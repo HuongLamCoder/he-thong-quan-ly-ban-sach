@@ -8,9 +8,9 @@
         <!-- Page control -->
         <div class="row d-flex justify-content-between">
             <div class="col-auto">
-                <button class="btn btn-control open_add_form" 
-                        type="button" 
-                        data-bs-toggle="modal" 
+                <button class="btn btn-control open_add_form"
+                        type="button"
+                        data-bs-toggle="modal"
                         data-bs-target="#accountModal"
                 >
                     <i class="fa-regular fa-plus me-2"></i>
@@ -19,43 +19,52 @@
             </div>
 
             <div class="col">
-                <div class="row">
-                    <div class="col-6">
-                        <div class="input-group">
-                            <input type="text" 
-                                    class="form-control" 
-                                    placeholder="Nhập id, tên tài khoản" 
-                                    aria-label="Tìm kiếm tài khoản" 
-                                    aria-describedby="search-bar"
-                            >
-                            <button class="btn btn-outline-custom" type="button" id="search-btn">Tìm</button>
+                <form>
+                    <input type="hidden" name="page" value="searchAccount">
+                    <div class="row">
+                        <div class="col-6">
+                            <div class="input-group">
+                                <input type="text"
+                                        class="form-control"
+                                        placeholder="Nhập id, tên tài khoản"
+                                        aria-label="Tìm kiếm tài khoản"
+                                        aria-describedby="search-bar"
+                                        name="kyw"
+                                >
+                            </div>
                         </div>
-                    </div>
-                    <div class="col">
-                        <div class="input-group">
-                            <select id="status-select" class="form-select">
-                                <option selected>Tất cả nhóm quyền</option>
-                                <option value="1">Nhân viên bán hàng</option>
-                                <option value="2">Nhân viên nhập kho</option>
-                                <option value="3">Nhân viên quản lý mã giảm giá</option>
-                                <option value="4">Kế toán</option>
-                            </select> 
+                        <div class="col">
+                            <div class="input-group">
+                                <select id="role-select" class="form-select" name="role_select">
+                                    <option selected value="-1">Tất cả nhóm quyền</option>
+                                    <?php
+                                        $role = $result['role'];
+                                        foreach ($role as $item) {
+                                    ?>
+                                    <option value="<?=$item->getIdNQ()?>"><?=$item->getTenNQ()?></option>
+                                    <?php
+                                        }
+                                    ?>
+                                </select>
+                               
+                            </div>
                         </div>
-                    </div>
-                    <div class="col">
-                        <div class="input-group">
-                            <select id="status-select" class="form-select">
-                                <option selected>Tất cả trạng thái</option>
-                                <option value="0">Bị khóa</option>
-                                <option value="1">Đang hoạt động</option>
-                            </select> 
+                        <div class="col">
+                            <div class="input-group">
+                                <select id="status-select" class="form-select" name="status_select">
+                                    <option selected value="-1">Tất cả trạng thái</option>
+                                    <option value="0">Bị khóa</option>
+                                    <option value="1">Đang hoạt động</option>
+                                </select>
+                            </div>
                         </div>
+                        <button class="col-auto btn btn-control" type="submit" id="search-btn">Tìm kiếm</button>
                     </div>
-                </div>
+                </form>
             </div>
-            <div class="col-auto">
+            <!-- <div class="col-auto">
                 <button onclick="location.reload()" type="button" class="btn btn-control">Làm mới</button>
-            </div>
+            </div> -->
         </div>
         <!-- ... -->
         <!-- Table data -->
@@ -73,22 +82,27 @@
                             <th></th>
                         </tr>
                     </thead>
+                   
                     <tbody>
                     <?php
                         $accounts = $result['paging'];
+                        if($accounts == null) {
+                            echo '<tr><td colspan="7">Không tìm thấy kết quả cần tìm!</td> </tr>';
+                        } else {
                         echo '<input type="hidden" name="curr_page" class="curr_page" value="'.$paging->curr_page.'">';
                         for($i=$paging->start; $i<$paging->start+$paging->num_per_page && $i<$paging->total_records; $i++){
                             $account = $accounts[$i];
+                            $acc = $account['account'];
                         ?>
                             <tr>
-                                <td class="account_id"><?=$account->getIdTK()?></td>
-                                <td class ="account_name"><?=$account->getTenTK()?></td>
-                                <td class ="account_email"><?=$account->getEmail()?></td>
-                                <td class ="account_number"><?=$account->getDienthoai()?></td>
-                                <td class ="account_role"><?=$account->getTenNQ()?></td>
+                                <td class="account_id"><?=$acc['idTK']?></td>
+                                <td class ="account_name"><?=$acc['tenTK']?></td>
+                                <td class ="account_email"><?=$acc['email']?></td>
+                                <td class ="account_number"><?=$acc['dienthoai']?></td>
+                                <td class ="account_role"><?=$account['tenNQ']?></td>
                                 <td>
                                     <?php
-                                        if($account->getTrangthai())
+                                        if($acc['trangthai'])
                                             echo '<span class="bagde rounded-2 text-white bg-success p-2">Hoạt động</span>';
                                         else
                                             echo '<span class="bagde rounded-2 text-white bg-secondary p-2">Bị khóa</span>'
@@ -121,9 +135,13 @@
                 </ul>
               </nav>
         </div>
+        <?php
+            }
+        ?>
         <!-- ... -->
     </main>
     <!-- ... -->
+
 
     <!-- Modal -->
     <div class="modal fade" id="accountModal" tabindex="-1" aria-labelledby="accountModalLabel" aria-hidden="true">
@@ -167,11 +185,11 @@
                         <div class="row mb-3 align-items-center edit">
                             <label class="col-form-label col-sm-3">Trạng thái</label>
                             <div class="col form-check form-switch ps-5">
-                                <input  type="checkbox" 
-                                        name="status" 
-                                        id="status" 
-                                        class="form-check-input" 
-                                        role="switch" 
+                                <input  type="checkbox"
+                                        name="status"
+                                        id="status"
+                                        class="form-check-input"
+                                        role="switch"
                                         onchange="document.getElementById('switch-label').textContent = this.checked ? 'Đang hoạt động' : 'Bị khóa';"
                                 >
                                 <label for="status" class="form-check-label" id="switch-label">Đang hoạt động</label>
@@ -188,6 +206,8 @@
     </div>
     <!-- ... -->
 
+
     <!-- Link JS ở chỗ này nè!!! -->
     <script src="../asset/quantri/js/Account.js"></script>
 </html>
+

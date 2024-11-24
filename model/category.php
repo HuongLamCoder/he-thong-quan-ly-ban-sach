@@ -78,6 +78,22 @@
             }
             return false;
         }
+
+        static function search($kyw){
+            $sql = 'SELECT idTL, tenTL, trangthai
+                FROM theloai
+                WHERE 1';
+            if($kyw != NULL) $sql .= ' AND (idTL LIKE "%'.$kyw.'%" OR tenTL LIKE "%'.$kyw.'%")';
+            $list = [];
+            $con = new Database();
+            $req = $con->getAll($sql);
+            foreach($req as $item){
+                $cat = new Category();
+                $cat->nhap($item['idTL'], $item['tenTL'], $item['trangthai']);
+                $list[] = $cat;
+            }
+            return $list;
+        }
         
         function toArray() {
             return [

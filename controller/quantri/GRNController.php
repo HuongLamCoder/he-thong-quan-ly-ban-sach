@@ -33,7 +33,7 @@ else{
                 'paging' => $grn,
                 'supplier' => $supplier
             ];
-            $this->render('GoodsReceiveNote', 'PN', $result, true);
+            $this->render('GoodsReceiveNote', $result, true);
         }
 
         function openAddForm(){

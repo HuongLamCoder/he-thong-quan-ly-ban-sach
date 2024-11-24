@@ -66,21 +66,7 @@ $(document).ready(function(){
                     type: 'success',
                     duration: 3000
                   });
-                  let page = obj.chucnang.split('_')[0];
-                  switch(page){
-                    case 'NQ': page = 'role'; break;
-                    case 'TK': page = 'account'; break;
-                    case 'TG': page = 'author'; break;
-                    case 'TL': page = 'category'; break;
-                    case 'NCC': page = 'supplier'; break;
-                    case 'MGG': page = 'discount'; break;
-                    case 'SP': page = 'product'; break;
-                    case 'DH': page = 'order'; break;
-                    case 'DT': page = 'income'; break;
-                    case 'NK': page = 'cost'; break;
-                    case 'LN': page = 'profit'; break;
-                  }
-                  window.location.href='index.php?page='+page;
+                  window.location.href='index.php';
                 }else{
                   toast({
                     title: 'Lỗi',

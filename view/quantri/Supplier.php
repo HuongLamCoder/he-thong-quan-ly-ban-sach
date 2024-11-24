@@ -1,5 +1,5 @@
-    <!-- Content -->
-    <main class="container pt-5">
+<!-- Content -->
+<main class="container pt-5">
         <!-- Page title -->
         <div class="row">
             <h1 class="page-title">QUẢN LÝ NHÀ CUNG CẤP</h1>
@@ -19,26 +19,32 @@
             </div>
             <div class="col">
                 <div class="row">
-                    <div class="col-6">
-                        <div class="input-group">
-                            <input type="text" 
-                                    class="form-control" 
-                                    placeholder="Nhập id, tên nhà cung cấp" 
-                                    aria-label="Tìm kiếm nhà cung cấp" 
-                                    aria-describedby="search-bar"
-                            >
-                            <button class="btn btn-outline-custom" type="button" id="search-btn">Tìm</button>
-                        </div>
-                    </div>
-                    <div class="col">
-                        <div class="input-group">
-                            <select id="status-select" class="form-select">
-                                <option selected>Tất cả trạng thái</option>
-                                <option value="0">Bị khóa</option>
-                                <option value="1">Đang hoạt động</option>
-                            </select> 
-                        </div>
-                    </div>
+                    <form class="col">
+                        <input type="hidden" name="page" value="searchSupplier">
+                        <div class="row">
+                            <div class="col-6">
+                                <div class="input-group">
+                                    <input type="text" 
+                                            class="form-control" 
+                                            placeholder="Nhập id, tên nhà cung cấp" 
+                                            aria-label="Tìm kiếm nhà cung cấp" 
+                                            aria-describedby="search-bar"
+                                            name="kyw"
+                                    >
+                                </div>
+                            </div>
+                            <div class="col">
+                                <div class="input-group">
+                                    <select id="status-select" class="form-select" name="status_select">
+                                        <option selected value="-1">Tất cả trạng thái</option>
+                                        <option value="0">Bị khóa</option>
+                                        <option value="1">Đang hoạt động</option>
+                                    </select> 
+                                </div>
+                            </div>
+                            <button class="col-auto btn btn-control" type="submit" id="search-btn">Tìm kiếm</button>
+                        </div> 
+                    </form>
                     <div class="col-auto align-items-center">
                         <span class="me-2">Tên nhà cung cấp</span>
                         <button class="btn btn-control">
@@ -50,9 +56,8 @@
                     </div>
                 </div>
             </div>
-            <div class="col-auto">
-                <button onclick="location.reload()" type="button" class="btn btn-control">Làm mới</button>
-            </div>
+            <!-- <div class="col-auto"><button onclick="location.reload()" type="button" class="btn btn-control">Làm mới</button>
+            </div> -->
         </div>
         <!-- ... -->
         <!-- Table data -->
@@ -71,18 +76,22 @@
                     </thead>
                     <tbody>
                     <?php
+                        $supplier = $result['paging'];
+                        if($supplier == null) {
+                            echo '<tr><td colspan="6">Không tìm thấy kết quả cần tìm!</td> </tr>';
+                        } else {
                         echo '<input type="hidden" name="curr_page" class="curr_page" value="'.$paging->curr_page.'">';
                         for($i=$paging->start; $i<$paging->start+$paging->num_per_page && $i<$paging->total_records; $i++){
-                            $supplier = $result[$i];
+                            $item = $supplier[$i];
                         ?>
                         <tr>
-                            <td class="supplier_id"><?=$supplier->getIdNCC()?></td>
-                            <td><?=$supplier->getTenNCC()?></td>
-                            <td><?=$supplier->getEmail()?></td>
-                            <td><?=$supplier->getDienthoai()?></td>
+                            <td class="supplier_id"><?=$item->getIdNCC()?></td>
+                            <td><?=$item->getTenNCC()?></td>
+                            <td><?=$item->getEmail()?></td>
+                            <td><?=$item->getDienthoai()?></td>
                             <td>
                             <?php
-                            if($supplier->getTrangthai()) 
+                            if($item->getTrangthai()) 
                             echo '<span class="bagde rounded-2 text-white bg-success p-2">Hoạt động</span>';
                             else echo '<span class="bagde rounded-2 text-white bg-secondary p-2">Bị khóa</span>';
                             ?>
@@ -104,7 +113,7 @@
                             </td>
                         </tr>
                         <?php
-                            }
+                        }
                         ?>
                     </tbody>
                 </table>
@@ -121,8 +130,11 @@
                 </ul>
               </nav>
         </div>
+        <?php
+            }
+        ?>
         <!-- ... -->
-    </ma>
+    </main>
     <!-- ... -->
 
     <!-- Modal -->
@@ -157,10 +169,9 @@
                             <span class="text-message supplier-address-msg"></span>
                         </div>
                         <div class="row mb-3 not-view">
-                            <div class="col-md-4">
-                                <label for="supplier-city" class="form-label">Tỉnh/thành</label>
+                            <div class="col-md-4"><label for="supplier-city" class="form-label">Tỉnh/thành</label>
                                 <select name="supplier_city" id="supplier-city" class="form-select">
-                                    <option val='-1' selected>Chọn tỉnh/thành</option>
+                                    <option value='-1'>Chọn tỉnh/thành</option>
                                     <?php
                                         foreach($provinces as $item){
                                             extract($item);
@@ -175,14 +186,14 @@
                             <div class="col-md-4">
                                 <label for="supplier-district" class="form-label">Quận/huyện</label>
                                 <select name="supplier_district" id="supplier-district" class="form-select">
-                                    <option value="-1" selected>Chọn quận/huyện</option>
+                                    <option value="-1">Chọn quận/huyện</option>
                                 </select>
                                 <span class="text-message supplier-district-msg"></span>
                             </div>
                             <div class="col-md-4">
                                 <label for="supplier-ward" class="form-label">Phường/xã</label>
                                 <select name="supplier_ward" id="supplier-ward" class="form-select">
-                                    <option selected>Chọn phường/xã</option>
+                                    <option value="-1">Chọn phường/xã</option>
                                 </select>
                                 <span class="text-message supplier-ward-msg"></span>
                             </div>

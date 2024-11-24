@@ -143,6 +143,7 @@ $(document).ready(function() {
 
                 // hien thi thong tin cua don hang
                 $('#idDH').html(order.idDH);
+                $('#orderForm input[name="idDH"]').val(order.idDH);
                 $('#khachhang').html(khachhang.tenTK);
                 $('#dienthoai').html(khachhang.dienthoai);
                 console.log(order.diachi);
@@ -164,10 +165,19 @@ $(document).ready(function() {
                   order.tongtien +="đ";
                 $('#tongtien').html(order.tongtien);
                 //trang thai
-                let n = orderstatus.length;
-                for(let i=0; i<n; i++){
-                    
+                var option = "";
+                switch (order.trangthai.tenTT) {
+                    case "Đang giao":
+                        option += '<option value="4">Đang giao</option>';
+                        option += '<option value="5">Đã giao</option>';
+                        break;
+                    case "Chờ duyệt":
+                        option += '<option value="1">Chờ duyệt</option>';
+                        option += '<option value="3">Hủy bởi người bán</option>';
+                        option += '<option value="4">Đang giao</option>';
+                        break;
                 }
+                $('#status-option').html(option).val(order.trangthai.idTT);
                 $('#nhanvien').html(nhanvien.idTK+"-"+nhanvien.tenTK);
 
                 // hien thi chi tiet don hang
@@ -223,5 +233,29 @@ $(document).ready(function() {
         document.getElementById('orderForm').querySelectorAll('.not-edit').forEach(e => {
             e.style.setProperty('display', 'none', 'important');
         })
+    });
+
+    $('#orderForm').submit(function(event) {
+        event.preventDefault();
+        var formData = new FormData( $('#orderForm')[0]);
+        $.ajax({
+            url: '../controller/quantri/OrderController.php', // URL to handle form submission
+            type: 'POST',
+            data: formData,
+            processData: false,
+            contentType: false,
+            success: function(response) {
+                console.log(response);
+                const obj = JSON.parse(response);
+                if(obj.success){
+                    toast({
+                        title: 'Thành công',
+                        message: 'Cập nhật đơn hàng thành công',
+                        type: 'success',
+                        duration: 3000
+                    });
+                }
+            },
+        });
     });
 });
