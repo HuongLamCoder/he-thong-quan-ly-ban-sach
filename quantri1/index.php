@@ -1,11 +1,13 @@
 <?php
-session_start();
+// session_start();
+include '../lib/connect.php';
+include '../lib/session.php';
 if(isset($_GET['page']) && ($_GET['page'] !== "")){
     if (in_array($_GET['page'], ['login', 'forgot_password', 'authentication_code', 'reset_password'])) {
-        include '../inc/quantri/Header.php';
+        include 'inc/Header.php';
         switch(trim($_GET['page'])){
             case 'login':
-                include '../controller/quantri/AuthenController.php';
+                include './controller/Login.php';
                 break;
             case 'forgot_password':
                 include './controller/ForgotPassword.php';
@@ -20,37 +22,35 @@ if(isset($_GET['page']) && ($_GET['page'] !== "")){
                 header('Location: index.php?page=login');
                 break;
         }
-    } else if(!isset($_SESSION['user']))
-    header('Location: http://localhost/he-thong-quan-ly-ban-sach/quantri/index.php');
-    else{
-        include '../inc/quantri/Navigation.php';
+    } else {
+        include 'inc/Navigation.php';
         switch(trim($_GET['page'])){
             case 'role':
-                include '../controller/quantri/RoleController.php';
+                include './controller/Role.php';
                 break;
             case 'account':
-                include '../controller/quantri/AccountController.php';
+                include './controller/Account.php';
                 break;
             case 'author':
-                include '../controller/quantri/AuthorController.php';
+                include './controller/Author.php';
                 break;
             case 'category':
-                include '../controller/quantri/CategoryController.php';
+                include './controller/Category.php';
                 break;
             case 'supplier':
-                include '../controller/quantri/SupplierController.php';
+                include './controller/Supplier.php';
                 break;
             case 'discount':
-                include '../controller/quantri/DiscountController.php';
+                include './controller/Discount.php';
                 break;
             case 'product':
-                include '../controller/quantri/ProductController.php';
+                include './controller/Product.php';
                 break;
             case 'order':
                 include './controller/Order.php';
                 break;
             case 'grn':
-                include '../controller/quantri/GoodsReceiveNote.php';
+                include './controller/GoodsReceiveNote.php';
                 break;
             case 'income':
                 include './controller/Income.php';

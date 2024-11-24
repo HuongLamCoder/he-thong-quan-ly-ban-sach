@@ -45,4 +45,17 @@ function getBookByID($idSach){
     AND idSach = '.$idSach;
     return getOne($sql);
 }
+
+function searchBook($kyw){
+    $sql='SELECT DISTINCT sach.idSach, hinhanh, tuasach, luotban, giaban, giabia
+    FROM sach INNER JOIN sach_tacgia ON sach.idSach = sach_tacgia.idTG
+    INNER JOIN tacgia ON sach_tacgia.idTG = tacgia.idTG
+    WHERE tonkho > 0
+    AND trangthai = 1
+    AND (tuasach like "%'.$kyw.'%"
+    OR tenTG like "%'.$kyw.'%")
+    order by luotban DESC';
+    return getAll($sql);
+}
+
 ?>

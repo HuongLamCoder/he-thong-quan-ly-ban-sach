@@ -1,5 +1,5 @@
 <?php
 $bestSellers = getBestSellers();
 $categories = getAllCategories();
-require 'view/trangChu.php';
+require 'view/home.php';
 ?>

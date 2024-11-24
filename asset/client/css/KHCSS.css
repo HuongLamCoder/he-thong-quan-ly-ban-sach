@@ -1,0 +1,1035 @@
+* {
+    box-sizing: border-box;
+}
+
+:root {
+    --green: #1a712d;
+    --white: #fff;
+    --border-cl: #d4d4d4;
+    --mandatory: #ca2027;
+    --main: #e4e8e8;   
+    --fade: #c5e2ca; 
+    --price: #e55d5d;
+    --bg-pg: #e5e7ae;
+    --cl-pg: #476e27;
+}
+
+.header .container {
+    width: 1250px;
+}
+
+.container {
+    width: 1150px;
+}
+
+ul li {
+    list-style: none;
+}
+
+ul {
+    padding-left: 0px;
+    margin-bottom: 0px;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+}
+
+main {
+    background-color: var(--main);
+}
+
+.mandatory-symbol {
+    color: var(--mandatory);
+}
+
+p {
+    margin-bottom: 2px;
+}
+
+input:focus {
+    outline: none;
+}
+
+.b-shadow {
+    box-shadow: -15px 15px 10px -20px #333;
+}
+
+/* --------- START: PHẦN NÀY CSS SCROLL BAR ---------*/
+/* width */
+::-webkit-scrollbar {
+    width: 3px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+    background: #ddd; 
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+    background: var(--green); 
+}
+/* --------- END: PHẦN NÀY CSS SCROLL BAR ---------*/
+
+/* --------- START: PHẦN NÀY CSS HEADER ---------*/
+.hotline-line {
+    background-color: var(--green);
+    color: #fff;
+    font-size: 14px;
+    padding: 2px 300px 2px 0px;
+    display: flex;
+    justify-content: right;
+}
+
+.hotline-line i {
+    display: flex;
+    align-items: center;
+    width: 20px;
+}
+
+.navigation-bar {
+    padding: 15px;
+}
+
+.navbar-brand {
+    display: flex;
+    align-items: center;
+}
+
+.navbar-brand img {
+    width: 280px;
+}
+
+.logo {
+    display: flex;
+    justify-content: center;
+}
+
+.header .col-5 {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.srch-field .srch-form {
+    display: flex;
+    align-items: center;
+}
+
+.nav-btn-list {
+    display: flex;
+    justify-content: space-between;    
+}
+
+.srch-field .srch-form {
+    position: relative;
+}
+
+.srch-field .srch-form input[type='text'] {
+    width: 500px;
+    height: 42px;
+    border-radius: 5px;
+    border: 0.5px solid var(--border-cl);
+    padding-left: 15px;
+    font-size: 15px;
+    color: #333;
+}
+
+.srch-field .srch-form .srch-btn {
+    background-color: var(--green);
+    color: var(--white);
+    width: 125px;
+    position: absolute;
+    right: 5px;
+}
+
+.nav-btn-list .signup-btn {
+    width: 110px;
+    height: 36px;
+    font-size: 14px;
+}
+
+.nav-btn-list .signin-btn {
+    width: 110px;
+    height: 36px;
+    font-size: 14px;
+}
+
+.nav-btn-list .btn-1 {
+    color: var(--white);
+    background-color: var(--green);
+    border: var(--green);
+}
+
+.nav-btn-list .btn-1:hover {
+    color: var(--green);
+    background-color: var(--white);
+    border: 0.5px solid var(--green);
+}
+
+.nav-btn-list .btn-2 {
+    color: var(--green);
+    background-color: var(--white);
+    border: 0.5px solid var(--green);
+}
+
+.nav-btn-list .btn-2:hover {
+    color: var(--white);
+    background-color: var(--green);
+    border: 0.5px solid var(--green);
+}
+
+.nav-btn-list li:nth-child(2) {
+    display: flex;
+    align-items: center;
+    color: var(--green);
+}
+/* --------- END: PHẦN NÀY CSS HEADER ---------*/
+
+/* --------- START: PHẦN NÀY CSS FOOTER ---------*/
+.footer {
+    background-color: #fff;
+    display: flex;
+}
+
+.footer-img {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 15px 20px 15px 20px;
+}
+
+.footer-logo img{
+    width: 210px;
+}
+
+.footer-logo {
+    margin-bottom: 25px;
+}
+
+.bocongthuong img {
+    width: 180px;
+}
+
+.footer-info {
+    padding-left: 20px;
+    margin-top: 35px;
+}
+
+.footer-info p {
+    font-weight: 700;
+}
+
+.footer-info .contact {
+    display: flex;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.footer-info .contact span i {
+    margin-right: 10px;
+    font-size: 21px;
+}
+
+.footer-info .contact span {
+    margin-right: 25px;
+    font-size: 15px;
+    display: flex;
+    align-items: center;
+}
+
+.footer-info .address span i {
+    font-size: 22px;
+    margin-right: 10px;
+    margin-left: 2px;
+}
+
+.footer-info .address span {
+    margin-right: 10px;
+    font-size: 15px;
+}
+
+/* --------- END: PHẦN NÀY CSS FOOTER ---------*/
+
+/* --------- START: PHẦN NÀY CSS TRANG ĐĂNG NHẬP ---------*/
+.signin {
+    height: 500px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.signin-content {
+    display: flex;
+    justify-content: center;
+}
+
+.signin-content-box {
+    width: 560px;
+    background-color: var(--white);
+    padding: 20px;
+    border-radius: 12px;
+}
+
+.signin-content-box .title {
+    padding-bottom: 0px;
+    border-bottom: 1px solid #333;
+    margin-bottom: 25px;
+}
+
+.signin-content-box .title span {
+    font-size: 22px;
+    font-weight: 700;
+    padding-bottom: 10px;
+    display: flex;
+    justify-content: center;
+}
+
+.signin-box {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.signin-form .signin-input {
+    width: 340px;
+    height: 32px;
+    border-radius: 5px;
+    border: 0.5px solid var(--border-cl);
+    padding-left: 12px;
+    font-size: 14px;
+    color: #333;
+}
+.signin-form strong {
+    font-weight: 400;
+    display: inline-block;
+    width: 130px;
+    font-size: 14px;
+}
+
+.signin-form .input-field {
+    margin-bottom: 20px;
+}
+
+.forgot-password {
+    font-size: 13px;
+    display: flex;
+    justify-content: right;
+    margin: 5px 0px;
+}
+
+.signin-form button {
+    display: flex;
+    justify-content: center;
+}
+
+.forgot-password a i {
+    color: navy;
+}
+
+.signin-box .signin-form button {
+    background-color: var(--green);
+    color: var(--white);
+    border: 0.5px solid var(--green);
+    border-radius: 5px;
+    width: 120px;
+    height: 30px;
+    font-size: 14px;
+    display: flex;
+    align-items: center;
+}
+
+.signin-box .signin-form button:hover {
+    color: var(--green);
+    background-color: var(--white);
+}
+
+.signin-box .signin-form .submit-btn {
+    display: flex;
+    justify-content: center;
+    margin-top: 10px;
+}
+
+.signin-text span {
+    display: flex;
+    font-size: 14px;
+    margin-top: 18px;
+}
+
+.signin-text span a {
+    color: navy;
+}
+/* --------- END: PHẦN NÀY CSS TRANG ĐĂNG NHẬP ---------*/
+
+/* --------- START: PHẦN NÀY CSS TRANG ĐĂNG KÝ ---------*/
+.signup {
+    height: 650px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.error{
+    color: red;
+}
+/* --------- END: PHẦN NÀY CSS TRANG ĐĂNG KÝ ---------*/
+
+
+/* --------- START: PHẦN NÀY CSS TRANG CHỦ ---------*/
+.homepage {
+    padding: 20px 0px;
+}
+.homepage .container {
+    width: 1150px;
+}
+/* --- Phần này css ô danh mục --- */
+.category .category-box {
+    background-color: var(--white);
+    border-radius: 10px;
+    padding: 10px 0px 0px 0px;
+    overflow: hidden;
+}
+
+.category .category-box p {
+    font-weight: 600;
+    margin-bottom: 5px;
+    padding-left: 18px;
+    font-size: 18px;
+}
+
+.category .category-box ul li {
+    padding: 8px 0px 8px 20px;
+}
+
+.category .category-box ul li:hover {
+    background-image: linear-gradient(to right, var(--fade) , #fff);
+}
+
+/* --- Phần này css ô best seller --- */
+.best-seller {
+    margin-top: 15px;
+}
+.best-seller .best-seller-box {
+    background-color: var(--white);
+    border-radius: 10px;
+    padding: 15px 15px 0px 15px;
+}
+
+.best-seller .best-seller-box ul p {
+    font-size: 18px;
+    font-weight: 600;
+}
+
+.best-seller .best-seller-box ul li .book-card .image-book img{
+    width: 75px;
+    height: 100px;
+}
+
+.best-seller .best-seller-box ul li .book-card {
+    display: flex;
+    padding: 16px 8px;
+    cursor: pointer;
+}
+
+.best-seller .best-seller-box ul li .book-card:hover .image-book {
+    transform: translateY(-10px);
+    transition: transform 0.5s;
+}
+
+.best-seller .best-seller-box ul li .book-card:hover {
+    transition: top ease 0.5s;
+}
+
+.best-seller .best-seller-box ul li .book-card .info-book {
+    display: flex;
+    flex-direction: column;
+    font-size: 12px;
+    padding-left: 7px;
+    padding-top: 10px;
+}
+
+.best-seller .best-seller-box ul li .book-card .info-book span {
+    padding: 2px;
+}
+
+.best-seller .best-seller-box ul li .book-card .info-book .book-title {
+    width: 130px;
+    white-space: nowrap;      
+    overflow: hidden;          
+    text-overflow: ellipsis;
+    font-size: 14px;
+}
+
+.best-seller .best-seller-box ul li .book-card .info-book .price-text {
+    font-size: 14px;
+    color: var(--price);
+    font-weight: 500;
+}
+
+.best-seller .best-seller-box ul li {
+    border-bottom: 0.5px solid #ddd;
+}
+
+.best-seller .best-seller-box ul li:last-child {
+    border: none;
+}
+
+
+.best-seller .best-seller-box .see-more {
+    display: flex;
+    justify-content: center;
+    padding: 8px;
+}
+
+.best-seller .best-seller-box .see-more:hover {
+    background-image: linear-gradient(to right, #fff, #ddd, #fff);
+}
+
+/* --- Phần này css banner --- */
+.homepage-content .banner {
+    background-color: #e7f4eb;
+    overflow: hidden;     
+    border-radius: 10px;
+}
+
+.banner-content {
+    display: flex;
+    padding: 30px;
+    align-items: center;
+}
+
+.banner-content .image-book img {
+    width: 280px;
+    height: 400px;
+    border-radius: 3px;
+}
+
+.banner-content .info-book {
+    padding: 0px 0px 0px 40px; 
+}
+
+.banner-content .info-book .title {
+    text-align: center;
+    margin-bottom: 15px;
+}
+
+.banner-content .info-book .description p {
+    font-size: 14px;
+    margin-bottom: 10px;
+}
+
+/* .banner-content .info-book .{
+    width: 400px;
+    height: 490px;
+    white-space: nowrap;      
+    overflow: hidden;          
+    text-overflow: ellipsis;
+} */
+
+/* --- Phần này css danh sách sách theo thể loại (category) --- */
+.category-book {
+    padding: 30px 0px 0px 0px;
+}
+.homepage-content .category-book-box {
+    background-color: #fff;
+    padding: 40px 20px 20px 20px;
+    border-radius: 10px;
+}
+
+.homepage-content .category-book-content {
+    border-radius: 10px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+}
+
+.homepage-content .category-book-content .book-card .image-book img {
+    width: 130px;
+    height: 180px;
+}
+
+.homepage-content .category-book-content .book-card .info-book .title h6{
+    width: 130px;
+    white-space: nowrap;      
+    overflow: hidden;          
+    text-overflow: ellipsis;
+    margin-bottom: 0px;
+    padding-top: 5px;
+}
+
+.homepage-content .category-book-content .book-card .info-book .units-sold-text {
+    font-size: 14px; 
+}
+
+.homepage-content .category-book-content .book-card .info-book .price-text {
+    color: var(--price);
+    font-weight: 600;
+}
+
+.homepage-content .category-book-content .book-card .info-book div {
+    padding: 2px 0px;
+}
+
+.homepage-content .category-book-content .book-card {
+    cursor: pointer;
+}
+
+.homepage-content .category-book-content .book-card:hover .image-book img {
+    -ms-transform: scale(1); /* IE 9 */
+    -webkit-transform: scale(0.5); /* Safari 3-8 */
+    transform: scale(1.1); 
+    transition: 0.5s;
+}
+
+.homepage-content .category-book-box .see-more {
+    margin-top: 20px;
+    display: flex;
+    justify-content: center;
+}
+
+.homepage-content .category-book-box .see-more a {
+    border: 0.5px solid var(--green);
+    color: var(--green);
+    padding: 4px 24px;
+}
+
+.homepage-content .category-book-box .see-more a:hover {
+    color: #fff;
+    background-color: var(--green);
+    border: 0.5px solid var(--green);
+}
+/* --------- END: PHẦN NÀY CSS TRANG CHỦ ---------*/
+
+/* --------- START: PHẦN NÀY CSS TRANG CHI TIẾT SẢN PHẨM ---------*/
+.detail-book-content {
+    background-color: var(--white);
+    margin: 25px 0px;
+    padding: 35px 60px;
+    border-radius: 10px;
+}
+
+.detail-book-content .book-title {
+    display: flex;
+}
+
+.detail-book-content .book-title .image-book {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.detail-book-content .book-title .image-book img {
+    width: 275px;
+    height: 400px;
+}
+
+.detail-book-content .book-title .title-book .price-text {
+    font-size: 30px;
+    color: var(--price);
+    font-weight: 600;
+    margin-bottom: 10px;
+}
+
+.detail-book-content .book-title .title-book .add-to-cart .add-to-cart-btn {
+    font-size: 18px;
+    color: var(--white);
+    background-color: var(--green);
+    border: 0.5px solid var(--green);
+}
+
+.detail-book-content .book-title .title-book .add-to-cart button i {
+    margin-right: 5px;
+}
+
+.detail-book-content .book-title .title-book .add-to-cart button:hover {
+    background-color: var(--white);
+    color: var(--green);
+}
+
+.detail-book-content .book-title .title-book .add-to-cart .toast-container .toast-header span i {
+    font-size: 25px;
+    margin-right: 8px;
+}
+
+.detail-book-content .book-title .title-book .add-to-cart .toast .btn-close {
+    font-size: 18px;
+    color: var(--white);
+}
+
+.detail-book-content .book-title .title-book .add-to-cart .toast-container .toast-header span {
+    display: flex;
+    align-items: center;
+}
+
+.detail-book-content .book-description {
+    padding-left: 20px;
+    margin-top: 20px;
+}
+
+.detail-book-content .book-description h5 {
+    margin-bottom: 10px;
+}
+.detail-book-content .book-description .book-description-content {
+    font-size: 14px;
+}
+
+.detail-book-content .book-details {
+    padding-left: 20px;
+    margin-top: 20px;
+}
+
+.detail-book-content .book-details h5 {
+    margin-bottom: 10px;
+}
+
+.detail-book-content .book-details .book-details-content {
+    font-size: 14px;
+}
+
+.detail-book-content .book-details .book-details-content table tbody tr:last-child {
+    border-bottom: #fff;
+}
+/* --------- END: PHẦN NÀY CSS TRANG CHI TIẾT SẢN PHẨM ---------*/
+
+/* --------- START: PHẦN NÀY CSS TRANG TÌM KIẾM SẢN PHẨM ---------*/
+.search-book {
+    padding: 20px 0px;
+}
+
+.searching-book-content{
+    min-height: 520px;
+}
+
+.search-book .searching-book-content .filter {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.search-book .searching-book-content .filter .category-filter button {
+    border: none;
+    background-color: var(--green);
+    color: #fff;
+    font-size: 23px;
+}
+
+.search-book .searching-book-content .filter .price-filter {
+    display: flex;
+}
+
+.search-book .searching-book-content .filter .price-filter input {
+    width: 130px;
+    height: 27px;
+    font-size: 14px;
+    padding-left: 5px;
+    color: #333;
+    border-radius: 5px;
+    border: 1px solid #333;
+}
+
+.search-book .searching-book-content .filter .price-filter button {
+    font-size: 14px;
+    border: none;
+    background-color: var(--green);
+    color: #fff;
+    padding: 4px 16px;
+    border-radius: 5px;
+    margin-left: 10px;
+}
+
+.search-book .searching-book-content .filter .price-filter button:hover {
+    opacity: 0.5;
+}
+
+.search-book .searching-book-content .filter .price-filter h6 {
+    margin-right: 10px;
+    margin-bottom: 0px;
+    display: flex;
+    align-items: center;
+    font-weight: 400;
+}
+
+.dropdown-item {
+    padding: 4px 16px 4px 46.5px;
+    color: #fff;
+}
+
+.dropdown-item:hover {
+    color: #fff;
+    background-color: #6fab78;
+}
+
+.dropdown-menu {
+    --bs-dropdown-link-active-bg: var(--green);
+}
+
+.search-book .searching-book-content .filter .dropdown-menu  {
+    background-color: var(--green);
+
+}
+.search-book .searching-book-content .searching-book-box {
+    background-color: #fff;
+    border-radius: 10px;
+    padding: 15px 20px;
+    margin-top: 20px;
+}
+
+.search-book .searching-book-content .searching-book-box .searching-result-text {
+    font-weight: 600;
+    font-size: 18px;
+}
+
+.search-book .searching-book-content .searching-book-box .searching-result-text .searching-text {
+    font-weight: 400;
+}
+
+.search-book .searching-book-content .searching-book-box .sort {
+    display: flex;
+    justify-content: right;
+    padding: 0px 30px;
+}
+
+.search-book .searching-book-content .searching-book-box .sort h6 {
+    margin-bottom: 0px;
+    font-weight: 400;
+    font-size: 17px;
+    margin-right: 10px;
+}
+
+.search-book .searching-book-content .searching-book-box .sort button {
+    border: none;
+    color: var(--cl-pg);
+    background-color: var(--bg-pg);
+    border-radius: 50%;
+    font-size: 20px;
+    width: 32px;
+    height: 32px;
+}
+
+.search-book .searching-book-content .searching-book-box .sort button:hover {
+    opacity: 0.5;
+}
+
+.search-book .searching-book-content .searching-book-box .sort .price-sort {
+    display: flex;
+    align-items: center;
+    margin-right: 20px;
+}
+
+.search-book .searching-book-content .searching-book-box .sort .sales-sort {
+    display: flex;
+    align-items: center;
+}
+
+.search-book .searching-book-content .searching-book-box .searching-result-books .book-list {
+    padding: 10px 30px;
+}
+
+.search-book .searching-book-content .searching-book-box .searching-result-books .book-list ul {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.search-book .searching-book-content .searching-book-box .searching-result-books .book-card .image-book img {
+    width: 130px;
+    height: 180px;
+}
+
+.search-book .searching-book-content .searching-book-box .searching-result-books .book-card:hover .image-book img {
+    -ms-transform: scale(1); /* IE 9 */
+    -webkit-transform: scale(0.5); /* Safari 3-8 */
+    transform: scale(1.1); 
+    transition: 0.5s;
+}
+
+.search-book .searching-book-content .searching-book-box .searching-result-books .book-card .info-book {
+    display: flex;
+    flex-direction: column;
+}
+
+.search-book .searching-book-content .searching-book-box .searching-result-books .book-card .info-book .title {
+    width: 150px;
+    white-space: nowrap;      
+    overflow: hidden;          
+    text-overflow: ellipsis;
+    margin-bottom: 0px;
+    padding-top: 5px;
+    font-weight: 600;
+}
+
+.search-book .searching-book-content .searching-book-box .searching-result-books .book-card .info-book .units-sold-text {
+    font-size: 14px; 
+}
+
+.search-book .searching-book-content .searching-book-box .searching-result-books.book-card .info-book .price-text {
+    color: var(--price);
+    font-weight: 600;
+}
+
+.search-book .searching-book-content .searching-book-box .searching-result-books .book-card .info-book div {
+    padding: 2px 0px;
+}
+
+.search-book .searching-book-content .searching-book-box .searching-result-books .book-card {
+    padding: 25px;
+    flex: 0 0 20%;
+}
+
+.search-book .searching-book-content .searching-book-box .searching-result-books .book-card a {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.search-book .searching-book-content .searching-book-box .searching-result-books .book-list .book-list-content {
+    display: flex;
+    justify-content: center;
+}
+
+.pagination {
+    display: flex;
+    justify-content: center;
+    padding-bottom: 5px;
+}
+
+.pagination-content {
+    display: inline-block;
+    font-weight: 600;
+    border-radius: 50%;
+}
+  
+.pagination-content a {
+    color: var(--cl-pg);
+    float: left;
+    padding: 8px 16px;
+    text-decoration: none;
+}
+  
+.pagination-content a.active {
+    background-color: var(--bg-pg);
+    color: var(--cl-pg);
+    border-radius: 50%;
+}
+  
+.pagination-content a:hover:not(.active) {
+    background-color: var(--bg-pg);
+    border-radius: 50%;
+    color: var(--cl-pg);
+}
+/* --------- END: PHẦN NÀY CSS TRANG TÌM KIẾM SẢN PHẨM  ---------*/
+
+/* --------- START: PHẦN NÀY CSS TRANG THÔNG TIN CÁ NHÂN ---------*/
+.personal-page .personal-page-content .username i {
+    font-size: 42px;
+    margin-right: 10px;
+}
+
+.personal-page .personal-page-content .username {
+    display: flex;
+    align-items: center;
+    border-bottom: 0.5px solid #333;
+    padding-bottom: 10px;
+    padding-left: 15px;
+}
+
+.personal-page .personal-page-content {
+    display: flex;
+    justify-content: center;
+}
+
+.personal-page .personal-page-content .username h5 {
+    margin-bottom: 0px;
+}
+
+.personal-page .personal-page-content .menu i {
+    font-size: 23px;
+    margin-right: 10px;
+}
+
+.personal-page .personal-page-content .menu span {
+    font-size: 16px;
+}
+
+.personal-page .personal-page-content .menu {
+    margin-top: 12px;
+}
+
+.personal-page .personal-page-content .menu .menu-item {
+    display: flex;
+    align-items: center;
+    padding: 7px 0px 7px 25px;
+}
+
+.personal-page {
+    padding: 20px 0px;
+}
+
+.info-personal-edit {
+    background-color: #fff;
+    padding: 15px 25px;
+    border-radius: 10px;
+}
+
+.info-personal-edit h4 {
+    border-bottom: 0.5px solid #333;
+    padding-bottom: 10px;
+}
+
+.info-personal-edit fieldset {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 10px;
+}
+
+.info-personal-edit form {
+    width: 90%;
+}
+
+.info-personal-edit fieldset label {
+    margin-bottom: 5px;
+}
+
+.info-personal-edit fieldset input {
+    height: 32px;
+    border-radius: 6px;
+    padding-left: 8px;
+    border: 0.5px solid #333;
+    font-size: 14px;
+}
+
+.form-check-input {
+    width: 20px;
+    height: 20px;
+    border: 0.5px solid #333;
+    margin-right: 7px;
+    margin-top: 0px;
+}
+
+.change-pw-cb {
+    display: flex;
+    align-items: center;
+    margin-top: 15px;
+}
+
+.info-personal-edit .save-changes {
+    display: flex;
+    justify-content: center;
+    margin: 5px 0px;
+}
+
+.info-personal-edit .save-changes button {
+    background-color: var(--green);
+    color: #fff;
+    padding: 4px 25px;
+    font-size: 14px;
+    border: 0.5px solid var(--green);
+}
+
+.info-personal-edit .save-changes button:hover {
+    background-color: #fff;
+    color: var(--green);
+    border: 0.5px solid var(--green);
+}
+/* --------- END: PHẦN NÀY CSS TRANG THÔNG TIN CÁ NHÂN ---------*/

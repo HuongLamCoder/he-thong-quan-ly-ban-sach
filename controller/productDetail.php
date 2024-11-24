@@ -7,7 +7,7 @@
         }
         else {
             $authors = getAuthorsByIdSach($_GET['idSach']);
-            require 'view/chiTietSanPham.php';
+            require 'view/productDetail.php';
         }
     }
 ?>
