@@ -1,5 +1,7 @@
 <?php
-session_start();
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
 include_once "inc/client/header.php";
 if(isset($_GET['page'])&&($_GET['page']!=="")){
     switch(trim($_GET['page'])){   
@@ -26,6 +28,18 @@ if(isset($_GET['page'])&&($_GET['page']!=="")){
         case 'signOut':
             unset($_SESSION['user']);
             header("Location:index.php?page=home");
+            break;
+
+        case 'forgotPassword':
+            require 'controller/client/ForgotPasswordController.php';
+            break;
+
+        case 'show_OTPInputForm':
+            require 'controller/client/ForgotPasswordController.php';
+            break;
+
+        case 'show_changePasswordForm':
+            require 'controller/client/ForgotPasswordController.php';
             break;
 
         case 'customerInfo':

@@ -21,7 +21,9 @@ else{
         }
 
         function changeInfo(){
-            session_start();
+            if (session_status() == PHP_SESSION_NONE) { 
+                session_start(); 
+            }
 
             $tenTK = $_POST['fullname'];
             $email = $_POST['email'];
