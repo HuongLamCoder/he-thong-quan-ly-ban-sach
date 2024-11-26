@@ -36,8 +36,9 @@ const validateEmail = () => {
     let emailIsValid = false;
     //Định dạng email
     const regexEmail =
-        /^(([A-Za-z0-9]+((\.|\-|\_|\+)?[A-Za-z0-9]?)*[A-Za-z0-9]+)|[A-Za-z0-9]+)@(([A-Za-z0-9]+)+((\.|\-|\_)?([A-Za-z0-9]+)+)*)+\.([A-Za-z]{2,})+$/;
-    
+        // /^(([A-Za-z0-9]+((\.|\-|\_|\+)?[A-Za-z0-9]?)*[A-Za-z0-9]+)|[A-Za-z0-9]+)@(([A-Za-z0-9]+)+((\.|\-|\_)?([A-Za-z0-9]+)+)*)+\.([A-Za-z]{2,})+$/;
+        /^(?=.{1,255}$)[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/;
+
     if(email.value.trim() !== "") {
         if(!regexEmail.test(email.value.trim())) {
             errorMessageEmail.innerText = "Vui lòng nhập đúng định dạng của email (Ví dụ: abc@example.com)";
@@ -89,8 +90,8 @@ const validateCurrentPassword = () => {
 const validateNewPassword = () => {
     let newPasswordIsValid = false;
     //Định dạng mật khẩu
-    const regexPassword = /^(?=.*[A-Z])(?=.*\d)[A-Za-z\d]{8,}$/;
-
+    const regexPassword = /^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)[A-Za-z\d]{8,}$/;
+    
     if(newPassword.value.trim() === "") {
         errorMessageNewPassword.innerText = "Mật khẩu mới không thể để trống";
         newPasswordIsValid = false;

@@ -19,3 +19,5 @@
             </form>
         </div>
     </main>
+
+    <script src="../asset/quantri/js/ForgotPassword.js?v=<?php echo time(); ?>"></script>

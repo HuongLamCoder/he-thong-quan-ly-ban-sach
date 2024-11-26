@@ -1,7 +1,7 @@
 <?php
 if(isset($_POST['action'])){
-    require '../../config/config.php';
-    require '../../lib/Database.php';
+    require __DIR__.'/../config/config.php';
+    require __DIR__.'/../lib/Database.php';
 }
 else{
     require __DIR__.'/../config/config.php';

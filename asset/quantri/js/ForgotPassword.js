@@ -5,8 +5,8 @@ const errorMessageEmail = document.querySelector(".errorMessage_forgotPassword_e
 const validateEmail = () => {
     let emailIsValid = false;
     const regexEmail =
-      /^(([A-Za-z0-9]+((\.|\-|\_|\+)?[A-Za-z0-9]?)*[A-Za-z0-9]+)|[A-Za-z0-9]+)@(([A-Za-z0-9]+)+((\.|\-|\_)?([A-Za-z0-9]+)+)*)+\.([A-Za-z]{2,})+$/;
-  
+      // /^(([A-Za-z0-9]+((\.|\-|\_|\+)?[A-Za-z0-9]?)*[A-Za-z0-9]+)|[A-Za-z0-9]+)@(([A-Za-z0-9]+)+((\.|\-|\_)?([A-Za-z0-9]+)+)*)+\.([A-Za-z]{2,})+$/;
+      /^(?=.{1,255}$)[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/;
     if(email.value.trim() === "") {
       errorMessageEmail.innerText = "Vui lòng nhập email của bạn";
       emailIsValid = false;
@@ -42,7 +42,7 @@ $(document).ready(function () {
           success: function(response) {
             console.log(response);
             const obj = JSON.parse(response);
-            window.location.href='index.php?page=show_OTPInputForm';
+            window.location.href='index.php?page=authentication_code';
           },
           error: function() {
             alert("Có lỗi xảy ra.");

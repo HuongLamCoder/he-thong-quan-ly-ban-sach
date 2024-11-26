@@ -7,13 +7,13 @@ if(isset($_GET['page']) && ($_GET['page'] !== "")){
             case 'login':
                 include '../controller/quantri/AuthenController.php';
                 break;
-            case 'forgotPassword':
+            case 'forgot_password':
                 include '../controller/quantri/ForgotPasswordController.php';
                 break;
-            case 'show_OTPInputForm':
+            case 'authentication_code':
                 include '../controller/quantri/ForgotPasswordController.php';
                 break;
-            case 'show_changePasswordForm':
+            case 'reset_password':
                 include '../controller/quantri/ForgotPasswordController.php';
                 break;
             default:

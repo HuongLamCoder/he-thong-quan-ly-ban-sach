@@ -3,8 +3,8 @@ use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
 
 if(isset($_POST['action'])){
-    require '../BaseController.php';
-    require '../../model/Account.php';
+    require __DIR__.'/../BaseController.php';
+    require __DIR__.'/../../model/Account.php';
 }
 else{
     require __DIR__. '/../BaseController.php';
@@ -18,10 +18,10 @@ else{
             for ($i = 0; $i <6; $i++) {
                 $OTP .= rand(0, 9);
             }
-            if (!isset($_SESSION['forgotPassword']['OTP'])) {
+            //if (!isset($_SESSION['forgotPassword']['OTP'])) {
                 $_SESSION['forgotPassword']['OTP'] = $OTP;
                 $_SESSION['forgotPassword']['OTP_expiration'] = time() + (5 * 60); // Thời gian hết hạn sau 5 phút
-            }
+            //}
         }
 
         function __construct()
@@ -34,7 +34,7 @@ else{
             $this->render('ForgotPassword','login');
         }
 
-        function emailisExist() {
+        function emailIsExist() {
             if (session_status() == PHP_SESSION_NONE) {
                 session_start(); 
             }
@@ -135,12 +135,12 @@ else{
 
         function checkAction($action){
             switch ($action){
-                case 'forgotPassword':
+                case 'forgot_password':
                     $this->show_emailInputForm();
                     break;
 
                 case 'submit_email':
-                    if ($this->emailisExist()) {
+                    if ($this->emailIsExist()) {
                         $this->generateOTP();
                         $this->sendOTPViaEmail();
                         echo json_encode(['success' => true]);
@@ -150,7 +150,7 @@ else{
                         exit;
                     }
                 
-                case 'show_OTPInputForm':
+                case 'authentication_code':
                     $this->show_OTPInputForm();
                     break;
 
@@ -168,7 +168,7 @@ else{
                         exit;
                     }
         
-                case 'show_changePasswordForm':
+                case 'reset_password':
                     $this->show_changePasswordForm();
                     break;
 

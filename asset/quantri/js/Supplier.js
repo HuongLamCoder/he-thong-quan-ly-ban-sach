@@ -176,7 +176,8 @@ $(document).ready(function() {
     
         let isValid = true;
         let phoneRegex = /^0[0-9]{9}$/;
-        let emailRegex = /^[\w-]+(?:\.[\w-]+)*@(?:[\w-]+\.)+[a-zA-Z]{2,7}$/;
+        let emailRegex = /^(?=.{1,255}$)[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/;
+        // /^[\w-]+(?:\.[\w-]+)*@(?:[\w-]+\.)+[a-zA-Z]{2,7}$/;
     
         // Validate name
         if (ten === '') {

@@ -18,10 +18,10 @@ else{
             for ($i = 0; $i <6; $i++) {
                 $OTP .= rand(0, 9);
             }
-            if (!isset($_SESSION['forgotPassword']['OTP'])) {
+            // if (!isset($_SESSION['forgotPassword']['OTP'])) {
                 $_SESSION['forgotPassword']['OTP'] = $OTP;
                 $_SESSION['forgotPassword']['OTP_expiration'] = time() + (5 * 60); // Thời gian hết hạn sau 5 phút
-            }
+            // }
         }
 
         function __construct()

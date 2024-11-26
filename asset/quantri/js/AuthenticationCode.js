@@ -37,7 +37,7 @@ $(document).ready(function () {
           success: function(response) {
             console.log(response);
             const obj = JSON.parse(response);
-            window.location.href='index.php?page=show_changePasswordForm';
+            window.location.href='index.php?page=reset_password';
           },
           error: function() {
             alert("Có lỗi xảy ra.");

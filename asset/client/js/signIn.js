@@ -7,8 +7,8 @@ const errorMessagePassword = document.querySelector(".errorMessage_signIn_passwo
 const validateEmail = () => {
   let emailIsValid = false;
   const regexEmail =
-    /^(([A-Za-z0-9]+((\.|\-|\_|\+)?[A-Za-z0-9]?)*[A-Za-z0-9]+)|[A-Za-z0-9]+)@(([A-Za-z0-9]+)+((\.|\-|\_)?([A-Za-z0-9]+)+)*)+\.([A-Za-z]{2,})+$/;
-
+    // /^(([A-Za-z0-9]+((\.|\-|\_|\+)?[A-Za-z0-9]?)*[A-Za-z0-9]+)|[A-Za-z0-9]+)@(([A-Za-z0-9]+)+((\.|\-|\_)?([A-Za-z0-9]+)+)*)+\.([A-Za-z]{2,})+$/;
+    /^(?=.{1,255}$)[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/;
   if(email.value.trim() === "") {
     errorMessageEmail.innerText = "Vui lòng nhập email của bạn";
     emailIsValid = false;

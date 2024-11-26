@@ -111,7 +111,8 @@ $(document).ready(function() {
             hasError = true;
         } else {
             // Kiểm tra định dạng email
-            var emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            var emailPattern = /^(?=.{1,255}$)[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/;
+            // /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
             if (!emailPattern.test(email)) {
                 $('.text-message.user-email-msg').text('Email không hợp lệ');
                 hasError = true;

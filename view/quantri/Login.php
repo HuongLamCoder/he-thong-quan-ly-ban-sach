@@ -15,7 +15,7 @@
                     <span class="errorMessage_password"></span>
                 </div>
                 <div class="forgot-password mb-4">
-                    <a href="?page=forgotPassword" class="forgot-password-link">Quên mật khẩu</a>
+                    <a href="?page=forgot_password" class="forgot-password-link">Quên mật khẩu</a>
                 </div>
                 <input type="hidden" name="action" value="login">
                 <button type="submit" class="btn col-12 btn-success text-white">Đăng nhập</button>

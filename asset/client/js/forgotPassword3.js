@@ -7,7 +7,7 @@
   const validatePassword = () => {
       let passwordIsValid = false;
       //Định dạng mật khẩu
-      const regexPassword = /^(?=.*[A-Z])(?=.*\d)[A-Za-z\d]{8,}$/;
+      const regexPassword = /^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)[A-Za-z\d]{8,}$/;
     
       if(password.value.trim() === "") {
         errorMessagePassword.innerText = "Mật khẩu không được để trống";

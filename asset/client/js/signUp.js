@@ -32,8 +32,8 @@ const validateEmail = () => {
   let emailIsValid = false;
   //Định dạng email
   const regexEmail =
-    /^(([A-Za-z0-9]+((\.|\-|\_|\+)?[A-Za-z0-9]?)*[A-Za-z0-9]+)|[A-Za-z0-9]+)@(([A-Za-z0-9]+)+((\.|\-|\_)?([A-Za-z0-9]+)+)*)+\.([A-Za-z]{2,})+$/;
-
+    // /^(([A-Za-z0-9]+((\.|\-|\_|\+)?[A-Za-z0-9]?)*[A-Za-z0-9]+)|[A-Za-z0-9]+)@(([A-Za-z0-9]+)+((\.|\-|\_)?([A-Za-z0-9]+)+)*)+\.([A-Za-z]{2,})+$/;
+    /^(?=.{1,255}$)[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/;
   if(email.value.trim() === "") {
     errorMessageEmail.innerText = "Email không được để trống";
     emailIsValid = false;
@@ -70,13 +70,13 @@ const validateDienthoai = () => {
 const validateMatkhau = () => {
   let passwordIsValid = false;
   //Định dạng mật khẩu
-  const regexPassword = /^(?=.*[A-Z])(?=.*\d)[A-Za-z\d]{8,}$/;
+  const regexPassword = /^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)[A-Za-z\d]{8,}$/;
 
   if(password.value.trim() === "") {
     errorMessagePassword.innerText = "Mật khẩu không được để trống";
     passwordIsValid = false;
   } else if (!regexPassword.test(password.value.trim())) {
-    errorMessagePassword.innerText = "Mật khẩu phải có tối thiểu 8 ký tự, bao gồm ít nhất một chữ số và một kí tự in hoa (Ví dụ: examPle2)";
+    errorMessagePassword.innerText = "Mật khẩu phải có tối thiểu 8 ký tự, bao gồm ít nhất một chữ số, một kí tự in thường và một kí tự in hoa (Ví dụ: examPle2)";
     passwordIsValid = false;
   } else if(password.value.trim() !== confirmPassword.value.trim()) {
     errorMessagePassword.innerText = "Mật khẩu phải trùng khớp với xác nhận mật khẩu"

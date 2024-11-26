@@ -7,14 +7,14 @@
                 <h2 class="form-title fw-bolder mb-3" style="color: #1D712C;">MẬT KHẨU MỚI</h2>
                 <!-- <p class="form-subtitle mb-3 text-center fw-light fs-6">Vui lòng nhập vào mã xác thực đã được gửi qua email của bạn.</p> -->
             </div>
-            <form action="" id="new-password-form">
+            <form action="" id="form-passwordRecovery" method="POST">
                 <div class="form-floating mb-3">
-                    <input type="password" class="form-control" id="passwordRecovery_password" placeholder="">
+                    <input type="password" name="password" class="form-control" id="passwordRecovery_password" placeholder="">
                     <label for="password">Mật khẩu mới*</label> <br>
                     <span class="error errorMessage_forgotPassword_password" id="forgotPassword_error_OTP"></span>
                 </div>
                 <div class="form-floating mb-4">
-                    <input type="password" class="form-control" id="passwordRecovery_confirmPassword" placeholder="">
+                    <input type="password" name="confirmPassword" class="form-control" id="passwordRecovery_confirmPassword" placeholder="">
                     <label for="password-confirm">Xác nhận mật khẩu*</label> <br>
                     <span class="error errorMessage_forgotPassword_confirmPassword" id="forgotPassword_error_OTP"></span>
                 </div>
@@ -23,3 +23,5 @@
             </form>
         </div>
     </main>
+
+    <script src="../asset/quantri/js/ResetPassword.js?v=<?php echo time(); ?>"></script>
