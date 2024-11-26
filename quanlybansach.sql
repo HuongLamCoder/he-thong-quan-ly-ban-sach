@@ -1,15 +1,14 @@
 -- phpMyAdmin SQL Dump
--- version 5.2.1
+-- version 5.2.0
 -- https://www.phpmyadmin.net/
 --
--- Host: 127.0.0.1
--- Generation Time: Oct 26, 2024 at 05:07 PM
--- Server version: 10.4.32-MariaDB
--- PHP Version: 8.2.12
+-- Host: localhost:3306
+-- Generation Time: Nov 26, 2024 at 09:56 PM
+-- Server version: 11.4.1-MariaDB-log
+-- PHP Version: 8.3.6
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
-SET time_zone = "+00:00";
 
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
@@ -32,6 +31,41 @@ CREATE TABLE `chucnang` (
   `tenCN` varchar(30) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Dumping data for table `chucnang`
+--
+
+INSERT INTO `chucnang` (`idCN`, `tenCN`) VALUES
+(1, 'NQ_xem'),
+(2, 'NQ_them'),
+(3, 'NQ_sua'),
+(4, 'NQ_xoa'),
+(6, 'TK_them'),
+(7, 'TK_sua'),
+(10, 'TG_them'),
+(11, 'TG_sua'),
+(14, 'DM_them'),
+(15, 'DM_sua'),
+(17, 'NCC_xem'),
+(18, 'NCC_them'),
+(19, 'NCC_sua'),
+(22, 'MGG_them'),
+(23, 'MGG_sua'),
+(24, 'MGG_xoa'),
+(25, 'SP_xem'),
+(26, 'SP_them'),
+(27, 'SP_sua'),
+(29, 'DH_xem'),
+(30, 'DH_sua'),
+(31, 'DH_in'),
+(32, 'PN_xem'),
+(33, 'PN_them'),
+(34, 'PN_sua'),
+(39, 'PN_in'),
+(40, 'DT_in'),
+(41, 'NK_in'),
+(42, 'LN_in');
+
 -- --------------------------------------------------------
 
 --
@@ -45,6 +79,16 @@ CREATE TABLE `ctdonhang` (
   `gialucdat` float NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Dumping data for table `ctdonhang`
+--
+
+INSERT INTO `ctdonhang` (`idDH`, `idSach`, `soluong`, `gialucdat`) VALUES
+(3, 5, 2, 157000),
+(2, 6, 1, 299000),
+(4, 12, 1, 100000),
+(2, 13, 1, 150000);
+
 -- --------------------------------------------------------
 
 --
@@ -53,12 +97,31 @@ CREATE TABLE `ctdonhang` (
 
 CREATE TABLE `ctnhomquyen` (
   `idNQ` int(11) NOT NULL,
-  `idCN` int(11) NOT NULL,
-  `them` tinyint(1) NOT NULL,
-  `xoa` tinyint(1) NOT NULL,
-  `sua` tinyint(1) NOT NULL,
-  `xem` tinyint(1) NOT NULL
+  `idCN` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `ctnhomquyen`
+--
+
+INSERT INTO `ctnhomquyen` (`idNQ`, `idCN`) VALUES
+(44, 2),
+(44, 3),
+(44, 4),
+(44, 6),
+(44, 7),
+(44, 10),
+(44, 11),
+(44, 14),
+(44, 15),
+(44, 17),
+(44, 18),
+(44, 19),
+(44, 22),
+(44, 23),
+(44, 25),
+(44, 26),
+(44, 27);
 
 -- --------------------------------------------------------
 
@@ -76,35 +139,30 @@ CREATE TABLE `ctphieunhap` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `diachi`
---
-
-CREATE TABLE `diachi` (
-  `idDC` int(11) NOT NULL,
-  `sonha` varchar(30) NOT NULL,
-  `idTK` int(11) NOT NULL,
-  `idTinh` int(11) NOT NULL,
-  `idQuan` int(11) NOT NULL,
-  `idXa` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
--- --------------------------------------------------------
-
---
 -- Table structure for table `donhang`
 --
 
 CREATE TABLE `donhang` (
   `idDH` int(11) NOT NULL,
-  `tongtien` float NOT NULL,
+  `tamtinh` float NOT NULL,
   `idTT` int(3) NOT NULL,
   `phiship` float NOT NULL,
   `ngaytao` date NOT NULL,
   `ngaycapnhat` date NOT NULL,
   `idTK` int(11) NOT NULL,
-  `idNV` int(11) NOT NULL,
-  `idDC` int(11) NOT NULL
+  `idNV` int(11) DEFAULT NULL,
+  `diachi` varchar(255) NOT NULL,
+  `phuong_thuc_tt` varchar(5) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `donhang`
+--
+
+INSERT INTO `donhang` (`idDH`, `tamtinh`, `idTT`, `phiship`, `ngaytao`, `ngaycapnhat`, `idTK`, `idNV`, `diachi`, `phuong_thuc_tt`) VALUES
+(2, 449000, 1, 16000, '2024-11-27', '2024-11-27', 11, NULL, '453/77B3 Lê Văn Sỹ, Phường 12, Quận 3, Hồ Chí Minh', 'ck'),
+(3, 314000, 1, 16000, '2024-11-27', '2024-11-27', 11, NULL, '453/4 Lê Văn Sỹ, Phường 12, Quận 3, Hồ Chí Minh', 'cod'),
+(4, 100000, 1, 16000, '2024-11-27', '2024-11-27', 11, NULL, '453/4 Lê Văn Sỹ, Phường 12, Quận 3, Hồ Chí Minh', 'cod');
 
 -- --------------------------------------------------------
 
@@ -138,6 +196,18 @@ CREATE TABLE `magiamgia` (
   `trangthai` varchar(3) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Dumping data for table `magiamgia`
+--
+
+INSERT INTO `magiamgia` (`idMGG`, `phantram`, `ngaybatdau`, `ngayketthuc`, `trangthai`) VALUES
+(1, 10, '2024-11-12', '2024-11-13', 'huy'),
+(2, 10, '2024-11-12', '2024-11-13', 'huy'),
+(3, 11, '2024-11-12', '2024-11-13', 'huy'),
+(4, 100, '2024-11-12', '2024-11-23', 'huy'),
+(5, 11, '2024-11-20', '2024-11-22', 'huy'),
+(6, 25, '2024-11-24', '2024-11-30', 'cdr');
+
 -- --------------------------------------------------------
 
 --
@@ -169,10 +239,11 @@ CREATE TABLE `nhacungcap` (
 --
 
 INSERT INTO `nhacungcap` (`idNCC`, `tenNCC`, `diachi`, `email`, `dienthoai`, `trangthai`) VALUES
-(1, 'Phúc Minh', '123 Lê Văn Sỹ,2264,133,12', 'phucminh.books@gmail.com', '0123654789', b'1'),
-(2, 'Văn Học', '123 Lê Văn Sỹ,8842,561,50', 'vanhoc@books.com.vn', '0333444555', b'1'),
-(3, 'Thanh Niên', '123 Lê Văn Sỹ,8859,562,50', 'thanhnien@books.com.vn', '0777888999', b'1'),
-(4, 'Kép Già', '166 3/2,8134,503,45', 'kepold@gmail.com', '0999999999', b'1');
+(2, 'Phuc Minh Books', ' Phòng 508,Phường Định Công,Quận Hoàng Mai, Hà Nội', 'phucminhbooks@gmail.com', '0778052785', b'1'),
+(3, 'IPM', ' Số 110 Nguyễn Ngọc Nại,Phường Khương Mai,Quận Thanh Xuân, Hà Nội', 'online.ipmvn@gmail.com', '0328383979', b'1'),
+(4, 'AZ Việt Nam', 'Số 50 đường 5,Phường Yên Phụ,Quận Tây Hồ, Hà Nội', 'bophanbanle@azbooks.vn', '0778052780', b'1'),
+(5, 'Nhã Nam', 'Số 59 Đỗ Quang,Phường Trung Hoà,Quận Cầu Giấy, Hà Nội', 'info@nhanam.vn', '0243514687', b'1'),
+(6, 'GitHub', '273 An Dương Vương,Phường 02,Quận 5, Tp. Hồ Chí Minh', 'github@microsoft.com', '0258794644', b'1');
 
 -- --------------------------------------------------------
 
@@ -182,8 +253,17 @@ INSERT INTO `nhacungcap` (`idNCC`, `tenNCC`, `diachi`, `email`, `dienthoai`, `tr
 
 CREATE TABLE `nhomquyen` (
   `idNQ` int(11) NOT NULL,
-  `tenNhomQuyen` varchar(30) NOT NULL
+  `tenNQ` varchar(30) NOT NULL,
+  `trangthai` bit(1) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `nhomquyen`
+--
+
+INSERT INTO `nhomquyen` (`idNQ`, `tenNQ`, `trangthai`) VALUES
+(1, 'Khách hàng', b'1'),
+(44, 'hiiiii', b'1');
 
 -- --------------------------------------------------------
 
@@ -948,6 +1028,18 @@ CREATE TABLE `sach` (
   `trongluong` float NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Dumping data for table `sach`
+--
+
+INSERT INTO `sach` (`idSach`, `tuasach`, `mota`, `tonkho`, `luotban`, `NXB`, `namXB`, `giaban`, `giabia`, `trangthai`, `idMGG`, `idNCC`, `idTL`, `hinhanh`, `trongluong`) VALUES
+(5, 'Kẻ Nhìn Trộm', 'Tiếp nối Kẻ dọn rác và Người sống sót, Kẻ Nhìn Trộm là hành trình tìm ra chân tướng sự thật của tổ Pháp Y gồm 5 người: Tần Minh, Lâm Đào, Đại Bảo, Thi Vũ và Hàn Lượng. Truyện bao gồm 10 vụ án nhỏ tưởng chừng như chẳng hề liên quan đến nhau nhưng lại là những mắt xích quan trọng trong việc phá vụ án lớn nhất liên quan đến Kẻ nhìn trộm.\r\n\r\nMột người bạn của Đại Bảo là Đỗ Châu bỗng nhiên mất tích, vợ anh linh cảm điều chẳng lành. Khi vụ án còn chưa tìm ra manh mối, bỗng hai thi thể phụ nữ được phát hiện trong trang phục hành khất ở nơi hoang vắng. Điều đáng nói là trên tay một trong hai nạn nhân có chiếc nhẫn kết hôn của Đỗ Châu.\r\n\r\nLiệu Đỗ Châu có liên qua gì đến vụ án này? Là hung thủ? Kẻ bị haị? hay là một anh hùng cứu mĩ nhân?\r\n\r\nVẫn lối viết lạnh lùng khách quan, trong Kẻ nhìn trộm, độc giả lại tiếp tục theo dõi câu chuyện điều tra, tìm chứng cớ của đội pháp y. Thông qua đó hiểu rõ hơn về nghiệp vụ Pháp Y: hiện tượng chết ngạt CO2, mất máu đến chết, ngộ độc khí CO, chết cháy... Đặc biệt trong cuốn truyện này sẽ xuất hiện những vụ án giết người, phi tang xác chết. \r\n\r\nVới Kẻ nhìn trộm, tác giả Tần Minh đã có một bước tiến mới trong cách xây dựng tình huống, cốt truyện. Tất nhiên mọi thứ vẫn dựa trên \"sự thật\" nhưng tính bất ngờ khiến người đọc ngỡ ngàng và không hề nhàm chán dù đã đọc rất nhiều vụ phá án trước đó.                                        ', 138, 20, 'NXB Văn Học', 2020, 157000, 157000, b'1', NULL, 2, 3, 'SP_673f815783329.jpg', 250),
+(6, 'Pháp Y Tống Từ', 'VỀ TÁC GIẢ:\r\n\r\nVương Phương (năm sinh chưa rõ), bút danh là Hoàn Chỉ, sinh tại Bắc Kinh. Ông là tác giả trinh thám có kiến thức sâu rộng về khảo cổ học và di tích văn hoá, lịch sử vậy nên những sáng tác của ông thường mang màu sắc cổ xưa và không kém phần kì bí.  Tác phẩm tiêu biểu: Pháp y Tống Từ, Dấu vết của kẻ nghi phạm…\r\n\r\n \r\n\r\nVỀ TÁC PHẨM:\r\n\r\nPháp y Tống Từ là câu chuyện về Tống Từ, một trong những nhà pháp y học trứ danh cổ xưa của Trung Quốc. Ông nổi tiếng với cuốn sách Tẩy oan tạp lục, cuốn sách đặt nền móng cho pháp y học trên toàn thế giới.\r\n\r\nNhững vụ án kì bí liên tục xảy ra xung quanh Tống Từ, buộc chàng trai trẻ dấn thân vào cuộc truy tìm hung thủ tưởng chừng không hồi kết. Từ vụ án Tân nương ma đến vụ án Cái xác bé trai, độc giả được chứng kiến những màn đấu trí gay cấn, những vụ án trong án mà đã có lúc Tống Từ gần như chạm tay đến sự thật.', 99, 10, 'NXB Văn Học', 2022, 299000, 299000, b'1', NULL, 2, 3, 'SP_673f831239544.webp', 500),
+(10, '300 Bài Code Thiếu Nhi', 'Hãy để tôi dạy bạn trở thành lập trình viên nghìn đô\r\nQuê tôi miền biển, có gia đình cạnh nhà làm nghề chài lưới. Bữa đi kéo lưới, thấy gì nặng nặng tưởng được mẻ cá to, ai ngờ toàn sách là sách. Nào là \"300 bài code thiếu nhi\", \"Lập trình căn bản\", \" Machine Learning\", \"Deep learning\", \"AI\"...                                        ', 1000, 500, 'Internet', 2024, 1000, 1000, b'0', NULL, 6, 5, 'SP_6740dd48394fc.png', 100),
+(11, 'Sóng mãi mãi nổi sóng', 'Sóng bắt đầu từ gió\r\nGió bắt đầu từ đâu\r\nEm cũng không biết nữa\r\nKhi nào ta yêu nhau?                                 ', 0, 0, 'NXB Văn hóa thông tin', 2022, 100000, 100000, b'1', 6, 5, 1, 'SP_6740cf24a6a56.jpg', 100),
+(12, 'Chí Phèo', 'Rạch mặt ăn vạ                                        ', 119, 30, 'NXB Văn Học', 2024, 100000, 100000, b'1', NULL, 3, 1, 'SP_6740d05858b6a.webp', 150),
+(13, 'Ghi Chép Pháp Y - Những Cái Chết Bí Ẩn', 'Làm cách nào để một “xác chết lên tiếng”? - đó là công việc của bác sĩ pháp y.\r\n\r\n“Ghi chép pháp y - Những cái chết bí ẩn” là cuốn sách nằm trong hệ liệt với “Pháp y Tần Minh” - bộ tiểu thuyết nổi đình đám của xứ Trung đã được chuyển thể thành series phim. Cuốn sách tổng hợp những vụ án có thật, được viết bởi bác sĩ pháp y Lưu Hiểu Huy - người có 15 năm kinh nghiệm và từng mổ xẻ hơn 800 tử thi.\r\n\r\nTrải qua 15 câu chuyện kinh hoàng, cuốn sách sẽ đưa bạn bước vào hiện trường của những vụ án man rợ như: xác chết phi tang dưới cánh đồng ngô, thi thể thiếu nữ không lành lặn, xác chết nhầy nhụa đang bị giòi bọ đục khoét hay một thi thể co cứng trong màng bọc nilon…lần theo những dấu vết, ghép lại sự thật từ những mảnh vụn thi thể, nguyên nhân của cái chết sẽ dần được hé mở.\r\n\r\nMỗi vụ án đều là một ẩn số, hiện trường vụ án bao gồm cả xác chết chính là chiếc chìa khóa để truy tìm hung thủ ngay cả khi nó không còn nguyên vẹn. Vậy làm cách để các bác sĩ pháp y có thể xác định thương tật, các dấu hiệu cơ thể bị xâm hại? Cuốn sách này sẽ trình bày những kiến thức chuyên môn và quy trình xử lý vụ án, từ hiện trường vụ án đến đài giải phẫu, xét nghiệm nội tạng, phân tích chất độc… từng bước tìm ra bí mật ẩn giấu sau mỗi tử thi, phơi bày những manh mối liên quan đến tội ác con người và lỗ hổng của xã hội.\r\n\r\nKhông chỉ thuật lại những vụ án và các phương pháp pháp y, cuốn sách còn chứa đựng cảm xúc của tác giả đối với nghề nghiệp và sự méo mó của bản chất con người. Chẳng hạn, một đứa trẻ bệnh nặng phải đau đớn đến thế nào khi bị người nhà đem ra làm công cụ để đòi bồi thường? Cuốn sách sẽ phơi bày những góc khuất của xã hội, những hành vi thủ ác, sự biến chất và mất nhân tính của một bộ phận con người trong xã hội.\r\n\r\nNếu bạn tò mò muốn biết cách đánh giá tuổi của người chết dựa trên mức độ mòn răng? Hay cách dùng một con giòi từ người chết để suy ra thời điểm chính xác của vụ án giết người? Hy vọng cuốn sách này sẽ cho bạn trải nghiệm khó quên về nghề pháp y.                                        ', 49, 50, 'NXB Thanh Niên', 2023, 150000, 150000, b'1', NULL, 4, 3, 'SP_6740dd203bcb7.jpg', 350);
+
 -- --------------------------------------------------------
 
 --
@@ -958,6 +1050,21 @@ CREATE TABLE `sach_tacgia` (
   `idSach` int(11) NOT NULL,
   `idTG` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `sach_tacgia`
+--
+
+INSERT INTO `sach_tacgia` (`idSach`, `idTG`) VALUES
+(12, 7),
+(11, 9),
+(5, 10),
+(6, 11),
+(10, 12),
+(10, 13),
+(10, 14),
+(11, 14),
+(13, 15);
 
 -- --------------------------------------------------------
 
@@ -976,15 +1083,18 @@ CREATE TABLE `tacgia` (
 --
 
 INSERT INTO `tacgia` (`idTG`, `tenTG`, `trangthai`) VALUES
-(1, 'Nam Cao', b'1'),
-(2, 'Thạch Lam', b'1'),
-(3, 'Vũ Trọng Phụng', b'1'),
-(4, 'Xuân Quỳnh', b'1'),
-(5, 'Kim Lân', b'1'),
-(6, 'Nguyễn Nhật Ánh', b'1'),
-(7, 'Nguyễn Du', b'1'),
-(8, 'Nguyễn Ngọc Ngạn', b'0'),
-(9, 'Nguyễn Quang Sáng', b'1');
+(1, 'Nguyễn Nhật Ánh', b'0'),
+(2, 'Bạch Nguyệt', b'1'),
+(6, 'Hàn Mặc Tử', b'1'),
+(7, 'Nam Cao', b'1'),
+(8, 'Lý Mạc Sầu', b'1'),
+(9, 'Xuân Quỳnh', b'1'),
+(10, 'Bác sĩ Pháp Y Tần Minh', b'1'),
+(11, 'Vương Phương', b'1'),
+(12, 'GitHub', b'1'),
+(13, 'Microsoft', b'1'),
+(14, 'Google', b'1'),
+(15, 'Lưu Hiểu Huy', b'1');
 
 -- --------------------------------------------------------
 
@@ -999,8 +1109,16 @@ CREATE TABLE `taikhoan` (
   `email` varchar(30) NOT NULL,
   `matkhau` varchar(60) NOT NULL,
   `trangthai` bit(1) NOT NULL,
-  `idNQ` int(11) NOT NULL
+  `idNQ` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `taikhoan`
+--
+
+INSERT INTO `taikhoan` (`idTK`, `tenTK`, `dienthoai`, `email`, `matkhau`, `trangthai`, `idNQ`) VALUES
+(3, 'vy le', '0778052785', 'thaovy3724@gmail.com', '$2y$10$Dfp6UWnI38rtLwsGFS4pl.FZBfN2IQf7Wi4CcfJIMG7j7sbil80ja', b'1', 1),
+(11, 'le ngoc thao vy', '0778052785', 'thaovy1233@gmail.com', '$2y$10$svcKK7wP88oKeYi4RUyrnuiZtRXr56T.V6t3uTT62R2K1Sun4IOJe', b'1', 1);
 
 -- --------------------------------------------------------
 
@@ -1013,6 +1131,17 @@ CREATE TABLE `theloai` (
   `tenTL` varchar(30) NOT NULL,
   `trangthai` bit(1) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `theloai`
+--
+
+INSERT INTO `theloai` (`idTL`, `tenTL`, `trangthai`) VALUES
+(1, 'Văn học Việt Nam', b'1'),
+(2, 'Kinh tế', b'1'),
+(3, 'Trinh thám', b'1'),
+(4, 'Đời sống', b'1'),
+(5, 'Lập trình', b'1');
 
 -- --------------------------------------------------------
 
@@ -1079,7 +1208,7 @@ INSERT INTO `tinh` (`idTinh`, `tenTinh`) VALUES
 (47, ' Bình Dương'),
 (48, ' Đồng Nai'),
 (49, ' Bà Rịa - Vũng Tàu'),
-(50, ' Tp. Hồ Chí Minh'),
+(50, ' Hồ Chí Minh'),
 (51, ' Long An'),
 (52, ' Tiền Giang'),
 (53, ' Bến Tre'),
@@ -1104,6 +1233,17 @@ CREATE TABLE `trangthaidh` (
   `idTT` int(11) NOT NULL,
   `tenTT` varchar(30) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `trangthaidh`
+--
+
+INSERT INTO `trangthaidh` (`idTT`, `tenTT`) VALUES
+(1, 'Chờ duyệt'),
+(2, 'Hủy bởi khách hàng'),
+(3, 'Hủy bởi người bán'),
+(4, 'Đang giao'),
+(5, 'Đã giao');
 
 -- --------------------------------------------------------
 
@@ -11744,23 +11884,12 @@ ALTER TABLE `ctphieunhap`
   ADD KEY `idSach` (`idSach`);
 
 --
--- Indexes for table `diachi`
---
-ALTER TABLE `diachi`
-  ADD PRIMARY KEY (`idDC`),
-  ADD KEY `idTinh` (`idTinh`),
-  ADD KEY `idTK` (`idTK`),
-  ADD KEY `idQuan` (`idQuan`),
-  ADD KEY `idXa` (`idXa`);
-
---
 -- Indexes for table `donhang`
 --
 ALTER TABLE `donhang`
   ADD PRIMARY KEY (`idDH`),
   ADD KEY `idTK` (`idTK`),
   ADD KEY `idNV` (`idNV`),
-  ADD KEY `idDC` (`idDC`),
   ADD KEY `idTT` (`idTT`);
 
 --
@@ -11870,19 +11999,13 @@ ALTER TABLE `xa`
 -- AUTO_INCREMENT for table `chucnang`
 --
 ALTER TABLE `chucnang`
-  MODIFY `idCN` int(11) NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT for table `diachi`
---
-ALTER TABLE `diachi`
-  MODIFY `idDC` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `idCN` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=43;
 
 --
 -- AUTO_INCREMENT for table `donhang`
 --
 ALTER TABLE `donhang`
-  MODIFY `idDH` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `idDH` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `lidotrahang`
@@ -11894,7 +12017,7 @@ ALTER TABLE `lidotrahang`
 -- AUTO_INCREMENT for table `magiamgia`
 --
 ALTER TABLE `magiamgia`
-  MODIFY `idMGG` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `idMGG` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `nganhang`
@@ -11906,13 +12029,13 @@ ALTER TABLE `nganhang`
 -- AUTO_INCREMENT for table `nhacungcap`
 --
 ALTER TABLE `nhacungcap`
-  MODIFY `idNCC` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `idNCC` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `nhomquyen`
 --
 ALTER TABLE `nhomquyen`
-  MODIFY `idNQ` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `idNQ` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=45;
 
 --
 -- AUTO_INCREMENT for table `phieunhap`
@@ -11930,25 +12053,25 @@ ALTER TABLE `quan`
 -- AUTO_INCREMENT for table `sach`
 --
 ALTER TABLE `sach`
-  MODIFY `idSach` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `idSach` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 
 --
 -- AUTO_INCREMENT for table `tacgia`
 --
 ALTER TABLE `tacgia`
-  MODIFY `idTG` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `idTG` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 
 --
 -- AUTO_INCREMENT for table `taikhoan`
 --
 ALTER TABLE `taikhoan`
-  MODIFY `idTK` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `idTK` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- AUTO_INCREMENT for table `theloai`
 --
 ALTER TABLE `theloai`
-  MODIFY `idTL` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `idTL` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `tinh`
@@ -11960,7 +12083,7 @@ ALTER TABLE `tinh`
 -- AUTO_INCREMENT for table `trangthaidh`
 --
 ALTER TABLE `trangthaidh`
-  MODIFY `idTT` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `idTT` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `xa`
@@ -11985,9 +12108,7 @@ ALTER TABLE `ctdonhang`
 --
 ALTER TABLE `ctnhomquyen`
   ADD CONSTRAINT `ctnhomquyen_ibfk_1` FOREIGN KEY (`idNQ`) REFERENCES `nhomquyen` (`idNQ`),
-  ADD CONSTRAINT `ctnhomquyen_ibfk_2` FOREIGN KEY (`idCN`) REFERENCES `chucnang` (`idCN`),
-  ADD CONSTRAINT `ctnhomquyen_ibfk_3` FOREIGN KEY (`idNQ`) REFERENCES `nhomquyen` (`idNQ`),
-  ADD CONSTRAINT `ctnhomquyen_ibfk_4` FOREIGN KEY (`idNQ`) REFERENCES `nhomquyen` (`idNQ`);
+  ADD CONSTRAINT `ctnhomquyen_ibfk_2` FOREIGN KEY (`idCN`) REFERENCES `chucnang` (`idCN`);
 
 --
 -- Constraints for table `ctphieunhap`
@@ -11998,21 +12119,11 @@ ALTER TABLE `ctphieunhap`
   ADD CONSTRAINT `ctphieunhap_ibfk_3` FOREIGN KEY (`idPN`) REFERENCES `phieunhap` (`idPN`);
 
 --
--- Constraints for table `diachi`
---
-ALTER TABLE `diachi`
-  ADD CONSTRAINT `diachi_ibfk_1` FOREIGN KEY (`idTinh`) REFERENCES `tinh` (`idTinh`),
-  ADD CONSTRAINT `diachi_ibfk_2` FOREIGN KEY (`idTK`) REFERENCES `taikhoan` (`idTK`),
-  ADD CONSTRAINT `diachi_ibfk_3` FOREIGN KEY (`idQuan`) REFERENCES `quan` (`idQuan`),
-  ADD CONSTRAINT `diachi_ibfk_4` FOREIGN KEY (`idXa`) REFERENCES `xa` (`idXa`);
-
---
 -- Constraints for table `donhang`
 --
 ALTER TABLE `donhang`
   ADD CONSTRAINT `donhang_ibfk_1` FOREIGN KEY (`idTK`) REFERENCES `taikhoan` (`idTK`),
   ADD CONSTRAINT `donhang_ibfk_2` FOREIGN KEY (`idNV`) REFERENCES `taikhoan` (`idTK`),
-  ADD CONSTRAINT `donhang_ibfk_3` FOREIGN KEY (`idDC`) REFERENCES `diachi` (`idDC`),
   ADD CONSTRAINT `donhang_ibfk_4` FOREIGN KEY (`idTT`) REFERENCES `trangthaidh` (`idTT`);
 
 --

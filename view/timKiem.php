@@ -43,23 +43,24 @@
                     <div class="searching-result-text">
                         KẾT QUẢ TÌM KIẾM: 
                         <span class="searching-text text-primary"> 
-                            <span class="searching-keyword">kinh tế</span>
+                            <span class="searching-keyword"><?=$title?></span>
                         </span>
                     </div>
                     <!-- sắp xếp -->
                     <div class="sort">
                         <div class="price-sort">
                             <h6>Giá</h6>
-                            <form action="">
-                                <button><i class="fa-solid fa-up"></i></button>
-                                <button><i class="fa-solid fa-down"></i></button>
+                            <form method="post">
+                                <input type="hidden" name="page" value="search">
+                                <button name="price-increase"><i class="fa-solid fa-up"></i></button>
+                                <button name="price-descrease"><i class="fa-solid fa-down"></i></button>
                             </form>
                         </div>
                         <div class="sales-sort">
                             <h6>Lượt bán</h6>
-                            <form action="">
-                                <button><i class="fa-solid fa-up"></i></button>
-                                <button><i class="fa-solid fa-down"></i></button>
+                            <form>
+                                <button id="sale-increase"><i class="fa-solid fa-up"></i></button>
+                                <button id="sale-descrease"><i class="fa-solid fa-down"></i></button>
                             </form>
                         </div>
                     </div>
@@ -68,6 +69,8 @@
                         <div class="book-list">
                             <ul>
                         <?php 
+                            if($result == null){echo '<div>Không tìm thấy kết quả tìm kiếm</div>';}
+                            else{
                             //chia mang result thanh tung trang
                             $num_per_page = 2; //total records each page
                             $curr_page = getPage();
@@ -80,7 +83,7 @@
                                 extract($result[$keys[$i]]);
                         ?>
                                 <li class="book-card">
-                                    <a href="" class="nav-link">
+                                    <a href="?page=productDetail&idSach=<?=$idSach?>" class="nav-link">
                                         <div class="image-book">
                                             <img src="asset/img/<?=$hinhanh?>" alt="">
                                         </div>
@@ -127,6 +130,9 @@
                             <a class="nav-link" href="#"><i class="fa-regular fa-chevron-right"></i></a> -->
                         </div>
                     </div>
+                    <?php
+                        }
+                    ?>
                 </div>
             </div>
         </div>
