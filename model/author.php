@@ -1,8 +1,8 @@
 <?php
     class Author{
-        private $idTG;
-        private $tenTG;
-        private $trangthai;
+        private int $idTG;
+        private string $tenTG;
+        private int $trangthai;
 
         function nhap($idTG, $tenTG, $trangthai){
             $this->idTG = $idTG;

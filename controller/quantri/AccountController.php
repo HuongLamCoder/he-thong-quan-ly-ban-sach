@@ -63,8 +63,6 @@
         }
 
         function search(){
-            session_start();
-            var_dump($_SESSION['user']);
             $pageTitle = 'searchAccount';
             $kyw = NULL;
             $idNQ = NULL;

@@ -2,10 +2,10 @@
         <div class="footer">
             <div class="footer-img">
                 <div class="footer-logo">
-                    <img src="asset/img/vinabook-logo.png" alt="">
+                    <img src="asset/client/img/vinabook-logo.png" alt="">
                 </div>
                 <div class="bocongthuong">
-                    <img src="asset/img/bocongthuong.png" alt="">
+                    <img src="asset/client/img/bocongthuong.png" alt="">
                 </div>
             </div>
             <div class="footer-info">

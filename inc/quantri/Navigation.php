@@ -84,7 +84,7 @@
                                     echo '
                                     <li class="nav-item sidebar-item">
                                         <a href="index.php?page=category" class="nav-link text-black fs-5 align-items-center">
-                                       1     <i class="fa-regular fa-list me-3"></i>
+                                            <i class="fa-regular fa-list me-3"></i>
                                             Quản lý danh mục
                                         </a>
                                     </li>';

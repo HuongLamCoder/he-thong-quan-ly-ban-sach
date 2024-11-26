@@ -1,10 +1,10 @@
 <?php
     class Discount{
-        private $idMGG;
-        private $phantram;
-        private $ngaybatdau;
-        private $ngayketthuc;
-        private $trangthai;
+        private int $idMGG;
+        private float $phantram;
+        private string $ngaybatdau;
+        private string $ngayketthuc;
+        private string $trangthai;
 
         function nhap($idMGG, $phantram, $ngaybatdau, $ngayketthuc, $trangthai){
             $this->idMGG = $idMGG;

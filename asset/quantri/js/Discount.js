@@ -33,12 +33,12 @@ function formValidateDiscount(phantram, ngaybatdau, ngayketthuc) {
     }
 
     if(start <= curr_date){
-        alert = "Thời gian bắt đầu không được nhỏ hơn ngày hiện tại!";
+        alert = "Ngày bắt đầu phải lớn hơn ngày hiện tại!";
         return alert;
     }
 
     if(ngaybatdau >= ngayketthuc){
-        alert = "Thời gian kết thúc không nhỏ hơn thời gian bắt đầu!";
+        alert = "Ngày kết thúc phải lớn hơn bắt đầu!";
         return alert;
     }
 

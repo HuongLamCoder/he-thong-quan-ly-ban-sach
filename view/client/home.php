@@ -1,4 +1,4 @@
-    <main class="homepage">
+<main class="homepage">
         <div class="container">
             <div class="row homepage-content">
                 <!-- Cột bên trái gồm: danh mục sách, best seller -->
@@ -9,11 +9,13 @@
                             <ul>
                                 <p>Danh mục</p>
                                 <?php
+                                    $categories = $result['category'];
                                     foreach($categories as $item){
-                                        extract($item);
                                 ?>
                                     <li>
-                                        <a href="?page=search&category=<?=$tenTL?>&idTL=<?=$idTL?>" class="nav-link"><?=$tenTL?></a>
+                                        <a href="?page=search&category=<?=$item->getTenTL()?>&idTL=<?=$item->getIdTL()?>" class="nav-link">
+                                            <?=$item->getTenTL()?>
+                                        </a>
                                     </li>
                                 <?php  
                                     }
@@ -27,21 +29,23 @@
                             <ul>
                                 <p>Best Seller</p>
                                 <?php
-                                    if($bestSellers!=null){
-                                    foreach($bestSellers as $item){
-                                        extract($item);
+                                    $bestSeller = $result['bestSellers'];
+                                    
+                                    if($bestSeller!=null){
+                                    foreach($bestSeller as $item){
+                                        // extract($item);
                                 ?>
                                     <li>
-                                        <a href="?page=productDetail&idSach=<?=$idSach?>" class="nav-link book-card">
+                                        <a href="?page=productDetail&idSach=<?=$item->getIdSach()?>" class="nav-link book-card">
                                             <div class="image-book">
-                                                <img src="asset/img/<?=$hinhanh?>" alt="">
+                                                <img src="asset/uploads/<?=$item->getHinhanh()?>" alt="">
                                             </div>
                                             <div class="info-book">
                                                 <span class="book-title">
-                                                    <?=$tuasach?>
+                                                    <?=$item->getTuasach()?>
                                                 </span>
-                                                <span class="units-sold-text"><span class="units-sold"><?=$luotban?></span> lượt bán</span>
-                                                <span class="price-text"> <span class="price"><?=number_format($giaban,0,"",".")?></span> đ</span> 
+                                                <span class="units-sold-text"><span class="units-sold"><?=$item->getLuotBan()?></span> lượt bán</span>
+                                                <span class="price-text"> <span class="price"><?=number_format($item->getGiaban(),0,"",".")?></span> đ</span> 
                                             </div>
                                         </a>
                                     </li>
@@ -66,8 +70,10 @@
                             <div class="carousel-inner">
                                 <?php
                                     $i = 1;
-                                    foreach($bestSellers as $item){
-                                        extract($item);
+                                    $bestSeller = $result['bestSellers'];
+                                    foreach($bestSeller as $item){
+                                        // extract($item);
+                                        $mota = $item->getMoTa();
                                         if(strlen($mota) > 450) $mota = substr($mota, 0, 450) . '...';
                                         if($i++ == 1 ){
                                 ?>
@@ -82,14 +88,14 @@
                                 ?>
                                         <div class="banner-content">
                                             <div class="image-book">
-                                                <img src="asset/img/<?=$hinhanh?>" class="d-block" alt="...">
+                                                <img src="asset/uploads/<?=$item->getHinhanh()?>" class="d-block" alt="...">
                                             </div>
                                             <div class="info-book">
                                                 <div class="title">
-                                                    <h4><?=$tuasach?></h4>
+                                                    <h4><?=$item->getTuasach()?></h4>
                                                 </div>
                                                 <div class="description">
-                                                    <p><?=$mota?></p>
+                                                    <p><?=$item->getMoTa()?></p>
                                                 </div>
                                             </div>
                                         </div>
@@ -110,35 +116,35 @@
                             </button>
                         </div>
                     </div>
-                    <?php                  
-                    foreach($categories as $item){
-                        extract($item);
+                    <?php           
+                        foreach($categories as $cate){
+                            // extract($item);
                     ?>
                     <div class="category-book">
                         <div class="title">
                             <h3>
-                                <?=$tenTL?>
+                                <?=$cate->getTenTL()?>
                             </h3>
                         </div>
                         <div class="category-book-box b-shadow">
                             <div class="category-book-content">
                     <?php
-                        $books = getBooksByCategory($idTL);
-                        if($books!=null){ 
-                        foreach($books as $book){
-                            extract($book);
+                        $product = Product::getBooksByCategory($cate->getIdTL());
+                        if (!empty($product)) { 
+                        foreach($product as $book){
+                            // extract($book);
                     ?>
                                 <div class="book-card">
-                                    <a href="" class="nav-link">
+                                    <a href="?page=productDetail&idSach=<?=$book->getIdSach()?>" class="nav-link">
                                         <div class="image-book">
-                                            <img src="asset/img/<?=$hinhanh?>" alt="">
+                                            <img src="asset/uploads/<?=$book->getHinhanh()?>" alt="">
                                         </div>
                                         <div class="info-book">
                                             <div class="title">
-                                                <h6><?=$tuasach?></h6>
+                                                <h6><?=$book->getTuasach()?></h6>
                                             </div>
-                                            <div class="units-sold-text"><span class="units-sold"><?=$luotban?></span> lượt bán</div>
-                                            <div class="price-text"> <span class="price"><?=number_format($giaban,0,"",".");?></span> đ</div> 
+                                            <div class="units-sold-text"><span class="units-sold"><?=$book->getLuotBan()?></span> lượt bán</div>
+                                            <div class="price-text"> <span class="price"><?=number_format($book->getGiaban(),0,"",".");?></span> đ</div> 
                                         </div>
                                     </a>
                                 </div>
@@ -147,7 +153,7 @@
                     ?>
                             </div>
                             <div class="see-more">
-                                <a href="?page=search&category=<?=$tenTL?>&idTL=<?=$idTL?>" class="btn nav-link">Xem thêm</a>
+                                <a href="?page=search&category=<?=$cate->getTenTL()?>&idTL=<?=$cate->getIdTL()?>" class="btn nav-link">Xem thêm</a>
                             </div>
                             <?php
                                 } else echo '<div>Không có sản phẩm</div>';
@@ -161,6 +167,4 @@
             </div>
         </div>
     </main>
-<?php 
-    include_once "inc/footer.php"
-?>
+

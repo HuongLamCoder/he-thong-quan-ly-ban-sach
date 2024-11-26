@@ -40,7 +40,7 @@
 
         static function getAll(){
             $list = [];
-            $sql = "SELECT * FROM tinh";
+            $sql = "SELECT * FROM tinh ORDER BY tenTinh ASC";
             $con = new Database();
             $req = $con->getAll($sql);
 

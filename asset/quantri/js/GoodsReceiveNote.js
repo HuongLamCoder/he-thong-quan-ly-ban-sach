@@ -500,7 +500,7 @@ $(document).on('input', '.grn-quantity', function() {
          return '';
      }
 
-     $(document).on('submit', '#grnForm', function (event) {
+$(document).on('submit', '#grnForm', function (event) {
         event.preventDefault();
          // validate form
     var list = $('#grnForm table tbody tr:not(.grn-row-template)')
@@ -543,6 +543,6 @@ $(document).on('input', '.grn-quantity', function() {
         type: 'error',
         duration: 3000
         });
-});
-
     });
+
+});

@@ -1,23 +1,18 @@
 <?php
-if(isset($_POST['action'])){
-    require '../BaseController.php';
-    require '../../model/GRN.php';
-    require '../../model/Supplier.php';
-    require '../../model/Product.php';
-    require '../../model/GRNDetail.php';
-    require '../../model/Account.php';
-}
-else{
-    require '../controller/BaseController.php';
-    require '../model/GRN.php';
-    require '../model/Supplier.php';
-    require '../model/Product.php';
-    require '../model/GRNDetail.php';
-    require '../model/Account.php';
-}
+    include __DIR__.'/../BaseController.php';
+    include __DIR__.'/../../model/GRN.php';
+    include __DIR__.'/../../model/Supplier.php';
+    include __DIR__.'/../../model/Product.php';
+    include __DIR__.'/../../model/GRNDetail.php';
+    include __DIR__.'/../../model/Account.php';
+
+
+
+
     class GRNController extends BaseController{
         private GRN $grn;
         private GRNDetail $detail;
+
 
         function __construct()
         {
@@ -25,6 +20,7 @@ else{
             $this->grn = new Grn();
             $this->detail = new GRNDetail();
         }
+
 
         function index(){
             $grn = GRN::getAll();
@@ -36,10 +32,12 @@ else{
             $this->render('GoodsReceiveNote', $result, true);
         }
 
+
         function openAddForm(){
             $product = Product::getAllBySupplier($_POST['supplier_id']);
             echo json_encode($product==null ? null: $product);
         }
+
 
         function add(){
             $ngaytao = $_POST['ngaytao'];
@@ -74,6 +72,7 @@ else{
         }
         }
 
+
         function edit(){
             $this->grn = GRN::findByID($_POST['grn_id']);
             $details = GRNDetail::findByGRN($_POST['grn_id']);
@@ -95,6 +94,7 @@ else{
             exit;
         }
 
+
         function getBaseInfo(){
             session_start();
             $result = [
@@ -104,6 +104,7 @@ else{
             ];
             echo json_encode($result);
         }
+
 
         function update(){
             $ngaycapnhat = date("Y-m-d");
@@ -128,27 +129,32 @@ else{
                 echo json_encode(array('success'=>true));
         }
 
+
         function checkAction($action){
             switch ($action){
                 case 'index':
                     $this->index();
                     break;
 
+
                 case 'getBaseInfo':
                     $this->getBaseInfo();
                     break;
+
 
                 case 'openAddForm':
                     $this->openAddForm();
                     break;
 
+
                 case 'submit_btn_add':
                     $this->add();
                     break;
-                
+               
                 case 'edit_data':
                     $this->edit();
                     break;
+
 
                 case 'submit_btn_update':
                     $this->update();
@@ -157,8 +163,10 @@ else{
         }
     }
 
+
     $grnController = new GRNController();
     if(!isset($_POST['action'])) $action = 'index';
     else $action = $_POST['action'];
     $grnController->checkAction($action);
 ?>
+

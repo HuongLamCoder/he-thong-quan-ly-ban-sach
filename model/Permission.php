@@ -1,7 +1,7 @@
 <?php
     class Permission{
-        private $idCN;
-        private $tenCN;
+        private int $idCN;
+        private string $tenCN;
 
         function __construct($idCN, $tenCN)
         {

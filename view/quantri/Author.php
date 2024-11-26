@@ -54,6 +54,7 @@
                         $authors = $result['paging'];
                          if($authors == null) {
                             echo '<tr><td colspan="4">Không tìm thấy kết quả cần tìm!</td> </tr>';
+                            echo '</tbody></table></div></div>';
                         } else {
                         echo '<input type="hidden" name="curr_page" class="curr_page" value="'.$paging->curr_page.'">';
                         for($i=$paging->start; $i<$paging->start+$paging->num_per_page && $i<$paging->total_records; $i++){

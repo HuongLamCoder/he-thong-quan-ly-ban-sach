@@ -2,8 +2,9 @@
 include __DIR__.'/OrderStatus.php';
     class Order{
         private int $idDH;
-        private float $tongtien;
-        private ?OrderStatus $trangthai;
+        private float $tamtinh;
+        private int $idTT;
+        private string $phuong_thuc_tt;
         private float $phiship;
         private string $diachi;
         private string $ngaytao;
@@ -42,7 +43,6 @@ include __DIR__.'/OrderStatus.php';
         }
 
         static function findByID($idDH){
-            $list = [];
             $sql = 'SELECT * FROM donhang
             INNER JOIN trangthaidh ON donhang.idTT = trangthaidh.idTT
             WHERE idDH = '.$idDH;
@@ -56,6 +56,30 @@ include __DIR__.'/OrderStatus.php';
                 return $order;
             }
             return null;
+        }
+
+        static function getAllOrdersByIdTK($idTK){
+            $sql=
+                'SELECT 
+                donhang.idDH AS idDonHang,
+                tenTT AS trangthaiDH,
+                trangthai AS trangthaiSach, 
+                hinhanh AS hinhanh, 
+                tuasach AS tuasach, 
+                soluong AS soluong, 
+                gialucdat AS gialucdat, 
+                SUM(tamtinh+phiship) AS tongtien,
+                COUNT(ctdonhang.idSach) AS tongsoluong
+                FROM donhang INNER JOIN CTdonhang ON donhang.idDH = CTdonhang.idDH
+                INNER JOIN sach ON CTdonhang.idSach = sach.idSach 
+                INNER JOIN trangthaidh ON trangthaidh.idTT = donhang.idTT
+                WHERE 
+                    idTK = '.$idTK.'
+                GROUP BY 
+                    donhang.idDH;
+                ';
+            $con = new Database();
+            return $con->getAll($sql);
         }
 
         function update($ngaycapnhat, $idNV, $trangthai){
@@ -81,6 +105,48 @@ include __DIR__.'/OrderStatus.php';
               'idNV' => $this->idNV
             ];
         }
+
+        /* INCOME */
+        static function getOrderCount($dateStart, $dateEnd) {
+            $sql = "SELECT COUNT(dh.idDH) as total
+                    FROM donhang dh
+                    WHERE dh.idTT = 5
+                    AND dh.ngaytao BETWEEN '".$dateStart."' AND '".$dateEnd."'";
+            $con = new Database();
+            $result = $con->getOne($sql)['total'];
+            if ($result == null) {
+                return 0;
+            }
+            return (int)$result;
+        }
+
+        static function getOrderProductCount($dateStart, $dateEnd) {
+            $sql = "SELECT SUM(ct.soluong) as total
+                    FROM donhang dh, ctdonhang ct
+                    WHERE ct.idDH = dh.idDH
+                    AND dh.idTT = 5
+                    AND dh.ngaytao BETWEEN '".$dateStart."' AND '".$dateEnd."'";
+            $con = new Database();
+            $result = $con->getOne($sql)['total'];
+            if ($result == null) {
+                return 0;
+            }
+            return (int)$result;
+        }
+
+        static function getOrderTotal($dateStart, $dateEnd) {
+            $sql = "SELECT SUM(dh.tongtien) as total
+                    FROM donhang dh
+                    WHERE dh.idTT = 5
+                    AND dh.ngaytao BETWEEN '".$dateStart."' AND '".$dateEnd."'";
+            $con = new Database();
+            $result = $con->getOne($sql)['total'];
+            if ($result == null) {
+                return 0;
+            }
+            return (int)$result;
+        }
+        /* ... */
 
         function setIdDH($idDH){
             $this->idDH = $idDH;

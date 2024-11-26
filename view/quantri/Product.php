@@ -19,18 +19,24 @@
         </div>
     </div>
     <!-- ... -->
-    <!-- Page control -->
-    <div class="row d-flex justify-content-between">
+     <!-- Page control -->
+     <div class="row d-flex justify-content-between">
         <div class="col">
-            <div class="row flex-nowrap">
+            <form class="row flex-nowrap">
+                <input type="hidden" name="page" value="searchProduct">
                 <div class="col-auto">
                     <div class="input-group">
-                        <select id="category-select" class="form-select">
-                            <option selected>Tất cả danh mục</option>
-                            <option value="1">Văn học</option>
-                            <option value="2">Đời sống</option>
-                            <option value="3">Kinh dị</option>
-                            <option value="4">Tâm lý</option>
+                        <select id="category-select" class="form-select" name="category_select">
+                            <option selected value="-1">Tất cả danh mục</option>
+                            <?php
+                                $category = Category::getAll();
+                                foreach($category as $item) {
+                            ?>
+                            <option value="<?=$item->getIdTL()?>"><?=$item->getTenTL()?></option>
+                           
+                            <?php  
+                                }
+                            ?>
                         </select>
                     </div>
                 </div>
@@ -40,29 +46,27 @@
                             class="form-control"
                             placeholder="Nhập id, tên sản phẩm"
                             aria-label="Tìm kiếm sản phẩm"
-                            aria-describedby="search-bar">
-                        <button class="btn btn-outline-custom" type="button" id="search-btn">Tìm</button>
+                            aria-describedby="search-bar"
+                            name="kyw">
                     </div>
                 </div>
                 <div class="col-auto d-flex align-items-center flex-nowrap">
                     <span class="me-2">Khoảng giá</span>
-                    <input class="form-control me-2" style="width: 120px;" type="number" name="price-min" id="price-min">
+                    <input class="form-control me-2" style="width: 120px;" type="number" name="price_min" id="price-min" min="0">
                     <span class="mx-2">-</span>
-                    <input class="form-control" style="width: 120px;" type="number" name="price-max" id="price-max">
+                    <input class="form-control" style="width: 120px;" type="number" name="price_max" id="price-max" min="0">
                 </div>
+                <button class="col-auto btn btn-control" type="submit" id="search-btn">Tìm kiếm</button>
                 <div class="col-auto d-flex align-items-center gap-2">
                     <span>Tồn kho</span>
-                    <button class="btn btn-control">
+                    <button class="btn btn-control" name="sort19">
                         <i class="fa-regular fa-arrow-down-1-9"></i>
                     </button>
-                    <button class="btn btn-control">
+                    <button class="btn btn-control" name="sort91">
                         <i class="fa-regular fa-arrow-down-9-1"></i>
                     </button>
                 </div>
-            </div>
-        </div>
-        <div class="col-auto">
-            <button onclick="location.reload()" type="button" class="btn btn-control">Làm mới</button>
+            </form>
         </div>
     </div>
     <!-- ... -->
@@ -83,9 +87,13 @@
                 </thead>
                 <tbody>
                     <?php
-                        echo '<input type="hidden" name="curr_page" class="curr_page" value="'.$paging->curr_page.'">';
+                        $products = $result['paging'];
+                        if($products == NULL){
+                            echo '<input type="hidden" name="curr_page" class="curr_page" value="'.$paging->curr_page.'">';
+                            echo '</tbody></table></div></div>';
+                        }else{
                         for($i=$paging->start; $i<$paging->start+$paging->num_per_page && $i<$paging->total_records; $i++){
-                            $product = $result[$i];
+                            $product = $products[$i];
                         ?>
                         <tr>
                             <td class="product_id"><?=$product->getIdSach()?></td>
@@ -136,6 +144,9 @@
                 </ul>
               </nav>
         </div>
+    <?php
+        }
+    ?>
         <!-- ... -->
 </main>
 <!-- ... -->
@@ -202,6 +213,7 @@
                             <div class="row mb-3">
                                 <label for="product-supplier" class="col-form-label col-sm-3 fw-bold">Nhà cung cấp</label>
                                 <div class="col">
+                                    <div id="tenncc"></div>
                                     <select name="product-supplier" id="product-supplier" class="form-select">
                                         <option selected="selected" value="">Chọn nhà cung cấp</option>
                                         <?php
@@ -234,7 +246,7 @@
                                     <select name="product-category" id="product-category" class="form-select">
                                         <option value="" selected="selected">Chọn thể loại</option>
                                         <?php
-                                            $category = Category::getAllActive();
+                                            $category = Category::getAll();
                                             foreach($category as $item){
                                         ?>  
                                             <option value="<?=$item->getIdTL()?>"><?=$item->getTenTL()?></option>
@@ -357,7 +369,7 @@
                 <div class="modal-body">
                     <div class="row row-cols-sm-1 row-cols-md-2 g-3">
                         <?php
-                            $author = Author::getAllActive();
+                            $author = Author::getAll();
                             foreach($author as $item){
                         ?>
                             <div class="col form-check">

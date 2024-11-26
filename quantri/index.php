@@ -55,15 +55,14 @@ if(isset($_GET['page']) && ($_GET['page'] !== "")){
                 include '../controller/quantri/GRNController.php';
                 break;
             case 'income':
-                include './controller/Income.php';
+                include '../controller/quantri/IncomeController.php';
                 break;
             case 'cost':
-                include './controller/Cost.php';
+                include '../controller/quantri/CostController.php';
                 break;
             case 'profit':
-                include './controller/Profit.php';
+                include '../controller/quantri/ProfitController.php';
                 break;
-
             case 'searchRole':
                 include '../controller/quantri/RoleController.php';
                 break;

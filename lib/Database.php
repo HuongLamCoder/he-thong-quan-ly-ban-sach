@@ -14,6 +14,7 @@ public function __construct(){
 
 private function connectDB(){
     $this->link = new mysqli($this->host, $this->user, $this->pass, $this->dbname);
+    $this->link->options(MYSQLI_OPT_INT_AND_FLOAT_NATIVE, true);
     if(!$this->link){
         $this->error ="Connection fail".$this->link->connect_error;
         return false;

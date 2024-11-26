@@ -1,19 +1,11 @@
 <?php
-if (isset($_POST['action'])) {
-    require '../BaseController.php';
-    require '../../model/Supplier.php';
-    require '../../model/Discount.php';
-    require '../../model/Author.php';
-    require '../../model/Category.php';
-    require '../../model/Product.php';
-} else {
-    require '../controller/BaseController.php';
-    require '../model/Supplier.php';
-    require '../model/Discount.php';
-    require '../model/Author.php';
-    require '../model/Category.php';
-    require '../model/Product.php';
-}
+    include __DIR__.'/../BaseController.php';
+    include __DIR__.'/../../model/Supplier.php';
+    include __DIR__.'/../../model/Discount.php';
+    include __DIR__.'/../../model/Author.php';
+    include __DIR__.'/../../model/Category.php';
+    include __DIR__.'/../../model/Product.php';
+
 
 class ProductController extends BaseController
 {
@@ -29,7 +21,10 @@ class ProductController extends BaseController
     function index()
     {
         $products = Product::getAll();
-        $this->render('Product', 'SP', $products, true);
+        $result = [
+            'paging' => $products
+        ];
+        $this->render('Product', $result, true);
     }
 
     function uploadImage($file, $upload_dir)
@@ -145,6 +140,54 @@ class ProductController extends BaseController
         exit;
     }
 
+    function search(){
+        $pageTitle = 'searchProduct';
+        $kyw = NULL;
+        $idTL = NULL;
+        $price_max = NULL;
+        $price_min = NULL;
+        $sort = NULL;
+
+        if(isset($_GET['kyw']) && ($_GET['kyw']) != "") {
+            $kyw = $_GET['kyw'];
+            $pageTitle .= '&kyw='.$kyw;
+        }
+
+
+        if(isset($_GET['category_select']) && $_GET['category_select'] != -1) {
+            $idTL = $_GET['category_select'];
+            $pageTitle .= '&category_select='.$idTL;
+        }
+
+        if (isset($_GET['price_min']) && $_GET['price_min'] !== '' && isset($_GET['price_max']) && $_GET['price_max'] !== '') {
+            $price_min = $_GET['price_min'];    
+            $price_max = $_GET['price_max'];
+            $pageTitle .= '&price_min='.$price_min.'&price_max='.$price_max;
+        } else if (isset($_GET['price_min']) && $_GET['price_min'] !== '') {
+            $price_min = $_GET['price_min'];    
+            $pageTitle .= '&price_min='.$price_min.'&price_max=';
+        } else if (isset($_GET['price_max']) && $_GET['price_max'] !== '') {
+            $price_max = $_GET['price_max'];
+            $pageTitle .= '&price_min=&price_max='.$price_max;
+        }
+       
+        if(isset($_GET['sort'])){
+            if($_GET['sort'] == '19') {
+                $pageTitle .= '$sort=19';
+                $sort = 'asc';
+            } else if ($_GET['sort'] == '91') {
+                $pageTitle .= '$sort=91';
+                $sort = 'desc';
+            }
+        }
+
+        $result = [
+            'paging' => Product::search($kyw, $idTL, $price_max, $price_min, $sort)
+        ];
+        $this->renderSearch('Product', $result, $pageTitle);
+
+    }
+
     function checkAction($action)
     {
         switch ($action) {
@@ -163,11 +206,17 @@ class ProductController extends BaseController
             case 'submit_btn_update':
                 $this->update();
                 break;
+
+            case 'search':
+                $this->search();
+                break;
         }
     }
 }
 
 $productController = new ProductController();
-if (!isset($_POST['action'])) $action = 'index';
+if(isset($_GET['page']) && $_GET['page'] == 'searchProduct') $action = 'search';
+else if (!isset($_POST['action'])) $action = 'index';
 else $action = $_POST['action'];
 $productController->checkAction($action);
+?>

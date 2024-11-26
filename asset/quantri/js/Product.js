@@ -56,6 +56,8 @@ $(document).ready(function () {
                     $('#img-preview').prop('src', `../asset/uploads/${data.hinhanh}`);
                     $('#productForm input[name="product-name"]').val(data.tuasach);
                     $('#productForm input[name="product-publisher"]').val(data.NXB);
+                    $('#productForm select[name="product-supplier"]').hide();
+                    $('#tenncc').html(data.tenNCC);
                     $('#productForm select[name="product-supplier"]').val(data.idNCC);
                     $('#productForm select[name="product-category"]').val(data.idTL);
                     $('#productForm input[name="product-original-price"]').val(data.giabia);
@@ -66,7 +68,7 @@ $(document).ready(function () {
                     $('#productForm textarea[name="product-description"]').val(data.mota);
                     $('#status').prop('checked', data.trangthai == 1 ? true : false);
                     $('label[for="status"]').text(data.trangthai == 1 ? "Đang bán" : "Bị ẩn");
-
+                    console.log(data.authors);
                     data.authors.forEach(author => {
                         authors.push(author.idTG);
                     });
@@ -181,7 +183,7 @@ $(document).ready(function () {
         if (publish_year === '') {
             $('.text-message.product-publish-year-msg').text("Vui lòng nhập năm xuất bản!");
             isValid = false;
-        } else if (isNaN(publish_year)) {
+        } else if (isNaN(publish_year) || publish_year<0) {
             $('.text-message.product-publish-year-msg').text("Năm xuất bản không hợp lệ!");
             isValid = false;
         } else if (publish_year.length !== 4) {

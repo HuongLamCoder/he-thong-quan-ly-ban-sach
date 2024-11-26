@@ -1,6 +1,6 @@
 <?php
-    require __DIR__. '/../BaseController.php';
-    require __DIR__.'/../../model/Account.php';
+require __DIR__. '/../BaseController.php';
+require __DIR__.'/../../model/Account.php';
 
     class AuthenController extends BaseController{
         private $account;
@@ -23,7 +23,9 @@
             $msg = $this->checkLogin($email, $password);
             if($msg==''){
                 //$role = Role::findByID($this->account->getIdNQ());
-                session_start();
+                if (session_status() == PHP_SESSION_NONE) { 
+                    session_start(); 
+                }
                 $_SESSION['user'] = $this->account->toArray();
                 echo json_encode(array('success'=>true));
             }

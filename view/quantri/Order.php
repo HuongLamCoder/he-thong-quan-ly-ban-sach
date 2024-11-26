@@ -106,10 +106,10 @@
                             <?php
                                 }
                             ?>
-                            <button class="btn fs-5 print_btn"
+                            <a href='../controller/quantri/printInvoice.php?idDH=<?=$order->getIdDH()?>' target="_blank" class="btn fs-5 print_btn"
                                 title="In">
                                 <i class="fa-regular fa-print"></i>
-                            </button>
+                            </a>
                         </td>
                     </tr>
                     <?php

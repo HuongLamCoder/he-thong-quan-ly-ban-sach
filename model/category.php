@@ -1,8 +1,8 @@
 <?php
     class Category{
-        private $idTL;
-        private $tenTL;
-        private $trangthai;
+        private int $idTL;
+        private string $tenTL;
+        private int $trangthai;
 
         function nhap($idTL, $tenTL, $trangthai){
             $this->idTL = $idTL;
@@ -93,6 +93,21 @@
                 $list[] = $cat;
             }
             return $list;
+        }
+
+        static function getCategoryByIdBook($idSach) {
+            $sql = 'SELECT theloai.idTL, tenTL, theloai.trangthai
+                    FROM theloai
+                        INNER JOIN sach on theloai.idTL = sach.idTL
+                    WHERE sach.idSach='.$idSach.' AND theloai.trangthai = 1';
+            $con = new Database();
+            $req = $con->getOne($sql);
+            if($req!=null){
+                $category = new self();
+                $category->nhap($req['idTL'], $req['tenTL'], $req['trangthai']);
+                return $category;
+            }
+            return null;
         }
         
         function toArray() {

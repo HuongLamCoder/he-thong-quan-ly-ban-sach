@@ -53,7 +53,9 @@
 
         static function getAll(int $idTinh){
             $list = [];
-            $sql = 'SELECT * FROM quan WHERE idTinh = '.$idTinh;
+            $sql = 'SELECT * FROM quan 
+            WHERE idTinh = '.$idTinh.'
+            ORDER BY tenQuan ASC';
             $con = new Database();
             $req = $con->getAll($sql);
 

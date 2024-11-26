@@ -40,18 +40,16 @@
 
                         </ul>
                         <div class="submit-btn">
+                            <input type="hidden" name="action" value="submit_signUp">
                             <button class="btn btnDangKy" id="signUp_button">Đăng ký</input>
                         </div>
                     </form>
                     <div class="signin-text">
-                        <span>Đã có tài khoản? &nbsp;	<a href="?page=dang_nhap" class="nav-link">Đăng nhập ngay</a></span>
+                        <span>Đã có tài khoản? &nbsp;	<a href="?page=login" class="nav-link">Đăng nhập ngay</a></span>
                     </div>
                 </div>
             </div>
         </div>
     </div>
 </main>
-<script src="asset/js/signUp.js?v=<?php echo time(); ?>"></script>
-<?php 
-include_once "inc/footer.php"
-?>
+<script src="asset/client/js/signUp.js?v=<?php echo time(); ?>"></script>

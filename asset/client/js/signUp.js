@@ -128,7 +128,7 @@ $(document).ready(function () {
     if (validateFormDangKy()) {
       var formData = new FormData($('#signUp_form')[0]);
       $.ajax({
-        url: "controller/signUp.php",
+        url: "controller/client/AuthenController.php",
         type: "POST",
         data: formData,
         processData: false,
@@ -136,21 +136,23 @@ $(document).ready(function () {
         success: function(response) {
           const obj = JSON.parse(response);
           if(obj.success){
-            toast({
-              title: 'Thành công',
-              message: 'Đăng ký thành công',
-              type: 'success',
-              duration: 3000
-            });
-            window.location.href='index.php?page=signIn';
+            // toast({
+            //   title: 'Thành công',
+            //   message: 'Đăng ký thành công',
+            //   type: 'success',
+            //   duration: 3000
+            // });
+            alert('Đăng ký thành công');
+            window.location.href='index.php?page=login';
           }
           else{
-            toast({
-              title: 'Lỗi',
-              message: 'Email đã tồn tại',
-              type: 'error',
-              duration: 3000
-            });
+            // toast({
+            //   title: 'Lỗi',
+            //   message: 'Email đã tồn tại',
+            //   type: 'error',
+            //   duration: 3000
+            // });
+            alert('Email đã tồn tại');
             $('#signUp_email').focus();
           }
         },

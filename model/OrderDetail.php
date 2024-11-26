@@ -3,7 +3,7 @@
         private int $idDH;
         private int $idSach;
         private int $soluong;
-        private int $gialucdat;
+        private float $gialucdat;
 
         function nhap($idDH, $idSach, $soluong, $gialucdat){
             $this->idDH = $idDH;
@@ -33,6 +33,10 @@
                 'soluong' => $this->soluong,
                 'gialucdat' => $this->gialucdat
             ];
+        }
+
+        function getIdSach(){
+            return $this->idSach;
         }
 
     }
