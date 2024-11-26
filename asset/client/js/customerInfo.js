@@ -57,7 +57,7 @@ const validatePhoneNumber = () => {
     const regexPhoneNumber = /^0[0-9]{9}$/;
     if (phoneNumber.value.trim() !== "") {
         if (!regexPhoneNumber.test(phoneNumber.value.trim())) {
-            errorMessagePhoneNumber.innerText = "Vui lòng nhập đúng số điện thoại";
+            errorMessagePhoneNumber.innerText = "Vui lòng nhập đúng định dạng số điện thoại";
             phoneNumberIsValid = false;
         } else {
             errorMessagePhoneNumber.innerText = "";
@@ -154,21 +154,15 @@ $(document).ready(function () {
                 success: function(response) {
                     console.log(response);
                     const obj = JSON.parse(response);
-                    if(obj.success){
-                        toast({
-                          title: 'Thành công',
-                          message: 'Thay đổi thông tin thành công',
-                          type: 'success',
-                          duration: 3000
-                        });
-                      }else{
+                    if(obj.success)
+                        window.location.href='index.php?page=customerInfo';
+                    else
                         toast({
                           title: 'Lỗi',
                           message: obj.msg,
                           type: 'error',
                           duration: 3000
                         });
-                      }
                 },
             });
         }
@@ -187,21 +181,14 @@ $(document).ready(function () {
                 success: function(response) {
                     console.log(response);
                     const obj = JSON.parse(response);
-                    if(obj.success){
-                        toast({
-                          title: 'Thành công',
-                          message: 'Thay đổi mật khẩu thành công',
-                          type: 'success',
-                          duration: 3000
-                        });
-                      }else{
+                    if(obj.success) window.location.href='index.php?page=changePassword';
+                    else
                         toast({
                           title: 'Lỗi',
                           message: obj.msg,
                           type: 'error',
                           duration: 3000
                         });
-                      }
                 },
             });
         }

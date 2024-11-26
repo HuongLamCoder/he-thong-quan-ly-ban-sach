@@ -26,7 +26,7 @@ require __DIR__.'/../../model/Account.php';
         } 
 
         function show_emailInputForm(){
-            $this->render('forgotPassword1','KH');
+            $this->render('forgotPassword1');
         }
 
         function emailisExist() {
@@ -79,7 +79,7 @@ require __DIR__.'/../../model/Account.php';
         }
     
         function show_OTPInputForm(){
-            $this->render('forgotPassword2','KH');
+            $this->render('forgotPassword2');
         }
 
         function OTPisExpired() {
@@ -107,7 +107,8 @@ require __DIR__.'/../../model/Account.php';
         } 
 
         function show_changePasswordForm(){
-            $this->render('forgotPassword3','KH');
+
+            $this->render('forgotPassword3');
         }
 
         function changePassword() {

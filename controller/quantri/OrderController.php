@@ -7,12 +7,10 @@ include __DiR__.'/../../model/Product.php';
 
 
     class OrderController extends BaseController{
-        private Order $order;
 
         function __construct()
         {
             $this->folder = 'quantri';
-            $this->order = new Order();
         }
 
         function index(){
@@ -21,17 +19,17 @@ include __DiR__.'/../../model/Product.php';
         }
 
         function edit(){
-            $this->order = Order::findByID($_POST['order_id']);
+            $order = Order::findByID($_POST['order_id']);
             $details = OrderDetail::findByOrder($_POST['order_id']);
             $products = [];
             foreach($details as $item){
                 $product = Product::findByID($item['idSach']);
                 $products[] = $product->toArray();
             }
-            $nhanvien = Account::findByID($this->order->getIdNV());
-            $khachhang = Account::findByID($this->order->getIdTK());
+            $nhanvien = Account::findByID($order->getIdNV());
+            $khachhang = Account::findByID($order->getIdTK());
             $result = [
-                'order' => $this->order->toArray(),
+                'order' => $order->toArray(),
                 'details' => $details,
                 'nhanvien' => $nhanvien->toArray(),
                 'khachhang' => $khachhang->toArray(),

@@ -57,7 +57,7 @@ const validateDienthoai = () => {
     errorMessagePhoneNumber.innerText = "Số điện thoại không được để trống";
     phoneNumberIsValid = false;
   } else if (!regexPhoneNumber.test(phoneNumber.value.trim())) {
-    errorMessagePhoneNumber.innerText = "Vui lòng nhập đúng số điện thoại";
+    errorMessagePhoneNumber.innerText = "Vui lòng nhập đúng định dạng số điện thoại";
     phoneNumberIsValid = false;
   } else {
     errorMessagePhoneNumber.innerText = "";
