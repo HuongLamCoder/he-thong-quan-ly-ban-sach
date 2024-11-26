@@ -80,6 +80,7 @@ else{
             $email_template = "
                 <h2>Xin chào bạn</h2>
                 <h3>Đây là mã xác nhận cho tài khoản Vinabook của bạn, tuyệt đối không chia sẻ cho bất kì ai: {$OTP}</h3>
+                <h3>Lưu ý: Mã xác nhận này sẽ hết hạn sau 5 phút</h3>
             ";
             $mail->Body = $email_template;
             $mail->send();

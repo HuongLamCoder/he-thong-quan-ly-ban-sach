@@ -1,33 +1,33 @@
-<?php
-    function getAllRoles(){
-        $sql = 'SELECT * FROM nhomquyen';
-        return getAll($sql);
-    }
-
-    function getAllPermission(){
-        $sql = 'SELECT * FROM chucnang ORDER BY idCN';
-        return getAll($sql);
-    }
-
-    function getRoleByID($idNQ){
-        $sql = 'SELECT * FROM nhomquyen WHERE idNQ='.$idNQ;
-        return getOne($sql);
-    }
-
-    function getRoleDetailByID($idNQ){
-        $sql = 'SELECT * FROM ctnhomquyen
-        WHERE idNQ='.$idNQ.'
-        ORDER BY idCN';
-        return getAll($sql);
-    }
-    
-    function isRoleExist($tenNQ, $idCN, $action){
-        $msg = '';
-        // kiem tra ten nhom quyen da ton tai
-        $sql = 'SELECT * FROM nhomquyen WHERE tenNQ LIKE "%'.$tenNQ.'%"';
-        if(getOne($sql)!=null) $msg = 'Tên nhóm quyền đã tồn tại';
-        return $msg;
-    }
-
-    function addRole($tenNQ)
+<?php 
+    include_once "../inc/header.php";
 ?>
+    <main>
+        <!-- Quên mật khẩu - Nhập email để tìm mật khẩu -->
+        <div class="container forgot-pw">
+            <div class="forgot-pw-content">
+                <div class="forgot-pw-content-box b-shadow">
+                    <div class="exclamation">
+                        <i class="fa-thin fa-circle-exclamation"></i>
+                    </div>
+                    <div class="text">
+                        <h4>Quên Mật Khẩu</h4>
+                        <p>Vui lòng nhập vào địa chỉ email của bạn, chúng tôi sẽ gửi mã xác nhận giúp bạn khôi phục mật khẩu.</p>
+                    </div>
+                    <div class="form">
+                        <form action="">
+                            <div class="input-email">
+                                <i class="fa-thin fa-envelope"></i>
+                                <input type="email" placeholder="Nhập email...">
+                            </div>
+                            <button class="btn submit-btn">
+                                Gửi mã xác nhận
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+    <?php 
+        include_once "../inc/footer.php"
+    ?>

@@ -7,21 +7,21 @@ if(isset($_GET['page']) && ($_GET['page'] !== "")){
             case 'login':
                 include '../controller/quantri/AuthenController.php';
                 break;
-            case 'forgot_password':
-                include './controller/ForgotPassword.php';
+            case 'forgotPassword':
+                include '../controller/quantri/ForgotPasswordController.php';
                 break;
-            case 'authentication_code':
-                include './controller/AuthenticationCode.php';
+            case 'show_OTPInputForm':
+                include '../controller/quantri/ForgotPasswordController.php';
                 break;
-            case 'reset_password':
-                include './controller/ResetPassword.php';
+            case 'show_changePasswordForm':
+                include '../controller/quantri/ForgotPasswordController.php';
                 break;
             default:
-                header('Location: index.php?page=login');
+                header( 'Location:index.php?page=login');
                 break;
         }
     } else if(!isset($_SESSION['user']))
-    header('Location: http://localhost/he-thong-quan-ly-ban-sach/quantri/index.php');
+    header('Location:http://localhost/he-thong-quan-ly-ban-sach/quantri/index.php');
     else{
         include '../inc/quantri/Navigation.php';
         switch(trim($_GET['page'])){
@@ -62,12 +62,12 @@ if(isset($_GET['page']) && ($_GET['page'] !== "")){
                 include './controller/Profit.php';
                 break;
             default:
-                header('Location: index.php?page=login');
+                header('Location:index.php?page=login');
                 break;
         }
     }
 }
 else{ 
-    header('Location: index.php?page=login');
+    header('Location:index.php?page=login');
 }
 ?>
