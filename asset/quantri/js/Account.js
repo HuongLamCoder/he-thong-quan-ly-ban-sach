@@ -8,6 +8,113 @@ accountModal.addEventListener('hidden.bs.modal', function() {
     location.reload();
 });
 
+    // ========================== Validate Form ==============================
+
+// Lấy giá trị của DOM
+const fullname = document.querySelector("#username");
+const email = document.querySelector("#usermail");
+const phoneNumber = document.querySelector("#userphone");
+const password = document.querySelector("#password");
+
+const errorMessageFullname = document.querySelector(".text-message user-name-msg");
+const errorMessageEmail = document.querySelector(".text-message user-email-msg");
+const errorMessagePhoneNumber = document.querySelector(".text-message user-phone-msg");
+const errorMessagePassword = document.querySelector(".text-message user-password-msg");
+
+
+//Các function ValidateForm
+const validateFullname = () => {
+    let fullnameIsValid = false;
+    const regexFullName = /[a-zA-ZÀ-ỹ]+(\s[a-zA-ZÀ-ỹ]+){1,}$/;
+  
+    if(fullname.value.trim() === "") {
+      errorMessageFullname.innerText = "Họ và tên không được để trống";
+      fullnameIsValid = false;
+    } else if (!regexFullName.test(fullname.value.trim())) {
+      errorMessageFullname.innerText = "Họ và tên chỉ được bao gồm chữ cái và ký tự khoảng trắng (Ví dụ: Trần Đức Bo)"
+      fullnameIsValid = false;
+    } else {
+      errorMessageFullname.innerText = "";
+      fullnameIsValid = true;
+    }
+  
+    return fullnameIsValid;
+  }
+  
+  const validateEmail = () => {
+    let emailIsValid = false;
+    //Định dạng email
+    const regexEmail =
+      // /^(([A-Za-z0-9]+((\.|\-|\_|\+)?[A-Za-z0-9]?)*[A-Za-z0-9]+)|[A-Za-z0-9]+)@(([A-Za-z0-9]+)+((\.|\-|\_)?([A-Za-z0-9]+)+)*)+\.([A-Za-z]{2,})+$/;
+      /^(?=.{1,255}$)[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/;
+    if(email.value.trim() === "") {
+      errorMessageEmail.innerText = "Email không được để trống";
+      emailIsValid = false;
+    } else if(!regexEmail.test(email.value.trim())) {
+      errorMessageEmail.innerText = "Vui lòng nhập đúng định dạng của email (Ví dụ: abc@example.com)";
+      emailIsValid = false;
+    } else {
+      errorMessageEmail.innerText = "";
+      emailIsValid = true;
+    }
+    
+    return emailIsValid;
+  }
+  
+  const validatePhoneNumber = () => {
+    let phoneNumberIsValid = false;
+    //Định dạng số điện thoại
+    const regexPhoneNumber = /^0[0-9]{9}$/;
+  
+    if(phoneNumber.value.trim() === "") {
+      errorMessagePhoneNumber.innerText = "Số điện thoại không được để trống";
+      phoneNumberIsValid = false;
+    } else if (!regexPhoneNumber.test(phoneNumber.value.trim())) {
+      errorMessagePhoneNumber.innerText = "Vui lòng nhập đúng số điện thoại";
+      phoneNumberIsValid = false;
+    } else {
+      errorMessagePhoneNumber.innerText = "";
+      phoneNumberIsValid = true;
+    }
+  
+    return phoneNumberIsValid;
+  }
+  
+  const validatePassword = () => {
+    let passwordIsValid = false;
+    //Định dạng mật khẩu
+    const regexPassword = /^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)[A-Za-z\d]{8,}$/;
+  
+    if(password.value.trim() === "") {
+      errorMessagePassword.innerText = "Mật khẩu không được để trống";
+      passwordIsValid = false;
+    } else if (!regexPassword.test(password.value.trim())) {
+      errorMessagePassword.innerText = "Mật khẩu phải có tối thiểu 8 ký tự, bao gồm ít nhất một chữ số, một kí tự in thường và một kí tự in hoa (Ví dụ: examPle2)";
+      passwordIsValid = false;
+    } else {
+      errorMessagePassword.innerText = "";
+      passwordIsValid = true;
+    }
+  
+    return passwordIsValid;
+  }
+  
+  
+  const validateFormAccount = () => {
+    let fullnameIsValid = validateFullname()
+    let emailIsValid = validateEmail();
+    let phoneNumberIsValid = validatePhoneNumber();
+    let passwordIsValid = validatePassword()
+
+    let formIsValid = fullnameIsValid &&
+                                emailIsValid &&
+                                phoneNumberIsValid &&
+                                passwordIsValid;
+    return formIsValid;
+  }
+
+// ======================== End Validate Form =============================
+
 $(document).ready(function() {
     const modalTitle = document.getElementById('accountModalLabel');
     const modalSaveBtn = document.getElementById('saveModalBtn');
@@ -92,57 +199,57 @@ $(document).ready(function() {
     
         event.preventDefault();
         
-        var fullName = $('#username').val();
-        var email = $('#usermail').val().trim();
-        var phone = $('#userphone').val().trim();
-        var password = $('#password').val().trim();
-        var role = $('#role-select').val();
+        // var fullName = $('#username').val();
+        // var email = $('#usermail').val().trim();
+        // var phone = $('#userphone').val().trim();
+        // var password = $('#password').val().trim();
+        // var role = $('#role-select').val();
 
-        $('.text-message').text('');
-        let hasError = false;
+        // $('.text-message').text('');
+        // let hasError = false;
 
-        if (fullName === '') {
-            $('.text-message.user-name-msg').text('Tên tài khoản không được để trống');
-            hasError = true;
-        }
+        // if (fullName === '') {
+        //     $('.text-message.user-name-msg').text('Tên tài khoản không được để trống');
+        //     hasError = true;
+        // }
     
-        if (email === '') {
-            $('.text-message.user-email-msg').text('Email không được để trống');
-            hasError = true;
-        } else {
-            // Kiểm tra định dạng email
-            var emailPattern = /^(?=.{1,255}$)[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/;
-            // /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-            if (!emailPattern.test(email)) {
-                $('.text-message.user-email-msg').text('Email không hợp lệ');
-                hasError = true;
-            }
-        }
+        // if (email === '') {
+        //     $('.text-message.user-email-msg').text('Email không được để trống');
+        //     hasError = true;
+        // } else {
+        //     // Kiểm tra định dạng email
+        //     var emailPattern = /^(?=.{1,255}$)[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/;
+        //     // /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        //     if (!emailPattern.test(email)) {
+        //         $('.text-message.user-email-msg').text('Email không hợp lệ');
+        //         hasError = true;
+        //     }
+        // }
     
-        if (phone === '') {
-            $('.text-message.user-phone-msg').text('Số điện thoại không được để trống');
-            hasError = true;
-        } else {
-            // Kiểm tra định dạng số điện thoại (ví dụ: chỉ cho phép số)
-            var phonePattern = /(84|0[3|5|7|8|9])+([0-9]{8})\b/g;
-            if (phonePattern.test(phone) == false) {
-                $('.text-message.user-phone-msg').text('Số điện thoại không hợp lệ');
-                hasError = true;    
-            }
-        }
+        // if (phone === '') {
+        //     $('.text-message.user-phone-msg').text('Số điện thoại không được để trống');
+        //     hasError = true;
+        // } else {
+        //     // Kiểm tra định dạng số điện thoại (ví dụ: chỉ cho phép số)
+        //     var phonePattern = /(84|0[3|5|7|8|9])+([0-9]{8})\b/g;
+        //     if (phonePattern.test(phone) == false) {
+        //         $('.text-message.user-phone-msg').text('Số điện thoại không hợp lệ');
+        //         hasError = true;    
+        //     }
+        // }
     
-        if (password === '' && !($("#password").prop('disabled'))) {
-            $('.text-message.user-password-msg').text('Mật khẩu không được để trống');
-            hasError = true;
-        }
+        // if (password === '' && !($("#password").prop('disabled'))) {
+        //     $('.text-message.user-password-msg').text('Mật khẩu không được để trống');
+        //     hasError = true;
+        // }
     
-        if (role === '0') {
-            $('.text-message.user-select-msg').text('Vui lòng chọn nhóm quyền');
-            hasError = true;
-        }
+        // if (role === '0') {
+        //     $('.text-message.user-select-msg').text('Vui lòng chọn nhóm quyền');
+        //     hasError = true;
+        // }
     
         // Nếu không có lỗi, gửi dữ liệu
-        if (hasError == false) {
+        if (validateFormAccount()) {
             var formData = new FormData($('#accountForm')[0]);
             
             $.ajax({

@@ -21,6 +21,10 @@ if(isset($_GET['page'])&&($_GET['page']!=="")){
             require 'controller/client/AuthenController.php';
             break;
 
+        case 'signUp_OTP':
+            require 'controller/client/AuthenController.php';
+            break;
+
         case 'login':
             require 'controller/client/AuthenController.php';
             break;

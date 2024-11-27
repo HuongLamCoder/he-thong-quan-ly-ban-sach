@@ -18,7 +18,7 @@ const validateTenTK = () => {
     errorMessageFullname.innerText = "Họ và tên không được để trống";
     fullnameIsValid = false;
   } else if (!regexFullName.test(fullname.value.trim())) {
-    errorMessageFullname.innerText = "Họ và tên chỉ được bao gồm chữ cái (Ví dụ: Trần Đức Bo)"
+    errorMessageFullname.innerText = "Họ và tên chỉ được bao gồm chữ cái và khoảng trắng (Ví dụ: Trần Đức Bo)"
     fullnameIsValid = false;
   } else {
     errorMessageFullname.innerText = "";
@@ -142,8 +142,8 @@ $(document).ready(function () {
             //   type: 'success',
             //   duration: 3000
             // });
-            alert('Đăng ký thành công');
-            window.location.href='index.php?page=login';
+            //alert('Đăng ký thành công');
+            window.location.href='index.php?page=signUp_OTP';
           }
           else{
             // toast({

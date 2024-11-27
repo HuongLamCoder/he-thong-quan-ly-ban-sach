@@ -140,6 +140,7 @@ else{
                     break;
 
                 case 'submit_email':
+                    
                     if ($this->emailisExist()) {
                         $this->generateOTP();
                         $this->sendOTPViaEmail();
