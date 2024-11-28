@@ -1,64 +1,95 @@
 <?php
-// session_start();
-include '../lib/connect.php';
+session_start();
 if(isset($_GET['page']) && ($_GET['page'] !== "")){
-    if (in_array($_GET['page'], ['login', 'forgot_password', 'authentication_code', 'reset_password'])) {
-        include 'inc/Header.php';
+    if (in_array($_GET['page'], ['login', 'forgot_password', 'authentication_code', 'reset_password', 'logout'])) {
+        include '../inc/quantri/Header.php';
         switch(trim($_GET['page'])){
             case 'login':
-                include './controller/Login.php';
+                if(isset($_SESSION)) session_destroy();
+                include '../controller/quantri/AuthenController.php';
                 break;
             case 'forgot_password':
-                include './controller/ForgotPassword.php';
-                break;
             case 'authentication_code':
-                include './controller/AuthenticationCode.php';
-                break;
             case 'reset_password':
-                include './controller/ResetPassword.php';
+                include '../controller/quantri/ForgotPasswordController.php';
                 break;
+            
             default:
                 header('Location: index.php?page=login');
                 break;
         }
-    } else {
-        include 'inc/Navigation.php';
+    } else if(!isset($_SESSION['user']))
+    header('Location: index.php');
+    else{
+        include '../inc/quantri/Navigation.php';
         switch(trim($_GET['page'])){
             case 'role':
-                include './controller/Role.php';
+                include '../controller/quantri/RoleController.php';
                 break;
             case 'account':
-                include './controller/Account.php';
+                include '../controller/quantri/AccountController.php';
                 break;
             case 'author':
-                include './controller/Author.php';
+                include '../controller/quantri/AuthorController.php';
                 break;
             case 'category':
-                include './controller/Category.php';
+                include '../controller/quantri/CategoryController.php';
                 break;
             case 'supplier':
-                include './controller/Supplier.php';
+                include '../controller/quantri/SupplierController.php';
                 break;
             case 'discount':
-                include './controller/Discount.php';
+                include '../controller/quantri/DiscountController.php';
                 break;
             case 'product':
-                include './controller/Product.php';
+                include '../controller/quantri/ProductController.php';
                 break;
             case 'order':
-                include './controller/Order.php';
+                include '../controller/quantri/OrderController.php';
                 break;
-            case 'grn':
-                include './controller/GoodsReceiveNote.php';
+            case 'goodsreceivenote':
+                include '../controller/quantri/GRNController.php';
                 break;
             case 'income':
-                include './controller/Income.php';
+                include '../controller/quantri/IncomeController.php';
                 break;
             case 'cost':
-                include './controller/Cost.php';
+                include '../controller/quantri/CostController.php';
                 break;
             case 'profit':
-                include './controller/Profit.php';
+                include '../controller/quantri/ProfitController.php';
+                break;
+            /* HUONG NGUYEN 28/11/2024 */
+            case 'chart':
+                include '../controller/quantri/ChartController.php';
+                break;
+            /* HUONG NGUYEN 28/11/2024 */
+            case 'searchRole':
+                include '../controller/quantri/RoleController.php';
+                break;
+            case 'searchAccount':
+                include '../controller/quantri/AccountController.php';
+                break;
+            case 'searchCategory':
+                include '../controller/quantri/CategoryController.php';
+                break;
+            case 'searchSupplier':
+                include '../controller/quantri/SupplierController.php';
+                break;
+            case 'searchDiscount':
+                include '../controller/quantri/DiscountController.php';
+                break;
+            case 'searchAuthor':
+                include '../controller/quantri/AuthorController.php';
+                break;
+            case 'searchProduct':
+                include '../controller/quantri/ProductController.php';
+                break;
+            case 'searchOrder':
+                include '../controller/quantri/OrderController.php';
+                break;
+            case 'searchGRN':
+                include '../controller/quantri/GRNController.php';
                 break;
             default:
                 header('Location: index.php?page=login');
@@ -66,7 +97,26 @@ if(isset($_GET['page']) && ($_GET['page'] !== "")){
         }
     }
 }
+else if(!isset($_GET['page']) && isset($_SESSION['user'])){
+    $chucnang = $_SESSION['permission'][0];
+    var_dump($chucnang['tenCN']);
+    $page = explode("_", $chucnang['tenCN'])[0];
+    switch($page){
+        case 'NQ': $page = 'role'; break;
+        case 'TK': $page = 'account'; break;
+        case 'TG': $page = 'author'; break;
+        case 'TL': $page = 'category'; break;
+        case 'NCC': $page = 'supplier'; break;
+        case 'MGG': $page = 'discount'; break;
+        case 'SP': $page = 'product'; break;
+        case 'DH': $page = 'order'; break;
+        case 'DT': $page = 'income'; break;
+        case 'NK': $page = 'cost'; break;
+        case 'LN': $page = 'profit'; break;
+    }
+header('Location: index.php?page='.$page);
+}
 else{ 
     header('Location: index.php?page=login');
 }
-?>
+?> 
